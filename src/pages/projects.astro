@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Workshop" description="Projects I'm building — open source tools, apps, and experiments.">
+  <Header slot="header" />
+
+  <section class="projects-page container">
+    <header class="page-header">
+      <h1 class="page-title">The Workshop</h1>
+      <p class="page-subtitle handwritten">things pinned to the board</p>
+    </header>
+
+    <div class="projects-grid">
+      {projects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          tech={project.data.tech}
+          status={project.data.status}
+          github={project.data.github}
+          url={project.data.url}
+        />
+      ))}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .projects-page {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-3xl);
+    max-width: var(--site-width);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-pencil);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-xl);
+  }
+</style>

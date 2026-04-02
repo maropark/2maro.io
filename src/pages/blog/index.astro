@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = ['all', ...new Set(posts.map((p) => p.data.category))];
+---
+
+<BaseLayout title="Journal" description="Dev journal entries — technical deep-dives, project logs, and personal reflections.">
+  <Header slot="header" />
+
+  <section class="blog-listing container">
+    <header class="listing-header">
+      <h1 class="listing-title">Journal Entries</h1>
+      <p class="listing-subtitle handwritten">things I wrote down before I forget</p>
+    </header>
+
+    <!-- Category Tabs -->
+    <nav class="category-tabs" aria-label="Filter by category">
+      {categories.map((cat) => (
+        <button
+          class="category-tab handwritten"
+          data-category={cat}
+          aria-pressed={cat === 'all' ? 'true' : 'false'}
+        >
+          {cat}
+        </button>
+      ))}
+    </nav>
+
+    <div class="posts-list">
+      {posts.map((post) => (
+        <div class="post-item" data-category={post.data.category}>
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            slug={post.id}
+            tags={post.data.tags}
+            featured={post.data.featured}
+          />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .blog-listing {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-3xl);
+    max-width: var(--site-width);
+  }
+
+  .listing-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .listing-title {
+    font-size: 2rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .listing-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-pencil);
+  }
+
+  .category-tabs {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .category-tab {
+    background: none;
+    border: 1px solid var(--color-kraft);
+    border-radius: 4px;
+    padding: var(--space-xs) var(--space-md);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-pencil);
+    cursor: pointer;
+    transition:
+      background var(--transition-fast),
+      color var(--transition-fast),
+      border-color var(--transition-fast);
+    text-transform: capitalize;
+  }
+
+  .category-tab:hover {
+    background: var(--color-paper-alt);
+    color: var(--color-ink);
+  }
+
+  .category-tab[aria-pressed='true'] {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
+  }
+
+  .posts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .post-item.hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.category-tab');
+  const items = document.querySelectorAll<HTMLElement>('.post-item');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const category = tab.dataset.category;
+
+      tabs.forEach((t) => t.setAttribute('aria-pressed', 'false'));
+      tab.setAttribute('aria-pressed', 'true');
+
+      items.forEach((item) => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

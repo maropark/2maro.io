@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Lost Page">
+  <Header slot="header" />
+
+  <section class="lost-page container">
+    <div class="lost-notebook paper-card">
+      <p class="lost-label handwritten">this page fell out of the notebook</p>
+      <h1 class="lost-title">404</h1>
+      <p class="lost-text">
+        Whatever you were looking for isn't here. Maybe it's in the backlog,
+        maybe it never existed, or maybe I'll write it&hellip; 2maro.
+      </p>
+      <a href="/" class="lost-link handwritten">back to the notebook &rarr;</a>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .lost-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    padding: var(--space-3xl) 0;
+  }
+
+  .lost-notebook {
+    max-width: 480px;
+    text-align: center;
+    transform: rotate(-1.5deg);
+    padding: var(--space-2xl);
+  }
+
+  .lost-label {
+    font-size: 1.1rem;
+    color: var(--color-pencil);
+    margin-bottom: var(--space-md);
+  }
+
+  .lost-title {
+    font-size: 5rem;
+    color: var(--color-stamp-red);
+    opacity: 0.7;
+    margin-bottom: var(--space-md);
+    line-height: 1;
+  }
+
+  .lost-text {
+    color: var(--color-pencil);
+    margin-bottom: var(--space-xl);
+    line-height: 1.7;
+  }
+
+  .lost-link {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-ballpoint-blue);
+    text-decoration: none;
+  }
+
+  .lost-link:hover {
+    color: var(--color-stamp-red);
+  }
+</style>

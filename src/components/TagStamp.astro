@@ -1,0 +1,28 @@
+---
+interface Props {
+  tag: string;
+  href?: string;
+  variant?: 'red' | 'teal' | 'yellow';
+}
+
+const { tag, href, variant = 'red' } = Astro.props;
+const className = `stamp ${variant !== 'red' ? `stamp--${variant}` : ''}`;
+---
+
+{href ? (
+  <a href={href} class={className}>{tag}</a>
+) : (
+  <span class={className}>{tag}</span>
+)}
+
+<style>
+  a.stamp {
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  a.stamp:hover {
+    opacity: 1;
+    color: inherit;
+  }
+</style>

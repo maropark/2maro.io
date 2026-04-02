@@ -1,17 +1,214 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
 
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Home">
+  <Header slot="header" />
+
+  <!-- Hero: Notebook Cover -->
+  <section class="hero">
+    <div class="hero-inner container">
+      <div class="hero-notebook">
+        <div class="hero-tape" aria-hidden="true"></div>
+        <h1 class="hero-title">
+          <span class="hero-title-main">The Backlog</span>
+          <span class="hero-title-sub handwritten">notes from an open-source builder</span>
+        </h1>
+        <p class="hero-intro">
+          A retro dev journal by <strong>Maro Park</strong>. Projects, learnings, and things
+          I'll ship&hellip; 2maro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Journal Entries -->
+  <section class="section container">
+    <h2 class="section-heading">
+      <span class="section-heading-text">Recent Entries</span>
+      <span class="section-heading-line"></span>
+    </h2>
+
+    <div class="posts-grid">
+      {recentPosts.map((post) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          slug={post.id}
+          tags={post.data.tags}
+          featured={post.data.featured}
+        />
+      ))}
+    </div>
+
+    <div class="section-more">
+      <a href="/blog" class="more-link handwritten">flip through all entries &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  {featuredProjects.length > 0 && (
+    <section class="section container">
+      <h2 class="section-heading">
+        <span class="section-heading-text">From the Workshop</span>
+        <span class="section-heading-line"></span>
+      </h2>
+
+      <div class="projects-grid">
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            tech={project.data.tech}
+            status={project.data.status}
+            github={project.data.github}
+            url={project.data.url}
+          />
+        ))}
+      </div>
+
+      <div class="section-more">
+        <a href="/projects" class="more-link handwritten">see all projects &rarr;</a>
+      </div>
+    </section>
+  )}
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .hero-notebook {
+    max-width: var(--content-width);
+    background: var(--color-paper);
+    border: 1px solid var(--color-kraft);
+    box-shadow: var(--shadow-stacked);
+    padding: var(--space-2xl) var(--space-xl);
+    position: relative;
+  }
+
+  .hero-tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 140px;
+    height: 28px;
+    background: var(--color-sticky-yellow);
+    opacity: 0.5;
+  }
+
+  .hero-title {
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-title-main {
+    display: block;
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .hero-title-sub {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--color-pencil);
+    margin-top: var(--space-xs);
+  }
+
+  .hero-intro {
+    font-size: 1.1rem;
+    color: var(--color-pencil);
+    line-height: 1.7;
+    max-width: 540px;
+  }
+
+  /* Sections */
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-heading-text {
+    font-size: 1.4rem;
+    white-space: nowrap;
+  }
+
+  .section-heading-line {
+    flex: 1;
+    height: 1px;
+    background: var(--color-kraft);
+  }
+
+  .section-more {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  .more-link {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ballpoint-blue);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .more-link:hover {
+    color: var(--color-stamp-red);
+  }
+
+  /* Grids */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  @media (max-width: 640px) {
+    .hero-title-main {
+      font-size: 2.2rem;
+    }
+
+    .hero-title-sub {
+      font-size: 1.2rem;
+    }
+
+    .hero-notebook {
+      padding: var(--space-xl) var(--space-lg);
+    }
+  }
+</style>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  color?: 'yellow' | 'teal' | 'red';
+  rotation?: number;
+  class?: string;
+}
+
+const { color = 'yellow', rotation = -3, class: className = '' } = Astro.props;
+const colorClass = color !== 'yellow' ? `washi-tape--${color}` : '';
+---
+
+<span
+  class:list={['washi-tape', colorClass, className]}
+  style={`transform: rotate(${rotation}deg)`}
+  aria-hidden="true"
+/>

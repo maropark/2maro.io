@@ -1,0 +1,112 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  status: string;
+  github?: string;
+  url?: string;
+}
+
+const { title, description, tech, status, github, url } = Astro.props;
+
+const statusColors: Record<string, string> = {
+  active: 'var(--color-washi-teal)',
+  shipped: 'var(--color-stamp-red)',
+  idea: 'var(--color-sticky-yellow)',
+  archived: 'var(--color-pencil)',
+};
+---
+
+<article class="project-card paper-card paper-stacked">
+  <div class="project-status" style={`color: ${statusColors[status] || statusColors.idea}`}>
+    <span class="handwritten">{status}</span>
+  </div>
+
+  <h3 class="project-title">{title}</h3>
+  <p class="project-desc">{description}</p>
+
+  <div class="project-tech">
+    {tech.map((t) => (
+      <span class="tech-sticker">{t}</span>
+    ))}
+  </div>
+
+  <div class="project-links">
+    {github && (
+      <a href={github} target="_blank" rel="noopener noreferrer" class="project-link">
+        GitHub &rarr;
+      </a>
+    )}
+    {url && (
+      <a href={url} target="_blank" rel="noopener noreferrer" class="project-link">
+        Live &rarr;
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .project-card {
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .project-status {
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.25rem;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--color-pencil);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--space-xs);
+  }
+
+  .tech-sticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-kraft);
+    border-radius: 3px;
+    color: var(--color-pencil);
+  }
+
+  .project-links {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: auto;
+    padding-top: var(--space-sm);
+  }
+
+  .project-link {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ballpoint-blue);
+    text-decoration: none;
+  }
+
+  .project-link:hover {
+    color: var(--color-stamp-red);
+  }
+</style>

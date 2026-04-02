@@ -1,0 +1,85 @@
+---
+import TagStamp from './TagStamp.astro';
+import DateStamp from './DateStamp.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  slug: string;
+  tags?: string[];
+  featured?: boolean;
+}
+
+const { title, description, date, slug, tags = [], featured = false } = Astro.props;
+
+const variants: Array<'red' | 'teal' | 'yellow'> = ['red', 'teal', 'yellow'];
+---
+
+<article class:list={['post-card paper-card', { 'post-card--featured': featured }]}>
+  <a href={`/blog/${slug}`} class="post-card-link">
+    <div class="post-card-meta">
+      <DateStamp date={date} />
+    </div>
+
+    <h3 class="post-card-title">{title}</h3>
+    <p class="post-card-excerpt">{description}</p>
+
+    {tags.length > 0 && (
+      <div class="post-card-tags">
+        {tags.slice(0, 3).map((tag, i) => (
+          <TagStamp tag={tag} variant={variants[i % variants.length]} />
+        ))}
+      </div>
+    )}
+  </a>
+</article>
+
+<style>
+  .post-card {
+    border-radius: 2px;
+  }
+
+  .post-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .post-card-meta {
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-card-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-ink);
+    transition: color var(--transition-fast);
+  }
+
+  .post-card-link:hover .post-card-title {
+    color: var(--color-stamp-red);
+  }
+
+  .post-card-excerpt {
+    font-size: 0.95rem;
+    color: var(--color-pencil);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .post-card--featured {
+    border-left: 3px solid var(--color-stamp-red);
+  }
+</style>

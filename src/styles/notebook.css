@@ -1,0 +1,165 @@
+/* ============================================
+   Notebook & Skeuomorphic Styles
+   ============================================ */
+
+/* Ruled notebook lines */
+.notebook-lines {
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      var(--line-color) 31px,
+      var(--line-color) 32px
+    );
+  background-position: 0 12px;
+}
+
+/* Red margin line (left side of notebook) */
+.notebook-margin {
+  border-left: 2px solid #E8A0A0;
+  padding-left: var(--space-lg);
+  margin-left: var(--space-xl);
+}
+
+/* Paper card — base for post cards, project cards */
+.paper-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-kraft);
+  box-shadow: var(--shadow-paper);
+  padding: var(--space-lg);
+  position: relative;
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+.paper-card:hover {
+  transform: rotate(-0.5deg) translateY(-2px);
+  box-shadow: var(--shadow-paper-hover);
+}
+
+/* Stacked papers effect */
+.paper-stacked {
+  box-shadow: var(--shadow-stacked);
+}
+
+/* Stamp effect for tags/categories */
+.stamp {
+  display: inline-block;
+  border: 3px solid var(--color-stamp-red);
+  color: var(--color-stamp-red);
+  padding: 0.1em 0.5em;
+  font-family: 'Caveat', cursive;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  opacity: 0.85;
+  letter-spacing: 0.05em;
+}
+
+.stamp--teal {
+  border-color: var(--color-washi-teal);
+  color: var(--color-washi-teal);
+  transform: rotate(1deg);
+}
+
+.stamp--yellow {
+  border-color: #C9A220;
+  color: #C9A220;
+  transform: rotate(-1.5deg);
+}
+
+/* Date stamp — ink stamp in margin */
+.date-stamp {
+  font-family: 'Caveat', cursive;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-pencil);
+  opacity: 0.7;
+  transform: rotate(-1deg);
+  display: inline-block;
+}
+
+/* Washi tape — decorative strip */
+.washi-tape {
+  display: block;
+  width: 120px;
+  height: 28px;
+  background: var(--color-sticky-yellow);
+  opacity: 0.55;
+  transform: rotate(-3deg);
+  position: absolute;
+  z-index: 2;
+}
+
+.washi-tape--teal {
+  background: var(--color-washi-teal);
+  opacity: 0.45;
+}
+
+.washi-tape--red {
+  background: var(--color-stamp-red);
+  opacity: 0.35;
+}
+
+/* Torn edge — bottom of cards */
+.torn-edge {
+  position: relative;
+}
+
+.torn-edge::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--color-paper);
+  clip-path: polygon(
+    0% 0%, 3% 60%, 5% 20%, 8% 70%, 12% 10%, 15% 55%,
+    18% 25%, 22% 65%, 25% 15%, 28% 50%, 32% 30%, 35% 70%,
+    38% 20%, 42% 60%, 45% 10%, 48% 55%, 52% 25%, 55% 65%,
+    58% 15%, 62% 50%, 65% 30%, 68% 70%, 72% 20%, 75% 60%,
+    78% 10%, 82% 55%, 85% 25%, 88% 65%, 92% 15%, 95% 50%,
+    97% 30%, 100% 0%
+  );
+}
+
+/* Taped image — masking tape corners */
+.taped-image {
+  position: relative;
+  display: inline-block;
+}
+
+.taped-image::before,
+.taped-image::after {
+  content: '';
+  position: absolute;
+  width: 55px;
+  height: 18px;
+  background: rgba(242, 201, 76, 0.5);
+  z-index: 2;
+}
+
+.taped-image::before {
+  top: -6px;
+  left: 10px;
+  transform: rotate(-8deg);
+}
+
+.taped-image::after {
+  bottom: -6px;
+  right: 10px;
+  transform: rotate(5deg);
+}
+
+/* Coffee ring stain — decorative */
+.coffee-stain {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid rgba(139, 90, 43, 0.08);
+  pointer-events: none;
+}

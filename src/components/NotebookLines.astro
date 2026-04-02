@@ -1,0 +1,12 @@
+---
+interface Props {
+  showMargin?: boolean;
+  class?: string;
+}
+
+const { showMargin = false, class: className = '' } = Astro.props;
+---
+
+<div class:list={['notebook-lines', { 'notebook-margin': showMargin }, className]}>
+  <slot />
+</div>

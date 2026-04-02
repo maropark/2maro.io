@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Author's Note" description="About Maro Park — open-source builder, developer, thinker.">
+  <Header slot="header" />
+
+  <section class="about-page container">
+    <header class="page-header">
+      <h1 class="page-title">Author's Note</h1>
+      <p class="page-subtitle handwritten">the person behind the notebook</p>
+    </header>
+
+    <div class="about-content">
+      <div class="about-photo-wrapper taped-image">
+        <div class="photo-placeholder">
+          <span class="handwritten">photo goes here</span>
+        </div>
+      </div>
+
+      <div class="about-text notebook-lines">
+        <h2>Hey, I'm Maro.</h2>
+        <p>
+          I'm a developer who values open source and builds things that matter.
+          This site is my backlog — a public journal of projects, learnings,
+          and ideas that I'll ship&hellip; eventually.
+        </p>
+        <p>
+          I believe in building in the open, sharing what I learn, and creating
+          tools that help people. Most of my work lives on GitHub where anyone
+          can use, fork, or improve it.
+        </p>
+
+        <h2>What I'm Working On Now</h2>
+        <ul>
+          <li>Building tools with AI that are actually useful</li>
+          <li>Contributing to open source projects</li>
+          <li>Writing about what I learn along the way</li>
+        </ul>
+
+        <h2>Open Source Philosophy</h2>
+        <p>
+          I center open source in everything I build. Not because it's trendy,
+          but because the best software is built together. Every project I ship
+          is meant to be shared, improved, and built upon.
+        </p>
+
+        <div class="about-links">
+          <a href="https://github.com/maropark" class="about-link">GitHub &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .about-page {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-3xl);
+    max-width: var(--content-width);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-pencil);
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .about-photo-wrapper {
+    width: fit-content;
+  }
+
+  .photo-placeholder {
+    width: 200px;
+    height: 200px;
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-kraft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-pencil);
+    font-size: 1.1rem;
+  }
+
+  .about-text h2 {
+    font-size: 1.4rem;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .about-text h2:first-child {
+    margin-top: 0;
+  }
+
+  .about-text ul {
+    padding-left: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .about-text li {
+    margin-bottom: var(--space-xs);
+  }
+
+  .about-links {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px dashed var(--color-kraft);
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .about-link {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ballpoint-blue);
+    text-decoration: none;
+  }
+
+  .about-link:hover {
+    color: var(--color-stamp-red);
+  }
+
+  @media (max-width: 640px) {
+    .photo-placeholder {
+      width: 150px;
+      height: 150px;
+    }
+  }
+</style>

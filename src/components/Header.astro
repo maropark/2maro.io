@@ -1,0 +1,197 @@
+---
+const navItems = [
+  { label: 'Journal', href: '/blog' },
+  { label: 'Workshop', href: '/projects' },
+  { label: "Author's Note", href: '/about' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="header-inner container">
+    <a href="/" class="site-logo" aria-label="2maro.io home">
+      <span class="logo-text">2maro</span>
+      <span class="logo-dot">.io</span>
+    </a>
+
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul class="nav-tabs">
+        {navItems.map(({ label, href }) => {
+          const isActive = currentPath === href || currentPath.startsWith(href + '/');
+          return (
+            <li class="nav-tab">
+              <a
+                href={href}
+                class:list={['nav-link', { active: isActive }]}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-paper);
+    border-bottom: 2px solid var(--color-kraft);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .site-logo {
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+  }
+
+  .logo-dot {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--color-stamp-red);
+    font-weight: 700;
+  }
+
+  .site-logo:hover .logo-text {
+    color: var(--color-stamp-red);
+  }
+
+  .nav-tabs {
+    display: flex;
+    list-style: none;
+    gap: var(--space-xs);
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-pencil);
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast),
+      border-color var(--transition-fast);
+    position: relative;
+    top: 2px;
+  }
+
+  .nav-link:hover {
+    color: var(--color-ink);
+    background: var(--color-paper-alt);
+    border-color: var(--color-kraft);
+  }
+
+  .nav-link.active {
+    color: var(--color-stamp-red);
+    background: var(--color-paper);
+    border-color: var(--color-kraft);
+    border-bottom: 2px solid var(--color-paper);
+    margin-bottom: -2px;
+  }
+
+  /* Mobile menu toggle */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-sm);
+  }
+
+  .menu-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-ink);
+    border-radius: 1px;
+    transition: transform var(--transition-normal);
+  }
+
+  @media (max-width: 640px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .site-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-paper);
+      border-bottom: 2px solid var(--color-kraft);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: var(--space-md);
+    }
+
+    .site-nav.open {
+      display: block;
+    }
+
+    .nav-tabs {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav-link {
+      border-radius: 4px;
+      border: none;
+      top: 0;
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .nav-link.active {
+      border-bottom: none;
+      margin-bottom: 0;
+      background: var(--color-paper-alt);
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.site-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

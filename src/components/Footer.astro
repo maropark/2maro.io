@@ -1,0 +1,111 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <div class="footer-left">
+      <p class="footer-note handwritten">
+        built with care, shipped for 2maro
+      </p>
+      <p class="footer-copyright">
+        &copy; {year} Maro Park
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a href="/rss.xml" class="footer-link" aria-label="RSS Feed">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <circle cx="6.18" cy="17.82" r="2.18"/>
+          <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+        </svg>
+        RSS
+      </a>
+      <a href="https://github.com/maropark" class="footer-link" target="_blank" rel="noopener noreferrer">
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-torn-edge"></div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-3xl);
+    background: var(--color-kraft-light);
+    border-top: 1px solid var(--color-kraft);
+    position: relative;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    gap: var(--space-lg);
+  }
+
+  .footer-note {
+    font-size: 1.1rem;
+    color: var(--color-pencil);
+    margin-bottom: var(--space-xs);
+  }
+
+  .footer-copyright {
+    font-size: 0.8rem;
+    color: var(--color-ink-faded);
+    margin-bottom: 0;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .footer-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: 'Caveat', cursive;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-pencil);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-link:hover {
+    color: var(--color-stamp-red);
+  }
+
+  .footer-link svg {
+    opacity: 0.7;
+  }
+
+  /* Torn top edge */
+  .footer-torn-edge {
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: var(--color-kraft-light);
+    clip-path: polygon(
+      0% 100%, 2% 40%, 4% 80%, 7% 20%, 10% 70%, 13% 35%,
+      16% 85%, 19% 25%, 22% 65%, 25% 45%, 28% 90%, 31% 30%,
+      34% 75%, 37% 15%, 40% 60%, 43% 40%, 46% 85%, 49% 20%,
+      52% 70%, 55% 35%, 58% 80%, 61% 25%, 64% 65%, 67% 45%,
+      70% 90%, 73% 30%, 76% 75%, 79% 15%, 82% 60%, 85% 40%,
+      88% 85%, 91% 20%, 94% 70%, 97% 35%, 100% 100%
+    );
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

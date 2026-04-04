@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import '../styles/typography.css';
 import '../styles/global.css';
 import '../styles/notebook.css';
+import '../styles/nightfall.css';
 
 interface Props {
   title: string;
@@ -59,5 +60,6 @@ const fullTitle = title === 'Home' ? '2maro.io — The Backlog' : `${title} — 
       <slot />
     </main>
     <slot name="footer" />
+    <script src="../scripts/nightfall.ts"></script>
   </body>
 </html>

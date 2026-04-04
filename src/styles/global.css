@@ -45,6 +45,13 @@
   /* Notebook lines */
   --line-height-ruled: 32px;
   --line-color: #D4C5A9;
+  --color-margin-line: #E8A0A0;
+
+  /* Texture */
+  --texture-opacity: 0.03;
+
+  /* Nightfall progress (0 = day, 1 = night) */
+  --nightfall-progress: 0;
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -89,7 +96,7 @@ body::before {
   background-image: url('/textures/noise.png');
   background-repeat: repeat;
   background-size: 200px;
-  opacity: 0.03;
+  opacity: var(--texture-opacity);
   pointer-events: none;
   z-index: 9999;
 }

@@ -1,0 +1,193 @@
+---
+const tabs = [
+  { label: 'Journal', href: '/blog', color: 'red' },
+  { label: 'Workshop', href: '/projects', color: 'teal' },
+  { label: "Author's Note", href: '/about', color: 'yellow' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="journal-tabs" aria-label="Main navigation">
+  {tabs.map(({ label, href, color }) => {
+    const isActive = currentPath === href || currentPath.startsWith(href + '/');
+    return (
+      <a
+        href={href}
+        class:list={['journal-tab', `journal-tab--${color}`, { active: isActive }]}
+        aria-current={isActive ? 'page' : undefined}
+      >
+        <span class="journal-tab-label handwritten">{label}</span>
+      </a>
+    );
+  })}
+</nav>
+
+<style>
+  .journal-tabs {
+    position: absolute;
+    left: -44px;
+    top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 10;
+  }
+
+  .journal-tab {
+    display: block;
+    width: 44px;
+    padding: 14px 6px;
+    text-decoration: none;
+    border-radius: 8px 0 0 8px;
+    border: 1px solid var(--color-kraft);
+    border-right: none;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      width var(--transition-fast),
+      box-shadow var(--transition-fast);
+    position: relative;
+    background: var(--color-paper-alt);
+  }
+
+  .journal-tab-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  /* Color variants */
+  .journal-tab--red {
+    border-left: 3px solid var(--color-stamp-red);
+  }
+
+  .journal-tab--red .journal-tab-label {
+    color: var(--color-stamp-red);
+  }
+
+  .journal-tab--teal {
+    border-left: 3px solid var(--color-washi-teal);
+  }
+
+  .journal-tab--teal .journal-tab-label {
+    color: var(--color-washi-teal);
+  }
+
+  .journal-tab--yellow {
+    border-left: 3px solid var(--color-sticky-yellow);
+  }
+
+  .journal-tab--yellow .journal-tab-label {
+    color: var(--color-sticky-yellow);
+  }
+
+  /* Hover */
+  .journal-tab:hover {
+    width: 52px;
+    background: var(--color-paper);
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Active state — tab connects to the page */
+  .journal-tab.active {
+    width: 52px;
+    background: var(--color-paper);
+    border-color: var(--color-kraft);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Night mode glow */
+  :global(.nightfall-night) .journal-tab {
+    background: var(--color-paper-alt);
+    border-color: var(--color-kraft);
+  }
+
+  :global(.nightfall-night) .journal-tab.active {
+    background: var(--color-paper);
+  }
+
+  :global(.nightfall-night) .journal-tab--red.active .journal-tab-label {
+    text-shadow: 0 0 8px currentColor;
+  }
+
+  :global(.nightfall-night) .journal-tab--teal.active .journal-tab-label {
+    text-shadow: 0 0 8px currentColor;
+  }
+
+  :global(.nightfall-night) .journal-tab--yellow.active .journal-tab-label {
+    text-shadow: 0 0 8px currentColor;
+  }
+
+  /* Mobile: horizontal tabs below sky */
+  @media (max-width: 900px) {
+    .journal-tabs {
+      position: relative;
+      left: auto;
+      top: auto;
+      flex-direction: row;
+      gap: 0;
+      justify-content: center;
+      background: var(--color-paper-alt);
+      border-bottom: 1px solid var(--color-kraft);
+      padding: 0 var(--space-md);
+    }
+
+    .journal-tab {
+      writing-mode: horizontal-tb;
+      text-orientation: initial;
+      transform: none;
+      border-radius: 0;
+      border: none;
+      border-bottom: 3px solid transparent;
+      border-right: none;
+      width: auto;
+      padding: var(--space-sm) var(--space-md);
+      background: transparent;
+    }
+
+    .journal-tab--red {
+      border-left: none;
+    }
+
+    .journal-tab--teal {
+      border-left: none;
+    }
+
+    .journal-tab--yellow {
+      border-left: none;
+    }
+
+    .journal-tab.active {
+      width: auto;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .journal-tab--red.active {
+      border-bottom-color: var(--color-stamp-red);
+    }
+
+    .journal-tab--teal.active {
+      border-bottom-color: var(--color-washi-teal);
+    }
+
+    .journal-tab--yellow.active {
+      border-bottom-color: var(--color-sticky-yellow);
+    }
+
+    .journal-tab:hover {
+      width: auto;
+      background: var(--color-paper-alt);
+      box-shadow: none;
+    }
+
+    .journal-tab-label {
+      font-size: 0.95rem;
+    }
+  }
+</style>

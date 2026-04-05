@@ -16,7 +16,7 @@
 
 /* Red margin line (left side of notebook) */
 .notebook-margin {
-  border-left: 2px solid #E8A0A0;
+  border-left: 2px solid var(--color-margin-line);
   padding-left: var(--space-lg);
   margin-left: var(--space-xl);
 }
@@ -65,8 +65,8 @@
 }
 
 .stamp--yellow {
-  border-color: #C9A220;
-  color: #C9A220;
+  border-color: var(--color-sticky-yellow);
+  color: var(--color-sticky-yellow);
   transform: rotate(-1.5deg);
 }
 

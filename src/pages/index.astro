@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PostCard from '../components/PostCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -19,27 +18,24 @@ const featuredProjects = allProjects
 ---
 
 <BaseLayout title="Home">
-  <Header slot="header" />
 
   <!-- Hero: Notebook Cover -->
   <section class="hero">
-    <div class="hero-inner container">
-      <div class="hero-notebook">
-        <div class="hero-tape" aria-hidden="true"></div>
-        <h1 class="hero-title">
-          <span class="hero-title-main">The Backlog</span>
-          <span class="hero-title-sub handwritten">notes from an open-source builder</span>
-        </h1>
-        <p class="hero-intro">
-          A retro dev journal by <strong>Maro Park</strong>. Projects, learnings, and things
-          I'll ship&hellip; 2maro.
-        </p>
-      </div>
+    <div class="hero-notebook">
+      <div class="hero-tape" aria-hidden="true"></div>
+      <h1 class="hero-title">
+        <span class="hero-title-main">The Backlog</span>
+        <span class="hero-title-sub handwritten">notes from an open-source builder</span>
+      </h1>
+      <p class="hero-intro">
+        A retro dev journal by <strong>Maro Park</strong>. Projects, learnings, and things
+        I'll ship&hellip; 2maro.
+      </p>
     </div>
   </section>
 
   <!-- Recent Journal Entries -->
-  <section class="section container">
+  <section class="section">
     <h2 class="section-heading">
       <span class="section-heading-text">Recent Entries</span>
       <span class="section-heading-line"></span>
@@ -65,7 +61,7 @@ const featuredProjects = allProjects
 
   <!-- Featured Projects -->
   {featuredProjects.length > 0 && (
-    <section class="section container">
+    <section class="section">
       <h2 class="section-heading">
         <span class="section-heading-text">From the Workshop</span>
         <span class="section-heading-line"></span>
@@ -96,11 +92,10 @@ const featuredProjects = allProjects
 <style>
   /* Hero */
   .hero {
-    padding: var(--space-3xl) 0 var(--space-2xl);
+    padding: var(--space-xl) 0 var(--space-2xl);
   }
 
   .hero-notebook {
-    max-width: var(--content-width);
     background: var(--color-paper);
     border: 1px solid var(--color-kraft);
     box-shadow: var(--shadow-stacked);
@@ -125,7 +120,7 @@ const featuredProjects = allProjects
 
   .hero-title-main {
     display: block;
-    font-size: 3rem;
+    font-size: 2.6rem;
     font-weight: 900;
     letter-spacing: -0.02em;
     color: var(--color-ink);
@@ -133,13 +128,13 @@ const featuredProjects = allProjects
 
   .hero-title-sub {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--color-pencil);
     margin-top: var(--space-xs);
   }
 
   .hero-intro {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--color-pencil);
     line-height: 1.7;
     max-width: 540px;
@@ -188,23 +183,23 @@ const featuredProjects = allProjects
   /* Grids */
   .posts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: var(--space-xl);
   }
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: var(--space-xl);
   }
 
   @media (max-width: 640px) {
     .hero-title-main {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
 
     .hero-title-sub {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .hero-notebook {

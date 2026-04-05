@@ -1,0 +1,207 @@
+/* ============================================
+   Nightfall — scroll-driven day-to-night styles
+
+   The JS in nightfall.ts drives the color token
+   transitions. This file handles structural CSS
+   that depends on the phase (golden hour glow
+   effects, night-mode luminescence, etc.)
+   ============================================ */
+
+/* Smooth transitions on all token-driven properties */
+body,
+.sky-header,
+.site-footer,
+.paper-card,
+.stamp,
+.washi-tape,
+.date-stamp,
+.journal-tab,
+.notebook-lines,
+.notebook-pages,
+.notebook-binding,
+.post-card-title,
+.project-card,
+.tech-sticker,
+.category-tab,
+.footer-torn-edge,
+.torn-edge::after {
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* ============================================
+   Golden Hour enhancements
+   ============================================ */
+
+.nightfall-golden body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(
+    to bottom,
+    rgba(210, 140, 60, 0.06),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ============================================
+   Night mode — luminescent journal
+   ============================================ */
+
+/* Glow on accent text (stamps, tags) */
+.nightfall-night .stamp {
+  text-shadow: 0 0 8px currentColor;
+  border-color: currentColor;
+  opacity: 0.95;
+}
+
+.nightfall-night .stamp--teal {
+  text-shadow: 0 0 10px currentColor;
+}
+
+.nightfall-night .stamp--yellow {
+  text-shadow: 0 0 10px currentColor;
+}
+
+/* Washi tape in the dark — translucent luminescent strips */
+.nightfall-night .washi-tape {
+  opacity: 0.3;
+  box-shadow: 0 0 12px currentColor;
+}
+
+.nightfall-night .washi-tape--teal {
+  opacity: 0.25;
+}
+
+.nightfall-night .washi-tape--red {
+  opacity: 0.2;
+}
+
+/* Journal tab glow at night */
+.nightfall-night .journal-tab-label {
+  text-shadow: 0 0 6px currentColor;
+}
+
+/* Paper cards get a subtle edge glow */
+.nightfall-night .paper-card {
+  border-color: rgba(68, 136, 255, 0.15);
+}
+
+.nightfall-night .paper-card:hover {
+  border-color: rgba(68, 136, 255, 0.25);
+  box-shadow:
+    0 0 16px rgba(68, 136, 255, 0.06),
+    3px 5px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* Featured post left border glows */
+.nightfall-night .post-card--featured {
+  border-left-color: var(--color-stamp-red);
+  box-shadow:
+    -2px 0 12px rgba(255, 68, 136, 0.1),
+    2px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Code blocks — dark with subtle glow */
+.nightfall-night pre {
+  border-color: rgba(68, 136, 255, 0.12);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.3),
+    0 0 8px rgba(68, 136, 255, 0.04);
+}
+
+.nightfall-night code {
+  text-shadow: 0 0 6px rgba(200, 200, 224, 0.08);
+}
+
+/* Blockquote border glows in night mode */
+.nightfall-night .post-body :global(blockquote) {
+  border-left-color: var(--color-stamp-red);
+  box-shadow: -2px 0 8px rgba(255, 68, 136, 0.08);
+}
+
+/* Tech stickers get a subtle luminescent border */
+.nightfall-night .tech-sticker {
+  border-color: rgba(68, 136, 255, 0.2);
+  text-shadow: 0 0 4px rgba(200, 200, 224, 0.1);
+}
+
+/* Category tab active state — glow */
+.nightfall-night .category-tab[aria-pressed='true'] {
+  box-shadow: 0 0 10px rgba(68, 136, 255, 0.15);
+}
+
+/* Hero notebook card — luminescent border at night */
+.nightfall-night .hero-notebook {
+  border-color: rgba(68, 136, 255, 0.12);
+  box-shadow:
+    0 0 20px rgba(68, 136, 255, 0.04),
+    1px 1px 0 var(--color-kraft-light),
+    3px 3px 0 var(--color-kraft);
+}
+
+/* Hero tape becomes a luminescent strip */
+.nightfall-night .hero-tape {
+  box-shadow: 0 0 14px rgba(204, 255, 0, 0.12);
+  opacity: 0.35;
+}
+
+/* Links glow subtly at night */
+.nightfall-night a:hover {
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* Section heading line — subtle silver */
+.nightfall-night .section-heading-line {
+  background: var(--color-kraft);
+  box-shadow: 0 0 4px rgba(208, 208, 224, 0.06);
+}
+
+/* Footer torn edge picks up the footer bg */
+.nightfall-night .footer-torn-edge {
+  filter: brightness(1.1);
+}
+
+/* Project status — glow effect */
+.nightfall-night .project-status {
+  text-shadow: 0 0 6px currentColor;
+}
+
+/* Handwritten text — silver shimmer at night */
+.nightfall-night .handwritten {
+  text-shadow: 0 0 10px rgba(208, 208, 224, 0.08);
+}
+
+/* Photo placeholder — dark mode */
+.nightfall-night .photo-placeholder {
+  background: var(--color-paper-alt);
+  border-color: var(--color-kraft);
+}
+
+/* Coffee stain fades further at night */
+.nightfall-night .coffee-stain {
+  opacity: 0.3;
+}
+
+/* Section heading text — subtle glow */
+.nightfall-night .section-heading-text {
+  text-shadow: 0 0 12px rgba(208, 208, 224, 0.06);
+}
+
+/* "more" links glow */
+.nightfall-night .more-link {
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* Post title hover — luminescent */
+.nightfall-night .post-card-link:hover .post-card-title {
+  text-shadow: 0 0 10px currentColor;
+}

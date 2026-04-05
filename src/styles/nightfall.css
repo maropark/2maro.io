@@ -9,14 +9,16 @@
 
 /* Smooth transitions on all token-driven properties */
 body,
-.site-header,
+.sky-header,
 .site-footer,
 .paper-card,
 .stamp,
 .washi-tape,
 .date-stamp,
-.nav-link,
+.journal-tab,
 .notebook-lines,
+.notebook-pages,
+.notebook-binding,
 .post-card-title,
 .project-card,
 .tech-sticker,
@@ -83,18 +85,9 @@ body,
   opacity: 0.2;
 }
 
-/* Header logo glow */
-.nightfall-night .logo-text {
-  text-shadow: 0 0 20px rgba(208, 208, 224, 0.15);
-}
-
-.nightfall-night .logo-dot {
-  text-shadow: 0 0 12px currentColor;
-}
-
-/* Nav link glow on active */
-.nightfall-night .nav-link.active {
-  text-shadow: 0 0 8px currentColor;
+/* Journal tab glow at night */
+.nightfall-night .journal-tab-label {
+  text-shadow: 0 0 6px currentColor;
 }
 
 /* Paper cards get a subtle edge glow */

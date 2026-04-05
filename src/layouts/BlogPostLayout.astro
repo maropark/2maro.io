@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import DateStamp from '../components/DateStamp.astro';
 import TagStamp from '../components/TagStamp.astro';
@@ -18,9 +17,8 @@ const variants: Array<'red' | 'teal' | 'yellow'> = ['red', 'teal', 'yellow'];
 ---
 
 <BaseLayout title={title} description={description}>
-  <Header slot="header" />
 
-  <article class="blog-post container">
+  <article class="blog-post">
     <header class="post-header">
       <div class="post-meta">
         <DateStamp date={date} />
@@ -46,8 +44,7 @@ const variants: Array<'red' | 'teal' | 'yellow'> = ['red', 'teal', 'yellow'];
 
 <style>
   .blog-post {
-    max-width: var(--content-width);
-    padding-top: var(--space-2xl);
+    padding-top: var(--space-xl);
     padding-bottom: var(--space-3xl);
   }
 

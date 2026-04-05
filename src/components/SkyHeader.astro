@@ -1,0 +1,234 @@
+---
+---
+
+<header class="sky-header">
+  <div class="sky-scene" aria-hidden="true">
+    <!-- Crayon sun — drawn like a 5-year-old with thick wobbly strokes -->
+    <svg class="crayon-sun" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Rays first (behind the sun body) -->
+      <!-- Top ray -->
+      <line x1="70" y1="28" x2="68" y2="6" stroke="#FF9F1C" stroke-width="5" stroke-linecap="round"/>
+      <!-- Top-right ray -->
+      <line x1="95" y1="35" x2="112" y2="14" stroke="#FFD93D" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- Right ray -->
+      <line x1="108" y1="60" x2="132" y2="58" stroke="#FF9F1C" stroke-width="5.5" stroke-linecap="round"/>
+      <!-- Bottom-right ray -->
+      <line x1="98" y1="90" x2="118" y2="110" stroke="#FFD93D" stroke-width="4" stroke-linecap="round"/>
+      <!-- Bottom ray -->
+      <line x1="70" y1="108" x2="72" y2="132" stroke="#FF9F1C" stroke-width="5" stroke-linecap="round"/>
+      <!-- Bottom-left ray -->
+      <line x1="42" y1="95" x2="22" y2="115" stroke="#FFD93D" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- Left ray -->
+      <line x1="32" y1="65" x2="8" y2="63" stroke="#FF9F1C" stroke-width="5" stroke-linecap="round"/>
+      <!-- Top-left ray -->
+      <line x1="42" y1="38" x2="20" y2="18" stroke="#FFD93D" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- Extra wonky short rays for that crayon scribble feel -->
+      <line x1="82" y1="30" x2="90" y2="16" stroke="#FFBE0B" stroke-width="3" stroke-linecap="round"/>
+      <line x1="105" y1="45" x2="122" y2="35" stroke="#FFBE0B" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="105" y1="78" x2="126" y2="82" stroke="#FFBE0B" stroke-width="3" stroke-linecap="round"/>
+      <line x1="55" y1="30" x2="48" y2="12" stroke="#FFBE0B" stroke-width="3" stroke-linecap="round"/>
+      <line x1="35" y1="50" x2="14" y2="44" stroke="#FFBE0B" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="38" y1="82" x2="16" y2="90" stroke="#FFBE0B" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Sun body — wobbly crayon circle (double-traced for crayon effect) -->
+      <path d="M70 30 C82 28, 98 36, 104 50 C110 64, 106 82, 94 92 C82 102, 62 104, 48 94 C34 84, 30 66, 34 52 C38 38, 56 30, 70 30Z"
+            fill="#FFD93D" stroke="#FF8C00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Second trace — slightly offset for crayon doubling -->
+      <path d="M72 32 C83 30, 96 38, 102 52 C108 66, 104 80, 92 90 C80 100, 64 102, 50 92 C36 82, 32 68, 36 54 C40 40, 58 32, 72 32Z"
+            fill="none" stroke="#FFBE0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+
+      <!-- Crayon face — like a kid would draw -->
+      <!-- Eyes — two dots -->
+      <circle cx="58" cy="60" r="3.5" fill="#FF8C00"/>
+      <circle cx="82" cy="58" r="3.5" fill="#FF8C00"/>
+      <!-- Smile — wobbly arc -->
+      <path d="M55 72 C60 82, 80 84, 86 73" stroke="#FF8C00" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </svg>
+
+    <!-- Night mode: stars (hidden by default, shown via CSS) -->
+    <div class="sky-stars">
+      <span class="star" style="left:8%;top:20%"></span>
+      <span class="star" style="left:15%;top:55%"></span>
+      <span class="star" style="left:25%;top:15%"></span>
+      <span class="star" style="left:35%;top:65%"></span>
+      <span class="star" style="left:45%;top:25%"></span>
+      <span class="star" style="left:55%;top:45%"></span>
+      <span class="star" style="left:65%;top:12%"></span>
+      <span class="star" style="left:72%;top:58%"></span>
+      <span class="star" style="left:80%;top:30%"></span>
+      <span class="star" style="left:88%;top:50%"></span>
+      <span class="star" style="left:92%;top:18%"></span>
+      <span class="star star--big" style="left:20%;top:35%"></span>
+      <span class="star star--big" style="left:60%;top:60%"></span>
+      <span class="star star--big" style="left:85%;top:40%"></span>
+    </div>
+
+    <!-- Crayon clouds (wispy, childlike) -->
+    <svg class="crayon-cloud crayon-cloud--1" viewBox="0 0 120 50" fill="none">
+      <path d="M10 35 C15 20, 30 15, 45 18 C50 8, 70 5, 80 15 C90 10, 110 18, 108 30 C112 38, 95 42, 80 38 C65 45, 35 44, 20 38 C12 40, 8 38, 10 35Z"
+            fill="white" opacity="0.6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <svg class="crayon-cloud crayon-cloud--2" viewBox="0 0 100 40" fill="none">
+      <path d="M8 28 C12 16, 25 12, 38 15 C42 6, 60 4, 68 12 C76 8, 92 14, 90 24 C94 30, 78 34, 65 30 C52 36, 28 35, 16 30 C10 32, 6 30, 8 28Z"
+            fill="white" opacity="0.4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <a href="/" class="sky-logo" aria-label="2maro.io home">
+    <span class="logo-text">2maro</span>
+    <span class="logo-dot">.io</span>
+  </a>
+</header>
+
+<style>
+  .sky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 80px;
+    background: linear-gradient(
+      to bottom,
+      var(--sky-top, #7EC8E3),
+      var(--sky-bottom, #B8E4F0)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 3px solid var(--sky-horizon, #A8D8EA);
+    transition: border-color 0.3s ease;
+  }
+
+  .sky-scene {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* Crayon sun positioning — driven by --sun-x and --sun-y from nightfall.ts */
+  .crayon-sun {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: calc(var(--sun-x, 15%) - 35px);
+    top: calc(var(--sun-y, 20%) - 35px);
+    opacity: var(--sun-opacity, 1);
+    transition: opacity 0.3s ease;
+    filter: drop-shadow(0 0 4px rgba(255, 217, 61, 0.4));
+  }
+
+  /* Clouds */
+  .crayon-cloud {
+    position: absolute;
+    opacity: var(--cloud-opacity, 0.7);
+    transition: opacity 0.3s ease;
+  }
+
+  .crayon-cloud--1 {
+    width: 100px;
+    top: 10px;
+    right: 18%;
+  }
+
+  .crayon-cloud--2 {
+    width: 75px;
+    top: 25px;
+    right: 35%;
+  }
+
+  /* Stars — hidden during day, fade in at night */
+  .sky-stars {
+    position: absolute;
+    inset: 0;
+    opacity: var(--stars-opacity, 0);
+    transition: opacity 0.5s ease;
+  }
+
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #E8E8FF;
+    border-radius: 50%;
+    box-shadow: 0 0 4px 1px rgba(232, 232, 255, 0.6);
+  }
+
+  .star--big {
+    width: 4px;
+    height: 4px;
+    box-shadow: 0 0 6px 2px rgba(232, 232, 255, 0.8);
+  }
+
+  /* Logo — centered */
+  .sky-logo {
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+  }
+
+  .logo-dot {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--color-stamp-red);
+    font-weight: 700;
+  }
+
+  .sky-logo:hover .logo-text {
+    color: var(--color-stamp-red);
+  }
+
+  /* Night mode adjustments */
+  :global(.nightfall-night) .logo-text {
+    text-shadow: 0 0 20px rgba(208, 208, 224, 0.3);
+    color: var(--color-ink);
+  }
+
+  :global(.nightfall-night) .logo-dot {
+    text-shadow: 0 0 12px currentColor;
+  }
+
+  :global(.nightfall-night) .crayon-cloud {
+    opacity: 0;
+  }
+
+  @media (max-width: 640px) {
+    .sky-header {
+      height: 64px;
+    }
+
+    .crayon-sun {
+      width: 50px;
+      height: 50px;
+      left: calc(var(--sun-x, 15%) - 25px);
+      top: calc(var(--sun-y, 20%) - 25px);
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+    }
+
+    .logo-dot {
+      font-size: 1.2rem;
+    }
+
+    .crayon-cloud--1 {
+      width: 70px;
+    }
+
+    .crayon-cloud--2 {
+      display: none;
+    }
+  }
+</style>

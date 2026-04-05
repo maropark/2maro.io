@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getCollection } from 'astro:content';
@@ -12,9 +11,8 @@ const categories = ['all', ...new Set(posts.map((p) => p.data.category))];
 ---
 
 <BaseLayout title="Journal" description="Dev journal entries — technical deep-dives, project logs, and personal reflections.">
-  <Header slot="header" />
 
-  <section class="blog-listing container">
+  <section class="blog-listing">
     <header class="listing-header">
       <h1 class="listing-title">Journal Entries</h1>
       <p class="listing-subtitle handwritten">things I wrote down before I forget</p>
@@ -54,9 +52,8 @@ const categories = ['all', ...new Set(posts.map((p) => p.data.category))];
 
 <style>
   .blog-listing {
-    padding-top: var(--space-2xl);
+    padding-top: var(--space-xl);
     padding-bottom: var(--space-3xl);
-    max-width: var(--site-width);
   }
 
   .listing-header {
@@ -109,7 +106,7 @@ const categories = ['all', ...new Set(posts.map((p) => p.data.category))];
 
   .posts-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: var(--space-xl);
   }
 

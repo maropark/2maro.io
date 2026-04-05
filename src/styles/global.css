@@ -50,6 +50,16 @@
   /* Texture */
   --texture-opacity: 0.03;
 
+  /* Sky */
+  --sky-top: #7EC8E3;
+  --sky-bottom: #B8E4F0;
+  --sky-horizon: #A8D8EA;
+  --sun-x: 15%;
+  --sun-y: 20%;
+  --sun-opacity: 1;
+  --cloud-opacity: 0.7;
+  --stars-opacity: 0;
+
   /* Nightfall progress (0 = day, 1 = night) */
   --nightfall-progress: 0;
 

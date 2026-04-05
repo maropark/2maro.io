@@ -5,6 +5,9 @@ import '../styles/global.css';
 import '../styles/notebook.css';
 import '../styles/nightfall.css';
 
+import SkyHeader from '../components/SkyHeader.astro';
+import JournalTabs from '../components/JournalTabs.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -55,11 +58,193 @@ const fullTitle = title === 'Home' ? '2maro.io — The Backlog' : `${title} — 
     <slot name="head" />
   </head>
   <body>
-    <slot name="header" />
-    <main>
-      <slot />
-    </main>
+    <SkyHeader />
+
+    <div class="notebook-spread">
+      <!-- Mobile: tabs render inline above content -->
+      <div class="notebook-tabs-mobile">
+        <JournalTabs />
+      </div>
+
+      <div class="notebook-pages">
+        <!-- Desktop: tabs on the left edge -->
+        <div class="notebook-tabs-desktop">
+          <JournalTabs />
+        </div>
+
+        <!-- Left page -->
+        <div class="notebook-page notebook-page--left" aria-hidden="true">
+          <div class="page-decoration">
+            <div class="page-lines"></div>
+          </div>
+        </div>
+
+        <!-- Center binding -->
+        <div class="notebook-binding" aria-hidden="true">
+          <div class="binding-spine"></div>
+          <div class="binding-stitch"></div>
+        </div>
+
+        <!-- Right page (main content) -->
+        <div class="notebook-page notebook-page--right">
+          <main>
+            <slot />
+          </main>
+        </div>
+      </div>
+    </div>
+
     <slot name="footer" />
     <script src="../scripts/nightfall.ts"></script>
   </body>
 </html>
+
+<style>
+  /* Notebook spread — the open journal */
+  .notebook-spread {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-lg) 0;
+    min-height: 70vh;
+  }
+
+  .notebook-pages {
+    display: flex;
+    position: relative;
+    background: var(--color-paper);
+    border: 1px solid var(--color-kraft);
+    border-radius: 2px 4px 4px 2px;
+    box-shadow:
+      var(--shadow-paper),
+      inset 0 0 30px rgba(0, 0, 0, 0.02);
+    min-height: 60vh;
+  }
+
+  /* Left page — decorative */
+  .notebook-page--left {
+    flex: 0 0 60px;
+    position: relative;
+    border-right: none;
+    overflow: hidden;
+  }
+
+  .page-decoration {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+  }
+
+  .page-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        var(--line-color) 31px,
+        var(--line-color) 32px
+      );
+    background-position: 0 12px;
+  }
+
+  /* Center binding */
+  .notebook-binding {
+    flex: 0 0 20px;
+    position: relative;
+    background: linear-gradient(
+      to right,
+      var(--color-kraft) 0%,
+      var(--color-kraft-light) 30%,
+      var(--color-paper-alt) 50%,
+      var(--color-kraft-light) 70%,
+      var(--color-kraft) 100%
+    );
+    box-shadow:
+      inset 2px 0 4px rgba(0, 0, 0, 0.08),
+      inset -2px 0 4px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Stitching marks down the binding */
+  .binding-stitch {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--color-pencil) 0px,
+      var(--color-pencil) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+    opacity: 0.3;
+  }
+
+  /* Right page — main content */
+  .notebook-page--right {
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-lg);
+    position: relative;
+  }
+
+  /* Desktop tabs container */
+  .notebook-tabs-desktop {
+    display: block;
+  }
+
+  /* Mobile tabs container */
+  .notebook-tabs-mobile {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .notebook-spread {
+      padding: 0;
+    }
+
+    .notebook-pages {
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+    }
+
+    /* Hide left page and binding on mobile */
+    .notebook-page--left {
+      display: none;
+    }
+
+    .notebook-binding {
+      display: none;
+    }
+
+    .notebook-tabs-desktop {
+      display: none;
+    }
+
+    .notebook-tabs-mobile {
+      display: block;
+    }
+
+    .notebook-page--right {
+      padding: var(--space-md);
+    }
+  }
+
+  /* Night mode enhancements */
+  :global(.nightfall-night) .notebook-pages {
+    border-color: rgba(68, 136, 255, 0.12);
+    box-shadow:
+      0 0 20px rgba(68, 136, 255, 0.04),
+      2px 3px 8px rgba(0, 0, 0, 0.3),
+      inset 0 0 30px rgba(0, 0, 0, 0.1);
+  }
+
+  :global(.nightfall-night) .notebook-binding {
+    box-shadow:
+      inset 2px 0 4px rgba(0, 0, 0, 0.3),
+      inset -2px 0 4px rgba(0, 0, 0, 0.3);
+  }
+</style>

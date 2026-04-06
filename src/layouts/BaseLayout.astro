@@ -7,6 +7,7 @@ import '../styles/nightfall.css';
 
 import SkyHeader from '../components/SkyHeader.astro';
 import JournalTabs from '../components/JournalTabs.astro';
+import LostAndFound from '../components/LostAndFound.astro';
 
 interface Props {
   title: string;
@@ -22,6 +23,7 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === 'Home' ? '2maro.io — The Backlog' : `${title} — 2maro.io`;
+const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
 ---
 
 <!doctype html>
@@ -73,11 +75,17 @@ const fullTitle = title === 'Home' ? '2maro.io — The Backlog' : `${title} — 
         </div>
 
         <!-- Left page -->
-        <div class="notebook-page notebook-page--left" aria-hidden="true">
-          <div class="page-decoration">
-            <div class="page-lines"></div>
+        {isIndex ? (
+          <div class="notebook-page notebook-page--left notebook-page--left-index">
+            <LostAndFound />
           </div>
-        </div>
+        ) : (
+          <div class="notebook-page notebook-page--left" aria-hidden="true">
+            <div class="page-decoration">
+              <div class="page-lines"></div>
+            </div>
+          </div>
+        )}
 
         <!-- Center binding -->
         <div class="notebook-binding" aria-hidden="true">
@@ -126,6 +134,11 @@ const fullTitle = title === 'Home' ? '2maro.io — The Backlog' : `${title} — 
     position: relative;
     border-right: none;
     overflow: hidden;
+  }
+
+  .notebook-page--left-index {
+    flex: 0 0 80px;
+    overflow: visible;
   }
 
   .page-decoration {

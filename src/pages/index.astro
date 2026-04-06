@@ -1,20 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
-import PostCard from '../components/PostCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import TornEdge from '../components/TornEdge.astro';
+import WashiTape from '../components/WashiTape.astro';
+import DateStamp from '../components/DateStamp.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const recentPosts = allPosts
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 4);
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const allProjects = await getCollection('projects');
-const featuredProjects = allProjects
-  .filter((p) => p.data.featured)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title="Home">
@@ -34,57 +30,117 @@ const featuredProjects = allProjects
     </div>
   </section>
 
-  <!-- Recent Journal Entries -->
-  <section class="section">
-    <h2 class="section-heading">
-      <span class="section-heading-text">Recent Entries</span>
-      <span class="section-heading-line"></span>
-    </h2>
-
-    <div class="posts-grid">
-      {recentPosts.map((post) => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          date={post.data.date}
-          slug={post.id}
-          tags={post.data.tags}
-          featured={post.data.featured}
-        />
-      ))}
+  <!-- ═══════════ JOURNAL SPREAD ═══════════ -->
+  <section class="spread" id="journal">
+    <div class="spread-header">
+      <WashiTape color="red" rotation={-2} class="spread-tape" />
+      <h2 class="spread-title">Journal</h2>
+      <p class="spread-subtitle handwritten">things I wrote down before I forget</p>
     </div>
 
-    <div class="section-more">
-      <a href="/blog" class="more-link handwritten">flip through all entries &rarr;</a>
+    <ol class="entry-list" role="list">
+      {posts.map((post) => (
+        <li class="entry-item">
+          <a href={`/blog/${post.id}`} class="entry-link">
+            <span class="entry-date">
+              <DateStamp date={post.data.date} />
+            </span>
+            <span class="entry-title">{post.data.title}</span>
+            {post.data.tags?.length > 0 && (
+              <span class="entry-tags">
+                {post.data.tags.slice(0, 2).map((tag: string) => (
+                  <span class="entry-tag">{tag}</span>
+                ))}
+              </span>
+            )}
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    <div class="spread-more">
+      <a href="/blog" class="more-link handwritten">all entries &rarr;</a>
     </div>
   </section>
 
-  <!-- Featured Projects -->
-  {featuredProjects.length > 0 && (
-    <section class="section">
-      <h2 class="section-heading">
-        <span class="section-heading-text">From the Workshop</span>
-        <span class="section-heading-line"></span>
-      </h2>
+  <TornEdge />
 
-      <div class="projects-grid">
-        {featuredProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            tech={project.data.tech}
-            status={project.data.status}
-            github={project.data.github}
-            url={project.data.url}
-          />
-        ))}
+  <!-- ═══════════ WORKSHOP SPREAD ═══════════ -->
+  <section class="spread" id="workshop">
+    <div class="spread-header">
+      <WashiTape color="teal" rotation={1} class="spread-tape" />
+      <h2 class="spread-title">Workshop</h2>
+      <p class="spread-subtitle handwritten">things pinned to the board</p>
+    </div>
+
+    <ol class="entry-list" role="list">
+      {projects.map((project) => (
+        <li class="entry-item">
+          <div class="entry-link entry-link--project">
+            <span class={`entry-status entry-status--${project.data.status}`}>
+              <span class="handwritten">{project.data.status}</span>
+            </span>
+            <span class="entry-title">{project.data.title}</span>
+            <span class="entry-tech">
+              {project.data.tech?.slice(0, 3).map((t: string) => (
+                <span class="entry-tag">{t}</span>
+              ))}
+            </span>
+            <span class="entry-project-links">
+              {project.data.github && (
+                <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="entry-ext-link" onclick="event.stopPropagation()">gh</a>
+              )}
+              {project.data.url && (
+                <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="entry-ext-link" onclick="event.stopPropagation()">↗</a>
+              )}
+            </span>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="spread-more">
+      <a href="/projects" class="more-link handwritten">all projects &rarr;</a>
+    </div>
+  </section>
+
+  <TornEdge />
+
+  <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
+  <section class="spread" id="authors-note">
+    <div class="spread-header">
+      <WashiTape color="yellow" rotation={-1} class="spread-tape" />
+      <h2 class="spread-title">Author's Note</h2>
+      <p class="spread-subtitle handwritten">the person behind the notebook</p>
+    </div>
+
+    <div class="about-content">
+      <div class="about-photo-wrapper">
+        <div class="photo-placeholder">
+          <span class="handwritten">photo goes here</span>
+        </div>
       </div>
 
-      <div class="section-more">
-        <a href="/projects" class="more-link handwritten">see all projects &rarr;</a>
+      <div class="about-text notebook-lines">
+        <h3>Hey, I'm Maro.</h3>
+        <p>
+          I'm a developer who values open source and builds things that matter.
+          This site is my backlog — a public journal of projects, learnings,
+          and ideas that I'll ship&hellip; eventually.
+        </p>
+        <p>
+          I believe in building in the open, sharing what I learn, and creating
+          tools that help people. Most of my work lives on GitHub where anyone
+          can use, fork, or improve it.
+        </p>
+
+        <div class="about-links">
+          <a href="https://github.com/maropark" class="about-link handwritten">GitHub &rarr;</a>
+          <a href="/about" class="about-link handwritten">full note &rarr;</a>
+        </div>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   <Footer slot="footer" />
 </BaseLayout>
@@ -140,70 +196,229 @@ const featuredProjects = allProjects
     max-width: 540px;
   }
 
-  /* Sections */
-  .section {
-    padding: var(--space-2xl) 0;
+  /* Spreads */
+  .spread {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+    scroll-margin-top: 100px;
   }
 
-  .section-heading {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
+  .spread-header {
+    position: relative;
     margin-bottom: var(--space-xl);
+    padding-left: var(--space-sm);
   }
 
-  .section-heading-text {
-    font-size: 1.4rem;
-    white-space: nowrap;
+  .spread-title {
+    font-size: 1.8rem;
+    margin-bottom: var(--space-xs);
   }
 
-  .section-heading-line {
-    flex: 1;
-    height: 1px;
-    background: var(--color-kraft);
+  .spread-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-pencil);
   }
 
-  .section-more {
-    margin-top: var(--space-xl);
-    text-align: center;
+  .spread-header :global(.spread-tape) {
+    position: absolute;
+    top: -8px;
+    left: -12px;
+  }
+
+  .spread-more {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px dashed var(--color-kraft);
+    text-align: right;
   }
 
   .more-link {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-ballpoint-blue);
     text-decoration: none;
-    transition: color var(--transition-fast);
   }
 
   .more-link:hover {
     color: var(--color-stamp-red);
   }
 
-  /* Grids */
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--space-xl);
+  /* Entry list — line item style */
+  .entry-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  .projects-grid {
+  .entry-item {
+    border-bottom: 1px solid var(--color-kraft);
+  }
+
+  .entry-item:first-child {
+    border-top: 1px solid var(--color-kraft);
+  }
+
+  .entry-link {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--space-xl);
+    grid-template-columns: 100px 1fr auto auto;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: background var(--transition-fast);
+  }
+
+  .entry-link:hover {
+    background: var(--color-paper-alt);
+  }
+
+  .entry-link--project {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto;
+    cursor: default;
+  }
+
+  .entry-date {
+    font-size: 0.85rem;
+    color: var(--color-pencil);
+    white-space: nowrap;
+  }
+
+  .entry-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    transition: color var(--transition-fast);
+  }
+
+  .entry-link:hover .entry-title {
+    color: var(--color-stamp-red);
+  }
+
+  .entry-tags,
+  .entry-tech {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+  }
+
+  .entry-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 1px 6px;
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-kraft);
+    border-radius: 2px;
+    color: var(--color-pencil);
+    white-space: nowrap;
+  }
+
+  .entry-status {
+    font-family: 'Caveat', cursive;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .entry-status--active   { color: var(--color-washi-teal); }
+  .entry-status--shipped  { color: var(--color-stamp-red); }
+  .entry-status--idea     { color: var(--color-sticky-yellow); }
+  .entry-status--archived { color: var(--color-pencil); }
+
+  .entry-project-links {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .entry-ext-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--color-ballpoint-blue);
+    text-decoration: none;
+    padding: 2px 6px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+
+  .entry-ext-link:hover {
+    opacity: 1;
+  }
+
+  /* Author's Note */
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .about-photo-wrapper {
+    width: fit-content;
+  }
+
+  .photo-placeholder {
+    width: 200px;
+    height: 200px;
+    background: var(--color-paper-alt);
+    border: 1px solid var(--color-kraft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-pencil);
+    font-size: 1.1rem;
+  }
+
+  .about-text h3 {
+    font-size: 1.4rem;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .about-text h3:first-child {
+    margin-top: 0;
+  }
+
+  .about-links {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px dashed var(--color-kraft);
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .about-link {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ballpoint-blue);
+    text-decoration: none;
+  }
+
+  .about-link:hover {
+    color: var(--color-stamp-red);
   }
 
   @media (max-width: 640px) {
-    .hero-title-main {
-      font-size: 2rem;
+    .hero-title-main { font-size: 2rem; }
+    .hero-title-sub  { font-size: 1.1rem; }
+    .hero-notebook   { padding: var(--space-xl) var(--space-lg); }
+    .spread-title    { font-size: 1.5rem; }
+
+    .entry-link,
+    .entry-link--project {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
     }
 
-    .hero-title-sub {
-      font-size: 1.1rem;
-    }
+    .entry-date   { font-size: 0.8rem; }
+    .entry-tags,
+    .entry-tech   { justify-content: flex-start; }
+    .entry-project-links { justify-content: flex-start; }
 
-    .hero-notebook {
-      padding: var(--space-xl) var(--space-lg);
+    .photo-placeholder {
+      width: 150px;
+      height: 150px;
     }
   }
 </style>

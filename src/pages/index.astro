@@ -38,25 +38,25 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
       <p class="spread-subtitle handwritten">things I wrote down before I forget</p>
     </div>
 
-    <ol class="entry-list" role="list">
+    <div class="entry-stack">
       {posts.map((post) => (
-        <li class="entry-item">
-          <a href={`/blog/${post.id}`} class="entry-link">
-            <span class="entry-date">
-              <DateStamp date={post.data.date} />
-            </span>
-            <span class="entry-title">{post.data.title}</span>
-            {post.data.tags?.length > 0 && (
-              <span class="entry-tags">
-                {post.data.tags.slice(0, 2).map((tag: string) => (
-                  <span class="entry-tag">{tag}</span>
-                ))}
-              </span>
-            )}
-          </a>
-        </li>
+        <a href={`/blog/${post.id}`} class="entry-block paper-card">
+          <div class="entry-block-meta">
+            <DateStamp date={post.data.date} />
+            {post.data.featured && <span class="entry-featured handwritten">featured</span>}
+          </div>
+          <h3 class="entry-block-title">{post.data.title}</h3>
+          <p class="entry-block-excerpt">{post.data.description}</p>
+          {post.data.tags?.length > 0 && (
+            <div class="entry-block-tags">
+              {post.data.tags.slice(0, 3).map((tag: string) => (
+                <span class="entry-tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </a>
       ))}
-    </ol>
+    </div>
 
     <div class="spread-more">
       <a href="/blog" class="more-link handwritten">all entries &rarr;</a>
@@ -73,31 +73,32 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
       <p class="spread-subtitle handwritten">things pinned to the board</p>
     </div>
 
-    <ol class="entry-list" role="list">
+    <div class="entry-stack">
       {projects.map((project) => (
-        <li class="entry-item">
-          <div class="entry-link entry-link--project">
-            <span class={`entry-status entry-status--${project.data.status}`}>
-              <span class="handwritten">{project.data.status}</span>
-            </span>
-            <span class="entry-title">{project.data.title}</span>
-            <span class="entry-tech">
-              {project.data.tech?.slice(0, 3).map((t: string) => (
-                <span class="entry-tag">{t}</span>
-              ))}
-            </span>
-            <span class="entry-project-links">
-              {project.data.github && (
-                <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="entry-ext-link" onclick="event.stopPropagation()">gh</a>
-              )}
-              {project.data.url && (
-                <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="entry-ext-link" onclick="event.stopPropagation()">↗</a>
-              )}
-            </span>
+        <div class="entry-block paper-card paper-stacked">
+          <div class="entry-block-meta">
+            <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
+            {project.data.tech?.length > 0 && (
+              <div class="entry-block-tags">
+                {project.data.tech.slice(0, 4).map((t: string) => (
+                  <span class="entry-tag">{t}</span>
+                ))}
+              </div>
+            )}
           </div>
-        </li>
+          <h3 class="entry-block-title">{project.data.title}</h3>
+          <p class="entry-block-excerpt">{project.data.description}</p>
+          <div class="entry-block-links">
+            {project.data.github && (
+              <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="entry-ext-link">GitHub &rarr;</a>
+            )}
+            {project.data.url && (
+              <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="entry-ext-link">Live &rarr;</a>
+            )}
+          </div>
+        </div>
       ))}
-    </ol>
+    </div>
 
     <div class="spread-more">
       <a href="/projects" class="more-link handwritten">all projects &rarr;</a>
@@ -242,65 +243,53 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     color: var(--color-stamp-red);
   }
 
-  /* Entry list — line item style */
-  .entry-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  /* Entry blocks — paper card stack */
+  .entry-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
   }
 
-  .entry-item {
-    border-bottom: 1px solid var(--color-kraft);
-  }
-
-  .entry-item:first-child {
-    border-top: 1px solid var(--color-kraft);
-  }
-
-  .entry-link {
-    display: grid;
-    grid-template-columns: 100px 1fr auto auto;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md) var(--space-sm);
+  .entry-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
     text-decoration: none;
     color: inherit;
-    transition: background var(--transition-fast);
   }
 
-  .entry-link:hover {
-    background: var(--color-paper-alt);
-  }
-
-  .entry-link--project {
-    display: grid;
-    grid-template-columns: 80px 1fr auto auto;
-    cursor: default;
-  }
-
-  .entry-date {
-    font-size: 0.85rem;
-    color: var(--color-pencil);
-    white-space: nowrap;
-  }
-
-  .entry-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--color-ink);
-    transition: color var(--transition-fast);
-  }
-
-  .entry-link:hover .entry-title {
+  a.entry-block:hover .entry-block-title {
     color: var(--color-stamp-red);
   }
 
-  .entry-tags,
-  .entry-tech {
+  .entry-block-meta {
     display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .entry-block-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    margin: 0;
+    transition: color var(--transition-fast);
+  }
+
+  .entry-block-excerpt {
+    font-size: 0.95rem;
+    color: var(--color-pencil);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .entry-block-tags {
+    display: flex;
+    flex-wrap: wrap;
     gap: 4px;
-    justify-content: flex-end;
+    margin-top: var(--space-xs);
   }
 
   .entry-tag {
@@ -314,9 +303,15 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     white-space: nowrap;
   }
 
+  .entry-featured {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-stamp-red);
+    opacity: 0.8;
+  }
+
   .entry-status {
-    font-family: 'Caveat', cursive;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 700;
   }
 
@@ -325,25 +320,25 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   .entry-status--idea     { color: var(--color-sticky-yellow); }
   .entry-status--archived { color: var(--color-pencil); }
 
-  .entry-project-links {
+  .entry-block-links {
     display: flex;
-    gap: var(--space-sm);
+    gap: var(--space-md);
+    margin-top: var(--space-xs);
+    padding-top: var(--space-sm);
+    border-top: 1px dashed var(--color-kraft);
   }
 
   .entry-ext-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--color-ballpoint-blue);
     text-decoration: none;
-    padding: 2px 6px;
-    border: 1px solid currentColor;
-    border-radius: 2px;
-    opacity: 0.7;
-    transition: opacity var(--transition-fast);
+    transition: color var(--transition-fast);
   }
 
   .entry-ext-link:hover {
-    opacity: 1;
+    color: var(--color-stamp-red);
   }
 
   /* Author's Note */
@@ -405,16 +400,7 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     .hero-notebook   { padding: var(--space-xl) var(--space-lg); }
     .spread-title    { font-size: 1.5rem; }
 
-    .entry-link,
-    .entry-link--project {
-      grid-template-columns: 1fr;
-      gap: var(--space-xs);
-    }
-
-    .entry-date   { font-size: 0.8rem; }
-    .entry-tags,
-    .entry-tech   { justify-content: flex-start; }
-    .entry-project-links { justify-content: flex-start; }
+    .entry-block-title { font-size: 1.1rem; }
 
     .photo-placeholder {
       width: 150px;

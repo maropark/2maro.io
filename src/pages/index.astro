@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 import TornEdge from '../components/TornEdge.astro';
-import WashiTape from '../components/WashiTape.astro';
 import DateStamp from '../components/DateStamp.astro';
 import { getCollection } from 'astro:content';
 
@@ -31,9 +30,8 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   </section>
 
   <!-- ═══════════ JOURNAL SPREAD ═══════════ -->
-  <section class="spread" id="journal">
+  <section class="spread spread--journal" id="journal">
     <div class="spread-header">
-      <WashiTape color="red" rotation={-2} class="spread-tape" />
       <h2 class="spread-title">Journal</h2>
       <p class="spread-subtitle handwritten">things I wrote down before I forget</p>
     </div>
@@ -66,9 +64,8 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   <TornEdge />
 
   <!-- ═══════════ WORKSHOP SPREAD ═══════════ -->
-  <section class="spread" id="workshop">
+  <section class="spread spread--workshop" id="workshop">
     <div class="spread-header">
-      <WashiTape color="teal" rotation={1} class="spread-tape" />
       <h2 class="spread-title">Workshop</h2>
       <p class="spread-subtitle handwritten">things pinned to the board</p>
     </div>
@@ -108,9 +105,8 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   <TornEdge />
 
   <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
-  <section class="spread" id="authors-note">
+  <section class="spread spread--authors" id="authors-note">
     <div class="spread-header">
-      <WashiTape color="yellow" rotation={-1} class="spread-tape" />
       <h2 class="spread-title">Author's Note</h2>
       <p class="spread-subtitle handwritten">the person behind the notebook</p>
     </div>
@@ -212,23 +208,49 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   .spread-title {
     font-size: 1.8rem;
     margin-bottom: var(--space-xs);
+    display: inline-block;
     position: relative;
-    z-index: 1;
+  }
+
+  /* Torn-paper tape highlight — covers only the title letters */
+  .spread-title::before {
+    content: '';
+    position: absolute;
+    inset: 1px -6px;
+    z-index: -1;
+    transform: rotate(-0.8deg);
+    clip-path: polygon(
+      0% 15%,  2% 4%,  5% 18%,  8% 6%,  12% 20%, 16% 4%,
+      20% 17%, 24% 6%,  28% 19%, 32% 3%,  36% 17%, 40% 7%,
+      44% 20%, 48% 5%,  52% 18%, 56% 4%,  60% 17%, 64% 7%,
+      68% 20%, 72% 4%,  76% 18%, 80% 7%,  84% 20%, 88% 4%,
+      92% 17%, 96% 7%,  100% 17%,
+      100% 83%, 98% 96%, 94% 79%, 90% 93%, 86% 79%, 82% 96%,
+      78% 81%, 74% 95%, 70% 79%, 66% 93%, 62% 81%, 58% 96%,
+      54% 79%, 50% 93%, 46% 81%, 42% 96%, 38% 79%, 34% 93%,
+      30% 81%, 26% 95%, 22% 79%, 18% 93%, 14% 81%, 10% 95%,
+      6% 79%,  3% 93%,  0% 83%
+    );
+  }
+
+  .spread--journal .spread-title::before {
+    background: var(--color-stamp-red);
+    opacity: 0.35;
+  }
+
+  .spread--workshop .spread-title::before {
+    background: var(--color-washi-teal);
+    opacity: 0.4;
+  }
+
+  .spread--authors .spread-title::before {
+    background: var(--color-sticky-yellow);
+    opacity: 0.55;
   }
 
   .spread-subtitle {
     font-size: 1.2rem;
     color: var(--color-pencil);
-  }
-
-  .spread-header :global(.spread-tape) {
-    position: absolute;
-    top: 2px;
-    left: -8px;
-    right: -4px;
-    width: auto;
-    height: 2.4rem;
-    z-index: 0;
   }
 
   .spread-more {

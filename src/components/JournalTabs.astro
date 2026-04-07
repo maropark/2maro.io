@@ -1,19 +1,20 @@
 ---
 const tabs = [
-  { label: 'Journal', href: '/blog', color: 'red' },
-  { label: 'Workshop', href: '/projects', color: 'teal' },
-  { label: "Author's Note", href: '/about', color: 'yellow' },
+  { label: 'Journal', href: '/blog', anchor: '#journal', color: 'red' },
+  { label: 'Workshop', href: '/projects', anchor: '#workshop', color: 'teal' },
+  { label: "Author's Note", href: '/about', anchor: '#authors-note', color: 'yellow' },
 ];
 
 const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
 ---
 
 <nav class="journal-tabs" aria-label="Main navigation">
-  {tabs.map(({ label, href, color }) => {
+  {tabs.map(({ label, href, anchor, color }) => {
     const isActive = currentPath === href || currentPath.startsWith(href + '/');
     return (
       <a
-        href={href}
+        href={isHome ? anchor : href}
         class:list={['journal-tab', `journal-tab--${color}`, { active: isActive }]}
         aria-current={isActive ? 'page' : undefined}
       >
@@ -25,9 +26,9 @@ const currentPath = Astro.url.pathname;
 
 <style>
   .journal-tabs {
-    position: absolute;
-    left: -44px;
-    top: 60px;
+    position: relative;
+    right: auto;
+    top: 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -39,12 +40,11 @@ const currentPath = Astro.url.pathname;
     width: 44px;
     padding: 14px 6px;
     text-decoration: none;
-    border-radius: 8px 0 0 8px;
+    border-radius: 0 8px 8px 0;
     border: 1px solid var(--color-kraft);
-    border-right: none;
+    border-left: none;
     writing-mode: vertical-rl;
     text-orientation: mixed;
-    transform: rotate(180deg);
     transition:
       background var(--transition-fast),
       border-color var(--transition-fast),
@@ -63,7 +63,7 @@ const currentPath = Astro.url.pathname;
 
   /* Color variants */
   .journal-tab--red {
-    border-left: 3px solid var(--color-stamp-red);
+    border-right: 3px solid var(--color-stamp-red);
   }
 
   .journal-tab--red .journal-tab-label {
@@ -71,7 +71,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .journal-tab--teal {
-    border-left: 3px solid var(--color-washi-teal);
+    border-right: 3px solid var(--color-washi-teal);
   }
 
   .journal-tab--teal .journal-tab-label {
@@ -79,7 +79,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .journal-tab--yellow {
-    border-left: 3px solid var(--color-sticky-yellow);
+    border-right: 3px solid var(--color-sticky-yellow);
   }
 
   .journal-tab--yellow .journal-tab-label {
@@ -90,7 +90,7 @@ const currentPath = Astro.url.pathname;
   .journal-tab:hover {
     width: 52px;
     background: var(--color-paper);
-    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.06);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.06);
   }
 
   /* Active state — tab connects to the page */
@@ -98,7 +98,7 @@ const currentPath = Astro.url.pathname;
     width: 52px;
     background: var(--color-paper);
     border-color: var(--color-kraft);
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.04);
+    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.04);
   }
 
   /* Night mode glow */
@@ -127,7 +127,7 @@ const currentPath = Astro.url.pathname;
   @media (max-width: 900px) {
     .journal-tabs {
       position: relative;
-      left: auto;
+      right: auto;
       top: auto;
       flex-direction: row;
       gap: 0;
@@ -144,22 +144,22 @@ const currentPath = Astro.url.pathname;
       border-radius: 0;
       border: none;
       border-bottom: 3px solid transparent;
-      border-right: none;
+      border-left: none;
       width: auto;
       padding: var(--space-sm) var(--space-md);
       background: transparent;
     }
 
     .journal-tab--red {
-      border-left: none;
+      border-right: none;
     }
 
     .journal-tab--teal {
-      border-left: none;
+      border-right: none;
     }
 
     .journal-tab--yellow {
-      border-left: none;
+      border-right: none;
     }
 
     .journal-tab.active {

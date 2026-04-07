@@ -68,36 +68,38 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
         <JournalTabs />
       </div>
 
-      <div class="notebook-pages">
-        <!-- Desktop: tabs on the left edge -->
+      <div class="notebook-layout">
+        <div class="notebook-pages">
+          <!-- Left page -->
+          {isIndex ? (
+            <div class="notebook-page notebook-page--left notebook-page--left-index">
+              <LostAndFound />
+            </div>
+          ) : (
+            <div class="notebook-page notebook-page--left" aria-hidden="true">
+              <div class="page-decoration">
+                <div class="page-lines"></div>
+              </div>
+            </div>
+          )}
+
+          <!-- Center binding -->
+          <div class="notebook-binding" aria-hidden="true">
+            <div class="binding-spine"></div>
+            <div class="binding-stitch"></div>
+          </div>
+
+          <!-- Right page (main content) -->
+          <div class="notebook-page notebook-page--right">
+            <main>
+              <slot />
+            </main>
+          </div>
+        </div>
+
+        <!-- Desktop: tabs outside notebook, left edge flush with notebook's right border -->
         <div class="notebook-tabs-desktop">
           <JournalTabs />
-        </div>
-
-        <!-- Left page -->
-        {isIndex ? (
-          <div class="notebook-page notebook-page--left notebook-page--left-index">
-            <LostAndFound />
-          </div>
-        ) : (
-          <div class="notebook-page notebook-page--left" aria-hidden="true">
-            <div class="page-decoration">
-              <div class="page-lines"></div>
-            </div>
-          </div>
-        )}
-
-        <!-- Center binding -->
-        <div class="notebook-binding" aria-hidden="true">
-          <div class="binding-spine"></div>
-          <div class="binding-stitch"></div>
-        </div>
-
-        <!-- Right page (main content) -->
-        <div class="notebook-page notebook-page--right">
-          <main>
-            <slot />
-          </main>
         </div>
       </div>
     </div>
@@ -116,8 +118,16 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
     min-height: 70vh;
   }
 
+  /* Layout wrapper — notebook + tabs side by side */
+  .notebook-layout {
+    display: flex;
+    align-items: flex-start;
+  }
+
   .notebook-pages {
     display: flex;
+    flex: 1;
+    min-width: 0;
     position: relative;
     background: var(--color-paper);
     border: 1px solid var(--color-kraft);
@@ -160,41 +170,6 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
     background-position: 0 12px;
   }
 
-  /* Center binding */
-  .notebook-binding {
-    flex: 0 0 20px;
-    position: relative;
-    background: linear-gradient(
-      to right,
-      var(--color-kraft) 0%,
-      var(--color-kraft-light) 30%,
-      var(--color-paper-alt) 50%,
-      var(--color-kraft-light) 70%,
-      var(--color-kraft) 100%
-    );
-    box-shadow:
-      inset 2px 0 4px rgba(0, 0, 0, 0.08),
-      inset -2px 0 4px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Stitching marks down the binding */
-  .binding-stitch {
-    position: absolute;
-    top: 20px;
-    bottom: 20px;
-    left: 50%;
-    width: 2px;
-    transform: translateX(-50%);
-    background-image: repeating-linear-gradient(
-      to bottom,
-      var(--color-pencil) 0px,
-      var(--color-pencil) 8px,
-      transparent 8px,
-      transparent 16px
-    );
-    opacity: 0.3;
-  }
-
   /* Right page — main content */
   .notebook-page--right {
     flex: 1;
@@ -203,9 +178,15 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
     position: relative;
   }
 
-  /* Desktop tabs container */
+  /* Desktop tabs container — sticky on right edge */
   .notebook-tabs-desktop {
     display: block;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    width: 52px;
+    flex-shrink: 0;
+    padding-top: 14vh;
   }
 
   /* Mobile tabs container */
@@ -224,12 +205,8 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
       border-right: none;
     }
 
-    /* Hide left page and binding on mobile */
+    /* Hide left page on mobile */
     .notebook-page--left {
-      display: none;
-    }
-
-    .notebook-binding {
       display: none;
     }
 
@@ -255,9 +232,4 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
       inset 0 0 30px rgba(0, 0, 0, 0.1);
   }
 
-  :global(.nightfall-night) .notebook-binding {
-    box-shadow:
-      inset 2px 0 4px rgba(0, 0, 0, 0.3),
-      inset -2px 0 4px rgba(0, 0, 0, 0.3);
-  }
 </style>

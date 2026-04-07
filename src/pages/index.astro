@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 import TornEdge from '../components/TornEdge.astro';
-import WashiTape from '../components/WashiTape.astro';
 import DateStamp from '../components/DateStamp.astro';
 import { getCollection } from 'astro:content';
 
@@ -15,25 +14,46 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
 <BaseLayout title="Home">
 
-  <!-- Hero: Notebook Cover -->
-  <section class="hero">
-    <div class="hero-notebook">
-      <div class="hero-tape" aria-hidden="true"></div>
-      <h1 class="hero-title">
-        <span class="hero-title-main">The Backlog</span>
-        <span class="hero-title-sub handwritten">notes from an open-source builder</span>
-      </h1>
-      <p class="hero-intro">
-        A retro dev journal by <strong>Maro Park</strong>. Projects, learnings, and things
-        I'll ship&hellip; 2maro.
-      </p>
+  <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
+  <section class="spread spread--authors" id="authors-note">
+    <div class="spread-header">
+      <h2 class="spread-title">Author's Note</h2>
+      <p class="spread-subtitle handwritten">the person behind the notebook</p>
+    </div>
+
+    <div class="about-content">
+      <div class="about-photo-wrapper">
+        <div class="photo-placeholder">
+          <span class="handwritten">photo goes here</span>
+        </div>
+      </div>
+
+      <div class="about-text notebook-lines">
+        <h3>Hey, I'm Maro.</h3>
+        <p>
+          I'm a developer who values open source and builds things that matter.
+          This site is my backlog — a public journal of projects, learnings,
+          and ideas that I'll ship&hellip; eventually.
+        </p>
+        <p>
+          I believe in building in the open, sharing what I learn, and creating
+          tools that help people. Most of my work lives on GitHub where anyone
+          can use, fork, or improve it.
+        </p>
+
+        <div class="about-links">
+          <a href="https://github.com/maropark" class="about-link handwritten">GitHub &rarr;</a>
+          <a href="/about" class="about-link handwritten">full note &rarr;</a>
+        </div>
+      </div>
     </div>
   </section>
 
+  <TornEdge />
+
   <!-- ═══════════ JOURNAL SPREAD ═══════════ -->
-  <section class="spread" id="journal">
+  <section class="spread spread--journal spread--lined" id="journal">
     <div class="spread-header">
-      <WashiTape color="red" rotation={-2} class="spread-tape" />
       <h2 class="spread-title">Journal</h2>
       <p class="spread-subtitle handwritten">things I wrote down before I forget</p>
     </div>
@@ -66,11 +86,10 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   <TornEdge />
 
   <!-- ═══════════ WORKSHOP SPREAD ═══════════ -->
-  <section class="spread" id="workshop">
+  <section class="spread spread--workshop" id="workshop">
     <div class="spread-header">
-      <WashiTape color="teal" rotation={1} class="spread-tape" />
       <h2 class="spread-title">Workshop</h2>
-      <p class="spread-subtitle handwritten">things pinned to the board</p>
+      <p class="spread-subtitle handwritten">things I'll ship&hellip; 2maro</p>
     </div>
 
     <div class="entry-stack">
@@ -105,102 +124,26 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
   </section>
 
-  <TornEdge />
-
-  <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
-  <section class="spread" id="authors-note">
-    <div class="spread-header">
-      <WashiTape color="yellow" rotation={-1} class="spread-tape" />
-      <h2 class="spread-title">Author's Note</h2>
-      <p class="spread-subtitle handwritten">the person behind the notebook</p>
-    </div>
-
-    <div class="about-content">
-      <div class="about-photo-wrapper">
-        <div class="photo-placeholder">
-          <span class="handwritten">photo goes here</span>
-        </div>
-      </div>
-
-      <div class="about-text notebook-lines">
-        <h3>Hey, I'm Maro.</h3>
-        <p>
-          I'm a developer who values open source and builds things that matter.
-          This site is my backlog — a public journal of projects, learnings,
-          and ideas that I'll ship&hellip; eventually.
-        </p>
-        <p>
-          I believe in building in the open, sharing what I learn, and creating
-          tools that help people. Most of my work lives on GitHub where anyone
-          can use, fork, or improve it.
-        </p>
-
-        <div class="about-links">
-          <a href="https://github.com/maropark" class="about-link handwritten">GitHub &rarr;</a>
-          <a href="/about" class="about-link handwritten">full note &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <Footer slot="footer" />
 </BaseLayout>
 
 <style>
-  /* Hero */
-  .hero {
-    padding: var(--space-xl) 0 var(--space-2xl);
-  }
-
-  .hero-notebook {
-    background: var(--color-paper);
-    border: 1px solid var(--color-kraft);
-    box-shadow: var(--shadow-stacked);
-    padding: var(--space-2xl) var(--space-xl);
-    position: relative;
-  }
-
-  .hero-tape {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 140px;
-    height: 28px;
-    background: var(--color-sticky-yellow);
-    opacity: 0.5;
-  }
-
-  .hero-title {
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero-title-main {
-    display: block;
-    font-size: 2.6rem;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: var(--color-ink);
-  }
-
-  .hero-title-sub {
-    display: block;
-    font-size: 1.4rem;
-    color: var(--color-pencil);
-    margin-top: var(--space-xs);
-  }
-
-  .hero-intro {
-    font-size: 1.05rem;
-    color: var(--color-pencil);
-    line-height: 1.7;
-    max-width: 540px;
-  }
-
   /* Spreads */
   .spread {
     padding: var(--space-2xl) 0 var(--space-3xl);
     scroll-margin-top: 100px;
+  }
+
+  /* Notebook ruled lines — journal section background */
+  .spread--lined {
+    background-image: repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      rgba(0, 0, 0, 0.06) 31px,
+      rgba(0, 0, 0, 0.06) 32px
+    );
+    background-position: 0 8px;
   }
 
   .spread-header {
@@ -212,17 +155,50 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   .spread-title {
     font-size: 1.8rem;
     margin-bottom: var(--space-xs);
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+  }
+
+  /* Torn-paper tape highlight — covers only the title letters */
+  .spread-title::before {
+    content: '';
+    position: absolute;
+    inset: 1px -6px;
+    z-index: -1;
+    transform: rotate(-0.8deg);
+    clip-path: polygon(
+      0% 15%,  2% 4%,  5% 18%,  8% 6%,  12% 20%, 16% 4%,
+      20% 17%, 24% 6%,  28% 19%, 32% 3%,  36% 17%, 40% 7%,
+      44% 20%, 48% 5%,  52% 18%, 56% 4%,  60% 17%, 64% 7%,
+      68% 20%, 72% 4%,  76% 18%, 80% 7%,  84% 20%, 88% 4%,
+      92% 17%, 96% 7%,  100% 17%,
+      100% 83%, 98% 96%, 94% 79%, 90% 93%, 86% 79%, 82% 96%,
+      78% 81%, 74% 95%, 70% 79%, 66% 93%, 62% 81%, 58% 96%,
+      54% 79%, 50% 93%, 46% 81%, 42% 96%, 38% 79%, 34% 93%,
+      30% 81%, 26% 95%, 22% 79%, 18% 93%, 14% 81%, 10% 95%,
+      6% 79%,  3% 93%,  0% 83%
+    );
+  }
+
+  .spread--journal .spread-title::before {
+    background: var(--color-stamp-red);
+    opacity: 0.35;
+  }
+
+  .spread--workshop .spread-title::before {
+    background: var(--color-washi-teal);
+    opacity: 0.4;
+  }
+
+  .spread--authors .spread-title::before {
+    background: var(--color-sticky-yellow);
+    opacity: 0.55;
   }
 
   .spread-subtitle {
     font-size: 1.2rem;
     color: var(--color-pencil);
-  }
-
-  .spread-header :global(.spread-tape) {
-    position: absolute;
-    top: -8px;
-    left: -12px;
   }
 
   .spread-more {
@@ -395,9 +371,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   }
 
   @media (max-width: 640px) {
-    .hero-title-main { font-size: 2rem; }
-    .hero-title-sub  { font-size: 1.1rem; }
-    .hero-notebook   { padding: var(--space-xl) var(--space-lg); }
     .spread-title    { font-size: 1.5rem; }
 
     .entry-block-title { font-size: 1.1rem; }

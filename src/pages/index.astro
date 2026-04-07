@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 import TornEdge from '../components/TornEdge.astro';
 import DateStamp from '../components/DateStamp.astro';
-import WashiTape from '../components/WashiTape.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -16,9 +15,8 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 <BaseLayout title="Home">
 
   <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
-  <section class="spread" id="authors-note">
+  <section class="spread spread--authors" id="authors-note">
     <div class="spread-header">
-      <WashiTape color="yellow" rotation={-1} class="spread-tape" />
       <h2 class="spread-title">Author's Note</h2>
       <p class="spread-subtitle handwritten">the person behind the notebook</p>
     </div>
@@ -159,6 +157,7 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     margin-bottom: var(--space-xs);
     display: inline-block;
     position: relative;
+    z-index: 0;
   }
 
   /* Torn-paper tape highlight — covers only the title letters */

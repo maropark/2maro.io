@@ -69,11 +69,6 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
       </div>
 
       <div class="notebook-pages">
-        <!-- Desktop: tabs on the left edge -->
-        <div class="notebook-tabs-desktop">
-          <JournalTabs />
-        </div>
-
         <!-- Left page -->
         {isIndex ? (
           <div class="notebook-page notebook-page--left notebook-page--left-index">
@@ -98,6 +93,11 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
           <main>
             <slot />
           </main>
+        </div>
+
+        <!-- Desktop: tabs on the right edge (sticky) -->
+        <div class="notebook-tabs-desktop">
+          <JournalTabs />
         </div>
       </div>
     </div>
@@ -203,9 +203,14 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
     position: relative;
   }
 
-  /* Desktop tabs container */
+  /* Desktop tabs container — sticky on right edge */
   .notebook-tabs-desktop {
     display: block;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    width: 52px;
+    flex-shrink: 0;
   }
 
   /* Mobile tabs container */

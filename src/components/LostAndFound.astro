@@ -1,67 +1,186 @@
 ---
 const links = [
-  { label: 'GitHub',   href: 'https://github.com/maropark',                        color: 'blue'   },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/maropark',                   color: 'teal'   },
-  { label: 'Bluesky',  href: 'https://bsky.app/profile/maropark.bsky.social',      color: 'yellow' },
-  { label: 'YouTube',  href: 'https://youtube.com/@maropark',                      color: 'red'    },
+  { label: 'GitHub',   href: 'https://github.com/maropark',                    color: 'blue'   },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/maropark',               color: 'teal'   },
+  { label: 'Bluesky',  href: 'https://bsky.app/profile/maropark.bsky.social', color: 'yellow' },
+  { label: 'YouTube',  href: 'https://youtube.com/@maropark',                  color: 'red'    },
 ];
 ---
 
-<aside class="lost-and-found" aria-label="Social links">
-  <span class="pocket-label handwritten">Lost &amp; Found</span>
-  <div class="tape-links">
-    {links.map(({ label, href, color }) => (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        class={`tape-link tape-link--${color}`}
-      >
-        {label}
-      </a>
-    ))}
+<aside class="lost-and-found" aria-label="Social links" id="lost-and-found">
+  <div class="paper-scene">
+
+    <!-- Detective cat walking around the floating paper -->
+    <div class="detective-cat" aria-hidden="true">
+      <!-- Cat faces right by default; scaleX(-1) when walking left -->
+      <svg viewBox="0 0 50 66" width="50" height="66" xmlns="http://www.w3.org/2000/svg">
+        <!-- Deerstalker hat brim (back) -->
+        <ellipse cx="21" cy="7" rx="11" ry="3.5" fill="#5a4030"/>
+        <!-- Hat crown -->
+        <rect x="9" y="5" width="24" height="11" rx="4" fill="#3d2b1f"/>
+        <!-- Hat brim (front) -->
+        <ellipse cx="21" cy="16" rx="15" ry="4" fill="#3d2b1f"/>
+        <!-- Hat band -->
+        <rect x="9" y="14" width="24" height="3" rx="1" fill="#9B5B1A"/>
+        <!-- Magnifying glass handle -->
+        <line x1="44" y1="36" x2="49" y2="43" stroke="#9B5B1A" stroke-width="3" stroke-linecap="round"/>
+        <!-- Magnifying glass -->
+        <circle cx="38" cy="30" r="7" fill="rgba(200,225,255,0.35)" stroke="#9B5B1A" stroke-width="2.5"/>
+        <!-- Head -->
+        <ellipse cx="21" cy="26" rx="13" ry="12" fill="#F6C97A"/>
+        <!-- Ears -->
+        <polygon points="10,18 5,6 14,16" fill="#F6C97A"/>
+        <polygon points="32,18 37,6 28,16" fill="#F6C97A"/>
+        <polygon points="10,18 7,11 13,16" fill="#FFAAB4"/>
+        <polygon points="32,18 35,11 29,16" fill="#FFAAB4"/>
+        <!-- Eyes -->
+        <ellipse cx="15" cy="25" rx="3.5" ry="4.5" fill="white"/>
+        <ellipse cx="27" cy="25" rx="3.5" ry="4.5" fill="white"/>
+        <ellipse cx="16" cy="26" rx="2.2" ry="3" fill="#2a1a0a"/>
+        <ellipse cx="28" cy="26" rx="2.2" ry="3" fill="#2a1a0a"/>
+        <circle cx="17" cy="25" r="0.9" fill="white"/>
+        <circle cx="29" cy="25" r="0.9" fill="white"/>
+        <!-- Nose -->
+        <ellipse cx="21" cy="32" rx="2.2" ry="1.4" fill="#FF9EAE"/>
+        <!-- Mouth -->
+        <path d="M19 33.5 Q21 35.5 23 33.5" stroke="#555" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+        <!-- Whiskers left -->
+        <line x1="7"  y1="31" x2="18" y2="32.5" stroke="#ccc" stroke-width="0.9"/>
+        <line x1="7"  y1="33.5" x2="18" y2="33.5" stroke="#ccc" stroke-width="0.9"/>
+        <!-- Whiskers right -->
+        <line x1="24" y1="32.5" x2="35" y2="31" stroke="#ccc" stroke-width="0.9"/>
+        <line x1="24" y1="33.5" x2="35" y2="33.5" stroke="#ccc" stroke-width="0.9"/>
+        <!-- Body (trench coat) -->
+        <path d="M9 38 Q21 43 33 38 L31 60 Q21 64 11 60 Z" fill="#3d2b1f"/>
+        <!-- Belt -->
+        <line x1="11" y1="51" x2="31" y2="51" stroke="#9B5B1A" stroke-width="1.5"/>
+        <rect x="19" y="49" width="4" height="4" rx="0.5" fill="#c8a060"/>
+        <!-- Coat lapels -->
+        <path d="M14 38 L21 45 L28 38" stroke="#9B5B1A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Legs -->
+        <ellipse cx="15" cy="62" rx="5" ry="3.5" fill="#F6C97A" class="leg-l"/>
+        <ellipse cx="27" cy="62" rx="5" ry="3.5" fill="#F6C97A" class="leg-r"/>
+        <!-- Feet -->
+        <ellipse cx="14" cy="65" rx="6" ry="2.2" fill="#E0A050"/>
+        <ellipse cx="28" cy="65" rx="6" ry="2.2" fill="#E0A050"/>
+        <!-- Tail -->
+        <path d="M33 54 Q44 46 40 40 Q36 34 42 29" stroke="#F6C97A" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- The floating paper -->
+    <div class="floating-paper">
+      <span class="pocket-label handwritten">Lost &amp; Found</span>
+      <div class="tape-links">
+        {links.map(({ label, href, color }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`tape-link tape-link--${color}`}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+
   </div>
 </aside>
 
 <style>
+  /* ── Floating container (fixed so it moves with scroll via JS) ─────── */
   .lost-and-found {
+    position: fixed;
+    /* Position to the left of the centered notebook */
+    left: max(6px, calc(50vw - 580px));
+    top: 25vh;
+    z-index: 10;
+    pointer-events: none; /* clicks pass through to paper via .floating-paper */
+  }
+
+  /* Scene that the cat and paper live in */
+  .paper-scene {
+    position: relative;
+    width: 160px;
+    height: 400px;
+  }
+
+  /* ── The paper ─────────────────────────────────────────────────────── */
+  .floating-paper {
+    position: absolute;
+    left: 25px;
+    top: 35px;
+    width: 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-lg) var(--space-sm);
+    gap: var(--space-md, 12px);
+    padding: 14px 10px 18px;
+    background: var(--color-paper, #F5F0E8);
+    border: 1px solid var(--color-kraft, #C4A882);
+    box-shadow:
+      3px 5px 14px rgba(0, 0, 0, 0.18),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    transform: rotate(-1.5deg);
+    pointer-events: all;
+    animation: paper-bob 3.8s ease-in-out infinite;
   }
 
+  /* Torn bottom edge */
+  .floating-paper::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: var(--color-paper, #F5F0E8);
+    clip-path: polygon(
+      0% 0%, 4% 100%, 9% 20%, 14% 85%, 19% 5%,
+      24% 90%, 30% 15%, 36% 80%, 42% 0%, 47% 90%,
+      53% 10%, 58% 80%, 64% 0%, 69% 85%, 75% 20%,
+      80% 90%, 86% 5%, 91% 80%, 96% 10%, 100% 0%
+    );
+  }
+
+  @keyframes paper-bob {
+    0%, 100% { transform: rotate(-1.5deg) translateY(0px);   }
+    50%       { transform: rotate(-0.6deg) translateY(-8px);  }
+  }
+
+  /* ── Label: Caveat 1.8rem (kept from this worktree) ───────────────── */
   .pocket-label {
-    font-size: 0.75rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-pencil);
-    opacity: 0.7;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    transform: rotate(180deg);
+    color: var(--color-pencil, #5C5248);
+    opacity: 0.92;
+    text-align: center;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
   }
 
+  /* ── Links (from main) ─────────────────────────────────────────────── */
   .tape-links {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-sm, 8px);
     align-items: center;
+    width: 100%;
   }
 
   .tape-link {
     display: block;
     font-family: 'Caveat', cursive;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     text-decoration: none;
-    color: var(--color-ink);
+    color: var(--color-ink, #2C2520);
     padding: 3px 10px;
     opacity: 0.75;
     transform: rotate(-1.5deg);
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    transition: opacity 0.15s, transform 0.15s;
     white-space: nowrap;
   }
 
@@ -71,11 +190,88 @@ const links = [
 
   .tape-link:hover {
     opacity: 1;
-    transform: rotate(0deg) scale(1.05);
+    transform: rotate(0deg) scale(1.06);
   }
 
-  .tape-link--blue   { background: var(--color-ballpoint-blue); color: white; }
-  .tape-link--teal   { background: var(--color-washi-teal);      color: white; }
-  .tape-link--yellow { background: var(--color-sticky-yellow);   color: var(--color-ink); }
-  .tape-link--red    { background: var(--color-stamp-red);        color: white; }
+  .tape-link--blue   { background: var(--color-ballpoint-blue, #2D5FAA); color: white; }
+  .tape-link--teal   { background: var(--color-washi-teal, #4A9B8E);     color: white; }
+  .tape-link--yellow { background: var(--color-sticky-yellow, #F2C94C);  color: var(--color-ink, #2C2520); }
+  .tape-link--red    { background: var(--color-stamp-red, #C1440E);      color: white; }
+
+  /* ── Detective cat ─────────────────────────────────────────────────── */
+  .detective-cat {
+    position: absolute;
+    width: 50px;
+    height: 66px;
+    animation: cat-patrol 18s linear infinite;
+    will-change: left, top, transform;
+  }
+
+  /* Leg walking animation */
+  .detective-cat .leg-l {
+    animation: leg-walk 0.35s ease-in-out infinite alternate;
+    transform-origin: 15px 59px;
+  }
+
+  .detective-cat .leg-r {
+    animation: leg-walk 0.35s ease-in-out infinite alternate-reverse;
+    transform-origin: 27px 59px;
+  }
+
+  @keyframes leg-walk {
+    from { transform: translateY(-2.5px); }
+    to   { transform: translateY(2.5px);  }
+  }
+
+  /*
+   * Cat walks around the paper scene perimeter:
+   * Scene: 160×400. Paper: left=25, top=35, width=110, height~276 (bottom ~318px).
+   * Cat orbit is ~8px outside paper edges.
+   * Segments:
+   *   0–25%   bottom edge → walk right  (scaleX 1)
+   *   25–50%  right edge  → slide up    (scaleX 1)
+   *   50–75%  top edge    → walk left   (scaleX -1)
+   *   75–100% left edge   → slide down  (scaleX -1)
+   */
+  @keyframes cat-patrol {
+    /* Bottom-left, start walking right */
+    0%   { left: -8px;  top: 322px; transform: scaleX(1);  }
+    /* Bottom-right */
+    24%  { left: 126px; top: 322px; transform: scaleX(1);  }
+    25%  { left: 126px; top: 322px; transform: scaleX(1);  }
+    /* Slide up right side */
+    49%  { left: 126px; top: -8px;  transform: scaleX(1);  }
+    /* Top-right, flip to walk left */
+    50%  { left: 126px; top: -8px;  transform: scaleX(-1); }
+    /* Walk left along top */
+    74%  { left: -8px;  top: -8px;  transform: scaleX(-1); }
+    75%  { left: -8px;  top: -8px;  transform: scaleX(-1); }
+    /* Slide down left side */
+    99%  { left: -8px;  top: 322px; transform: scaleX(-1); }
+    /* Flip to face right for next loop */
+    100% { left: -8px;  top: 322px; transform: scaleX(1);  }
+  }
+
+  /* Hide on viewports too narrow to show left margin */
+  @media (max-width: 1050px) {
+    .lost-and-found {
+      display: none;
+    }
+  }
 </style>
+
+<script>
+  // Parallax: paper floats up slightly as user scrolls down
+  const el = document.getElementById('lost-and-found') as HTMLElement | null;
+  if (el) {
+    const baseTop = window.innerHeight * 0.25;
+
+    function tick() {
+      const offset = window.scrollY * 0.15;
+      el!.style.top = `${Math.max(10, baseTop - offset)}px`;
+    }
+
+    window.addEventListener('scroll', tick, { passive: true });
+    tick();
+  }
+</script>

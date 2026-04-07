@@ -212,6 +212,8 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   .spread-title {
     font-size: 1.8rem;
     margin-bottom: var(--space-xs);
+    position: relative;
+    z-index: 1;
   }
 
   .spread-subtitle {
@@ -221,8 +223,12 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
   .spread-header :global(.spread-tape) {
     position: absolute;
-    top: -8px;
-    left: -12px;
+    top: 2px;
+    left: -8px;
+    right: -4px;
+    width: auto;
+    height: 2.4rem;
+    z-index: 0;
   }
 
   .spread-more {

@@ -81,28 +81,17 @@
   display: inline-block;
 }
 
-/* Washi tape — decorative strip, torn-paper aesthetic */
+/* Washi tape — solid title highlighter */
 .washi-tape {
   display: block;
-  width: 140px;
-  height: 32px;
+  width: 100%;
+  height: 2.4rem;
   background: var(--color-sticky-yellow);
-  opacity: 0.55;
-  transform: rotate(-3deg);
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, transparent 60%);
+  opacity: 0.65;
+  transform: rotate(-0.5deg);
   position: absolute;
-  z-index: 2;
-  clip-path: polygon(
-    0% 15%,   2% 5%,   5% 20%,  8% 8%,   12% 22%, 16% 5%,
-    20% 18%,  24% 7%,  28% 20%, 32% 4%,  36% 18%, 40% 8%,
-    44% 22%,  48% 6%,  52% 20%, 56% 5%,  60% 18%, 64% 8%,
-    68% 22%,  72% 5%,  76% 20%, 80% 8%,  84% 22%, 88% 5%,
-    92% 18%,  96% 8%,  100% 18%,
-    100% 82%, 98% 95%, 94% 78%, 90% 92%, 86% 78%, 82% 95%,
-    78% 80%,  74% 94%, 70% 78%, 66% 92%, 62% 80%, 58% 95%,
-    54% 78%,  50% 92%, 46% 80%, 42% 95%, 38% 78%, 34% 92%,
-    30% 80%,  26% 94%, 22% 78%, 18% 92%, 14% 80%, 10% 94%,
-    6% 78%,   3% 92%,  0% 82%
-  );
+  z-index: 0;
 }
 
 .washi-tape--teal {

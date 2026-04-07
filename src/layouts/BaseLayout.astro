@@ -68,34 +68,36 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
         <JournalTabs />
       </div>
 
-      <div class="notebook-pages">
-        <!-- Left page -->
-        {isIndex ? (
-          <div class="notebook-page notebook-page--left notebook-page--left-index">
-            <LostAndFound />
-          </div>
-        ) : (
-          <div class="notebook-page notebook-page--left" aria-hidden="true">
-            <div class="page-decoration">
-              <div class="page-lines"></div>
+      <div class="notebook-layout">
+        <div class="notebook-pages">
+          <!-- Left page -->
+          {isIndex ? (
+            <div class="notebook-page notebook-page--left notebook-page--left-index">
+              <LostAndFound />
             </div>
+          ) : (
+            <div class="notebook-page notebook-page--left" aria-hidden="true">
+              <div class="page-decoration">
+                <div class="page-lines"></div>
+              </div>
+            </div>
+          )}
+
+          <!-- Center binding -->
+          <div class="notebook-binding" aria-hidden="true">
+            <div class="binding-spine"></div>
+            <div class="binding-stitch"></div>
           </div>
-        )}
 
-        <!-- Center binding -->
-        <div class="notebook-binding" aria-hidden="true">
-          <div class="binding-spine"></div>
-          <div class="binding-stitch"></div>
+          <!-- Right page (main content) -->
+          <div class="notebook-page notebook-page--right">
+            <main>
+              <slot />
+            </main>
+          </div>
         </div>
 
-        <!-- Right page (main content) -->
-        <div class="notebook-page notebook-page--right">
-          <main>
-            <slot />
-          </main>
-        </div>
-
-        <!-- Desktop: tabs on the right edge (sticky) -->
+        <!-- Desktop: tabs outside notebook, left edge flush with notebook's right border -->
         <div class="notebook-tabs-desktop">
           <JournalTabs />
         </div>
@@ -116,8 +118,16 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
     min-height: 70vh;
   }
 
+  /* Layout wrapper — notebook + tabs side by side */
+  .notebook-layout {
+    display: flex;
+    align-items: flex-start;
+  }
+
   .notebook-pages {
     display: flex;
+    flex: 1;
+    min-width: 0;
     position: relative;
     background: var(--color-paper);
     border: 1px solid var(--color-kraft);

@@ -30,7 +30,7 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   </section>
 
   <!-- ═══════════ JOURNAL SPREAD ═══════════ -->
-  <section class="spread spread--journal" id="journal">
+  <section class="spread spread--journal spread--lined" id="journal">
     <div class="spread-header">
       <h2 class="spread-title">Journal</h2>
       <p class="spread-subtitle handwritten">things I wrote down before I forget</p>
@@ -197,6 +197,17 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   .spread {
     padding: var(--space-2xl) 0 var(--space-3xl);
     scroll-margin-top: 100px;
+  }
+
+  /* Notebook ruled lines — journal section background */
+  .spread--lined {
+    background-image: repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      rgba(0, 0, 0, 0.06) 31px,
+      rgba(0, 0, 0, 0.06) 32px
+    );
+    background-position: 0 8px;
   }
 
   .spread-header {

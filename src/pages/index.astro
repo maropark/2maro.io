@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 import TornEdge from '../components/TornEdge.astro';
 import DateStamp from '../components/DateStamp.astro';
+import WashiTape from '../components/WashiTape.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -14,20 +15,43 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
 <BaseLayout title="Home">
 
-  <!-- Hero: Notebook Cover -->
-  <section class="hero">
-    <div class="hero-notebook">
-      <div class="hero-tape" aria-hidden="true"></div>
-      <h1 class="hero-title">
-        <span class="hero-title-main">The Backlog</span>
-        <span class="hero-title-sub handwritten">notes from an open-source builder</span>
-      </h1>
-      <p class="hero-intro">
-        A retro dev journal by <strong>Maro Park</strong>. Projects, learnings, and things
-        I'll ship&hellip; 2maro.
-      </p>
+  <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
+  <section class="spread" id="authors-note">
+    <div class="spread-header">
+      <WashiTape color="yellow" rotation={-1} class="spread-tape" />
+      <h2 class="spread-title">Author's Note</h2>
+      <p class="spread-subtitle handwritten">the person behind the notebook</p>
+    </div>
+
+    <div class="about-content">
+      <div class="about-photo-wrapper">
+        <div class="photo-placeholder">
+          <span class="handwritten">photo goes here</span>
+        </div>
+      </div>
+
+      <div class="about-text notebook-lines">
+        <h3>Hey, I'm Maro.</h3>
+        <p>
+          I'm a developer who values open source and builds things that matter.
+          This site is my backlog — a public journal of projects, learnings,
+          and ideas that I'll ship&hellip; eventually.
+        </p>
+        <p>
+          I believe in building in the open, sharing what I learn, and creating
+          tools that help people. Most of my work lives on GitHub where anyone
+          can use, fork, or improve it.
+        </p>
+
+        <div class="about-links">
+          <a href="https://github.com/maropark" class="about-link handwritten">GitHub &rarr;</a>
+          <a href="/about" class="about-link handwritten">full note &rarr;</a>
+        </div>
+      </div>
     </div>
   </section>
+
+  <TornEdge />
 
   <!-- ═══════════ JOURNAL SPREAD ═══════════ -->
   <section class="spread spread--journal spread--lined" id="journal">
@@ -67,7 +91,7 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   <section class="spread spread--workshop" id="workshop">
     <div class="spread-header">
       <h2 class="spread-title">Workshop</h2>
-      <p class="spread-subtitle handwritten">things pinned to the board</p>
+      <p class="spread-subtitle handwritten">things I'll ship&hellip; 2maro</p>
     </div>
 
     <div class="entry-stack">
@@ -102,97 +126,11 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
   </section>
 
-  <TornEdge />
-
-  <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
-  <section class="spread spread--authors" id="authors-note">
-    <div class="spread-header">
-      <h2 class="spread-title">Author's Note</h2>
-      <p class="spread-subtitle handwritten">the person behind the notebook</p>
-    </div>
-
-    <div class="about-content">
-      <div class="about-photo-wrapper">
-        <div class="photo-placeholder">
-          <span class="handwritten">photo goes here</span>
-        </div>
-      </div>
-
-      <div class="about-text notebook-lines">
-        <h3>Hey, I'm Maro.</h3>
-        <p>
-          I'm a developer who values open source and builds things that matter.
-          This site is my backlog — a public journal of projects, learnings,
-          and ideas that I'll ship&hellip; eventually.
-        </p>
-        <p>
-          I believe in building in the open, sharing what I learn, and creating
-          tools that help people. Most of my work lives on GitHub where anyone
-          can use, fork, or improve it.
-        </p>
-
-        <div class="about-links">
-          <a href="https://github.com/maropark" class="about-link handwritten">GitHub &rarr;</a>
-          <a href="/about" class="about-link handwritten">full note &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <Footer slot="footer" />
 </BaseLayout>
 
 <style>
-  /* Hero */
-  .hero {
-    padding: var(--space-xl) 0 var(--space-2xl);
-  }
-
-  .hero-notebook {
-    background: var(--color-paper);
-    border: 1px solid var(--color-kraft);
-    box-shadow: var(--shadow-stacked);
-    padding: var(--space-2xl) var(--space-xl);
-    position: relative;
-  }
-
-  .hero-tape {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 140px;
-    height: 28px;
-    background: var(--color-sticky-yellow);
-    opacity: 0.5;
-  }
-
-  .hero-title {
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero-title-main {
-    display: block;
-    font-size: 2.6rem;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    color: var(--color-ink);
-  }
-
-  .hero-title-sub {
-    display: block;
-    font-size: 1.4rem;
-    color: var(--color-pencil);
-    margin-top: var(--space-xs);
-  }
-
-  .hero-intro {
-    font-size: 1.05rem;
-    color: var(--color-pencil);
-    line-height: 1.7;
-    max-width: 540px;
-  }
-
   /* Spreads */
   .spread {
     padding: var(--space-2xl) 0 var(--space-3xl);
@@ -434,9 +372,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   }
 
   @media (max-width: 640px) {
-    .hero-title-main { font-size: 2rem; }
-    .hero-title-sub  { font-size: 1.1rem; }
-    .hero-notebook   { padding: var(--space-xl) var(--space-lg); }
     .spread-title    { font-size: 1.5rem; }
 
     .entry-block-title { font-size: 1.1rem; }

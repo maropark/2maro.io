@@ -6,9 +6,10 @@ interface Props {
   status: string;
   github?: string;
   url?: string;
+  icon?: string;
 }
 
-const { title, description, tech, status, github, url } = Astro.props;
+const { title, description, tech, status, github, url, icon } = Astro.props;
 
 const statusColors: Record<string, string> = {
   active: 'var(--color-washi-teal)',
@@ -19,6 +20,11 @@ const statusColors: Record<string, string> = {
 ---
 
 <article class="project-card paper-card paper-stacked">
+  {icon && (
+    <div class="project-icon-tape" aria-hidden="true">
+      <img src={icon} alt="" width="40" height="40" />
+    </div>
+  )}
   <div class="project-status" style={`color: ${statusColors[status] || statusColors.idea}`}>
     <span class="handwritten">{status}</span>
   </div>
@@ -34,13 +40,14 @@ const statusColors: Record<string, string> = {
 
   <div class="project-links">
     {github && (
-      <a href={github} target="_blank" rel="noopener noreferrer" class="project-link">
-        GitHub &rarr;
+      <a href={github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
+        <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
+        <span>GitHub</span>
       </a>
     )}
     {url && (
-      <a href={url} target="_blank" rel="noopener noreferrer" class="project-link">
-        Live &rarr;
+      <a href={url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--teal">
+        Live
       </a>
     )}
   </div>
@@ -52,6 +59,26 @@ const statusColors: Record<string, string> = {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+    position: relative;
+  }
+
+  .project-icon-tape {
+    position: absolute;
+    top: -14px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    transform: rotate(6deg);
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.18));
+    pointer-events: none;
+  }
+
+  .project-icon-tape img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--color-kraft, #C4A882);
+    background: white;
   }
 
   .project-status {
@@ -93,20 +120,71 @@ const statusColors: Record<string, string> = {
 
   .project-links {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     margin-top: auto;
     padding-top: var(--space-sm);
+    flex-wrap: wrap;
   }
 
-  .project-link {
+  .tape-link {
+    display: inline-block;
     font-family: 'Caveat', cursive;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-ballpoint-blue);
+    font-size: 0.85rem;
+    font-weight: 700;
     text-decoration: none;
+    color: var(--color-ink, #2C2520);
+    padding: 3px 10px;
+    opacity: 0.8;
+    transform: rotate(-1deg);
+    transition: opacity 0.15s, transform 0.15s;
+    white-space: nowrap;
   }
 
-  .project-link:hover {
-    color: var(--color-stamp-red);
+  .tape-link:nth-child(even) {
+    transform: rotate(1deg);
+  }
+
+  .tape-link:hover {
+    opacity: 1;
+    transform: rotate(0deg) scale(1.06);
+  }
+
+  .tape-link--teal   { background: var(--color-washi-teal, #4A9B8E);     color: white; }
+  .tape-link--yellow { background: var(--color-sticky-yellow, #F2C94C);  color: var(--color-ink, #2C2520); }
+  .tape-link--red    { background: var(--color-stamp-red, #C1440E);      color: white; }
+
+  /* GitHub washi tape — rectangular strip, blue, stuck to card */
+  .github-tape {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Caveat', cursive;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+    padding: 3px 10px;
+    background: var(--color-ballpoint-blue, #2D5FAA);
+    opacity: 0.85;
+    transform: rotate(-2deg);
+    transform-origin: left center;
+    transition: opacity 0.15s, transform 0.15s;
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.18));
+    white-space: nowrap;
+  }
+
+  .github-tape:nth-child(even) {
+    transform: rotate(1.5deg);
+    transform-origin: right center;
+  }
+
+  .github-tape:hover {
+    opacity: 1;
+    transform: rotate(0deg) scale(1.04);
+  }
+
+  .github-tape-icon {
+    filter: invert(1);
+    opacity: 0.9;
   }
 </style>

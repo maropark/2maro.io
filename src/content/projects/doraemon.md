@@ -4,6 +4,7 @@ description: "Firefox browser control from any CLI via a local JSON-RPC relay â€
 status: "active"
 tech: ["node", "javascript", "firefox-extension", "json-rpc"]
 github: "https://github.com/maropark/doraemon"
+icon: "/icons/doraemon.svg"
 featured: true
 date: 2026-03-15
 ---

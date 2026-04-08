@@ -10,6 +10,11 @@ const isHome = currentPath === '/';
 ---
 
 <nav class="journal-tabs" aria-label="Main navigation">
+  {!isHome && (
+    <a href="/" class="journal-tab journal-tab--back" aria-label="Back to main page">
+      <span class="journal-tab-label handwritten">← back</span>
+    </a>
+  )}
   {tabs.map(({ label, href, anchor, color }) => {
     const isActive = currentPath === href || currentPath.startsWith(href + '/');
     return (
@@ -59,6 +64,20 @@ const isHome = currentPath === '/';
     font-weight: 700;
     white-space: nowrap;
     letter-spacing: 0.02em;
+  }
+
+  /* Back tab — only visible on subpages */
+  .journal-tab--back {
+    border-right: 3px solid var(--color-pencil);
+    opacity: 0.6;
+  }
+
+  .journal-tab--back .journal-tab-label {
+    color: var(--color-pencil);
+  }
+
+  .journal-tab--back:hover {
+    opacity: 1;
   }
 
   /* Color variants */
@@ -148,6 +167,12 @@ const isHome = currentPath === '/';
       width: auto;
       padding: var(--space-sm) var(--space-md);
       background: transparent;
+    }
+
+    .journal-tab--back {
+      border-right: none;
+      border-bottom-color: var(--color-pencil);
+      opacity: 0.6;
     }
 
     .journal-tab--red {

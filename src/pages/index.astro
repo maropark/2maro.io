@@ -22,12 +22,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <div class="about-content">
-      <div class="about-photo-wrapper">
-        <div class="photo-placeholder">
-          <span class="handwritten">photo goes here</span>
-        </div>
-      </div>
-
       <div class="about-text notebook-lines">
         <h3>Hey, I'm Maro.</h3>
         <p>
@@ -316,28 +310,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   }
 
   /* Author's Note */
-  .about-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xl);
-  }
-
-  .about-photo-wrapper {
-    width: fit-content;
-  }
-
-  .photo-placeholder {
-    width: 200px;
-    height: 200px;
-    background: var(--color-paper-alt);
-    border: 1px solid var(--color-kraft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-pencil);
-    font-size: 1.1rem;
-  }
-
   .about-text h3 {
     font-size: 1.4rem;
     margin-top: var(--space-xl);

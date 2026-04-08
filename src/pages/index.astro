@@ -22,6 +22,10 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <div class="about-content">
+      <div class="about-portrait taped-image">
+        <img src="/blog-profile.jpeg" alt="Maro" class="about-photo" />
+      </div>
+
       <div class="about-text notebook-lines">
         <h3>Hey, I'm Maro.</h3>
         <p>
@@ -81,7 +85,12 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
     <div class="entry-stack">
       {projects.map((project) => (
-        <div class="entry-block paper-card paper-stacked">
+        <div class="entry-block paper-card paper-stacked" style="position: relative;">
+          {project.data.icon && (
+            <div class="entry-icon-tape" aria-hidden="true">
+              <img src={project.data.icon} alt="" width="36" height="36" />
+            </div>
+          )}
           <div class="entry-block-meta">
             <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
             {project.data.tech?.length > 0 && (
@@ -96,10 +105,13 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
           <p class="entry-block-excerpt">{project.data.description}</p>
           <div class="entry-block-links">
             {project.data.github && (
-              <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="entry-ext-link">GitHub &rarr;</a>
+              <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
+                <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
+                <span>GitHub</span>
+              </a>
             )}
             {project.data.url && (
-              <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="entry-ext-link">Live &rarr;</a>
+              <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--teal">Live</a>
             )}
           </div>
         </div>
@@ -285,26 +297,104 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
   .entry-block-links {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     margin-top: var(--space-xs);
     padding-top: var(--space-sm);
     border-top: 1px dashed var(--color-kraft);
+    flex-wrap: wrap;
   }
 
-  .entry-ext-link {
+  .entry-icon-tape {
+    position: absolute;
+    top: -13px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    transform: rotate(6deg);
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.18));
+    pointer-events: none;
+  }
+
+  .entry-icon-tape img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--color-kraft, #C4A882);
+    background: white;
+  }
+
+  .tape-link {
+    display: inline-block;
     font-family: 'Caveat', cursive;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-ballpoint-blue);
+    font-size: 0.85rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: color var(--transition-fast);
+    padding: 3px 10px;
+    opacity: 0.8;
+    transform: rotate(-1deg);
+    transition: opacity 0.15s, transform 0.15s;
+    white-space: nowrap;
   }
 
-  .entry-ext-link:hover {
-    color: var(--color-stamp-red);
+  .tape-link:nth-child(even) {
+    transform: rotate(1deg);
+  }
+
+  .tape-link:hover {
+    opacity: 1;
+    transform: rotate(0deg) scale(1.06);
+  }
+
+  .tape-link--teal   { background: var(--color-washi-teal, #4A9B8E);     color: white; }
+  .tape-link--yellow { background: var(--color-sticky-yellow, #F2C94C);  color: var(--color-ink, #2C2520); }
+  .tape-link--red    { background: var(--color-stamp-red, #C1440E);      color: white; }
+
+  /* GitHub washi tape — rectangular strip, blue, stuck to card */
+  .github-tape {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Caveat', cursive;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: white;
+    padding: 3px 10px;
+    background: var(--color-ballpoint-blue, #2D5FAA);
+    opacity: 0.85;
+    transform: rotate(-2deg);
+    transform-origin: left center;
+    transition: opacity 0.15s, transform 0.15s;
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.18));
+    white-space: nowrap;
+  }
+
+  .github-tape:nth-child(even) {
+    transform: rotate(1.5deg);
+    transform-origin: right center;
+  }
+
+  .github-tape:hover {
+    opacity: 1;
+    transform: rotate(0deg) scale(1.04);
+  }
+
+  .github-tape-icon {
+    filter: invert(1);
+    opacity: 0.9;
   }
 
   /* Author's Note */
+  .about-portrait {
+    margin-bottom: var(--space-lg);
+  }
+
+  .about-photo {
+    width: 180px;
+    height: auto;
+    display: block;
+  }
+
   .about-text h3 {
     font-size: 1.4rem;
     margin-top: var(--space-xl);

@@ -130,18 +130,54 @@ const TOKEN_MAP: Record<string, keyof typeof DAY> = {
   '--color-paper-alt':     'paperAlt',
   '--color-kraft':         'kraft',
   '--color-kraft-light':   'kraftLight',
-  '--color-ink':           'ink',
-  '--color-pencil':        'pencil',
-  '--color-ink-faded':     'inkFaded',
   '--color-stamp-red':     'stampRed',
   '--color-sticky-yellow': 'stickyYellow',
   '--color-washi-teal':    'washiTeal',
   '--color-ballpoint-blue':'ballpointBlue',
-  '--color-typewriter':    'typewriter',
   '--color-typewriter-bg': 'typewriterBg',
   '--line-color':          'lineColor',
   '--color-margin-line':   'marginLine',
 };
+
+const INK_TOKEN_MAP: Record<string, keyof typeof DAY> = {
+  '--color-ink':        'ink',
+  '--color-pencil':     'pencil',
+  '--color-ink-faded':  'inkFaded',
+  '--color-typewriter': 'typewriter',
+};
+
+/**
+ * Fast-completing surface transition.
+ * Stays golden until t=0.70, then rushes to night by t=0.80 (10% window).
+ * Paper gets dark quickly so ink has a dark background before it flips.
+ */
+function threeStopFast(day: string, golden: string, night: string, t: number): string {
+  if (t <= 0.30) return day;
+  if (t >= 0.70) {
+    const nt = Math.min((t - 0.70) / 0.10, 1);
+    return lerpHex(golden, night, nt);
+  }
+  const gt = (t - 0.30) / 0.40;
+  return lerpHex(day, golden, gt);
+}
+
+/**
+ * Ink snap: stays GOLDEN-dark until t=0.75 (when paper is already
+ * medium-dark via threeStopFast), then rapidly flips to night-light by t=0.80.
+ * Keeps dark-on-light contrast during 0–0.75, then light-on-dark from 0.80+.
+ * The crossover zone is compressed to ~5% of scroll instead of ~25%.
+ */
+function inkSnap(day: string, golden: string, night: string, t: number): string {
+  if (t <= 0.30) return day;
+  if (t < 0.75) {
+    // Smoothly reach golden by t=0.70, hold there
+    const gt = Math.min((t - 0.30) / 0.40, 1);
+    return lerpHex(day, golden, gt);
+  }
+  // Snap to night over a 0.05 window (t=0.75→0.80)
+  const nt = Math.min((t - 0.75) / 0.05, 1);
+  return lerpHex(golden, night, nt);
+}
 
 // --- Shadow interpolation ---
 
@@ -217,9 +253,16 @@ function applyNightfall() {
 
   const root = document.documentElement;
 
-  // Interpolate all color tokens
+  // Surface tokens: stay golden until t=0.70, then rush to night by t=0.80
+  // so the background goes dark before ink flips — preserving dark-on-light readability longer.
   for (const [cssVar, key] of Object.entries(TOKEN_MAP)) {
-    root.style.setProperty(cssVar, threeStop(DAY[key], GOLDEN[key], NIGHT[key], t));
+    root.style.setProperty(cssVar, threeStopFast(DAY[key], GOLDEN[key], NIGHT[key], t));
+  }
+
+  // Ink/text tokens: hold dark until t=0.75 (paper already medium-dark), then snap to
+  // light by t=0.80 — compresses the unreadable crossover zone to ~5% of scroll.
+  for (const [cssVar, key] of Object.entries(INK_TOKEN_MAP)) {
+    root.style.setProperty(cssVar, inkSnap(DAY[key], GOLDEN[key], NIGHT[key], t));
   }
 
   // Shadows

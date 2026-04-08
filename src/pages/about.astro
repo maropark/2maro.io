@@ -13,41 +13,19 @@ import Footer from '../components/Footer.astro';
 
     <div class="about-content">
       <div class="about-photo-wrapper taped-image">
-        <div class="photo-placeholder">
-          <span class="handwritten">photo goes here</span>
-        </div>
+        <img src="/blog-profile.jpeg" alt="Maro" class="about-photo" />
       </div>
 
       <div class="about-text notebook-lines">
         <h2>Hey, I'm Maro.</h2>
         <p>
-          I'm a developer who values open source and builds things that matter.
-          This site is my backlog — a public journal of projects, learnings,
-          and ideas that I'll ship&hellip; eventually.
+          Ex-immigrant rights organizer, coder, and creator.
         </p>
         <p>
-          I believe in building in the open, sharing what I learn, and creating
-          tools that help people. Most of my work lives on GitHub where anyone
-          can use, fork, or improve it.
+          I build for community, resistance, and expression.
+          Being an undocumented immigrant in the United States has been pivotal
+          in shaping who I am — and everything I make.
         </p>
-
-        <h2>What I'm Working On Now</h2>
-        <ul>
-          <li>Building tools with AI that are actually useful</li>
-          <li>Contributing to open source projects</li>
-          <li>Writing about what I learn along the way</li>
-        </ul>
-
-        <h2>Open Source Philosophy</h2>
-        <p>
-          I center open source in everything I build. Not because it's trendy,
-          but because the best software is built together. Every project I ship
-          is meant to be shared, improved, and built upon.
-        </p>
-
-        <div class="about-links">
-          <a href="https://github.com/maropark" class="about-link">GitHub &rarr;</a>
-        </div>
       </div>
     </div>
   </section>
@@ -85,16 +63,10 @@ import Footer from '../components/Footer.astro';
     width: fit-content;
   }
 
-  .photo-placeholder {
-    width: 200px;
-    height: 200px;
-    background: var(--color-paper-alt);
-    border: 1px solid var(--color-kraft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-pencil);
-    font-size: 1.1rem;
+  .about-photo {
+    width: 220px;
+    height: auto;
+    display: block;
   }
 
   .about-text h2 {
@@ -116,30 +88,4 @@ import Footer from '../components/Footer.astro';
     margin-bottom: var(--space-xs);
   }
 
-  .about-links {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
-    border-top: 1px dashed var(--color-kraft);
-    display: flex;
-    gap: var(--space-lg);
-  }
-
-  .about-link {
-    font-family: 'Caveat', cursive;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-ballpoint-blue);
-    text-decoration: none;
-  }
-
-  .about-link:hover {
-    color: var(--color-stamp-red);
-  }
-
-  @media (max-width: 640px) {
-    .photo-placeholder {
-      width: 150px;
-      height: 150px;
-    }
-  }
 </style>

@@ -74,6 +74,10 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
           <!-- Left page -->
           {isIndex ? (
             <div class="notebook-page notebook-page--left notebook-page--left-index">
+              <div class="page-decoration">
+                <div class="page-lines"></div>
+                <Doodles />
+              </div>
               <LostAndFound />
             </div>
           ) : (

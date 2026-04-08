@@ -1,11 +1,11 @@
 ---
 title: "Renters United"
-description: "Full-stack rental marketplace connecting tenants and landlords with Stripe payments."
+description: "A multi-sig wallet where renters and landlords mutually agree to invest the security deposit into an interest-bearing vehicle."
 status: "active"
-tech: ["react", "node", "postgresql", "stripe"]
+tech: ["solidity", "react", "ethers.js", "multisig"]
 github: "https://github.com/maropark/renters-united"
 featured: true
 date: 2026-02-10
 ---
 
-A rental marketplace built with React and Node.js, featuring property listings, secure Stripe payments, and a clean interface for both tenants and property owners.
+A multi-sig smart contract wallet for renters and landlords — both parties must sign off to invest the security deposit into an interest-acquiring vehicle. The interest accrues transparently on-chain, and both sides agree on distribution at the end of the lease.

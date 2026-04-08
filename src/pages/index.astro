@@ -22,29 +22,16 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <div class="about-content">
-      <div class="about-photo-wrapper">
-        <div class="photo-placeholder">
-          <span class="handwritten">photo goes here</span>
-        </div>
-      </div>
-
       <div class="about-text notebook-lines">
         <h3>Hey, I'm Maro.</h3>
         <p>
-          I'm a developer who values open source and builds things that matter.
-          This site is my backlog — a public journal of projects, learnings,
-          and ideas that I'll ship&hellip; eventually.
+          Ex-immigrant rights organizer, coder, and creator.
         </p>
         <p>
-          I believe in building in the open, sharing what I learn, and creating
-          tools that help people. Most of my work lives on GitHub where anyone
-          can use, fork, or improve it.
+          I build for community, resistance, and expression.
+          Being an undocumented immigrant in the United States has been pivotal
+          in shaping who I am — and everything I make.
         </p>
-
-        <div class="about-links">
-          <a href="https://github.com/maropark" class="about-link handwritten">GitHub &rarr;</a>
-          <a href="/about" class="about-link handwritten">full note &rarr;</a>
-        </div>
       </div>
     </div>
   </section>
@@ -318,28 +305,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
   }
 
   /* Author's Note */
-  .about-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xl);
-  }
-
-  .about-photo-wrapper {
-    width: fit-content;
-  }
-
-  .photo-placeholder {
-    width: 200px;
-    height: 200px;
-    background: var(--color-paper-alt);
-    border: 1px solid var(--color-kraft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-pencil);
-    font-size: 1.1rem;
-  }
-
   .about-text h3 {
     font-size: 1.4rem;
     margin-top: var(--space-xl);
@@ -348,26 +313,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
   .about-text h3:first-child {
     margin-top: 0;
-  }
-
-  .about-links {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
-    border-top: 1px dashed var(--color-kraft);
-    display: flex;
-    gap: var(--space-lg);
-  }
-
-  .about-link {
-    font-family: 'Caveat', cursive;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-ballpoint-blue);
-    text-decoration: none;
-  }
-
-  .about-link:hover {
-    color: var(--color-stamp-red);
   }
 
   @media (max-width: 640px) {

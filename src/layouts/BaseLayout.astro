@@ -8,6 +8,7 @@ import '../styles/nightfall.css';
 import SkyHeader from '../components/SkyHeader.astro';
 import JournalTabs from '../components/JournalTabs.astro';
 import LostAndFound from '../components/LostAndFound.astro';
+import Doodles from '../components/Doodles.astro';
 
 interface Props {
   title: string;
@@ -73,12 +74,17 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
           <!-- Left page -->
           {isIndex ? (
             <div class="notebook-page notebook-page--left notebook-page--left-index">
+              <div class="page-decoration">
+                <div class="page-lines"></div>
+                <Doodles />
+              </div>
               <LostAndFound />
             </div>
           ) : (
             <div class="notebook-page notebook-page--left" aria-hidden="true">
               <div class="page-decoration">
                 <div class="page-lines"></div>
+                <Doodles />
               </div>
             </div>
           )}

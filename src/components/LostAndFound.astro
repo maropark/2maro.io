@@ -3,7 +3,6 @@ const links = [
   { label: 'GitHub',   href: 'https://github.com/maropark',                    color: 'blue'   },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/maropark',               color: 'teal'   },
   { label: 'Bluesky',  href: 'https://bsky.app/profile/maropark.bsky.social', color: 'yellow' },
-  { label: 'YouTube',  href: 'https://youtube.com/@maropark',                  color: 'red'    },
 ];
 ---
 
@@ -259,19 +258,3 @@ const links = [
     }
   }
 </style>
-
-<script>
-  // Parallax: paper floats up slightly as user scrolls down
-  const el = document.getElementById('lost-and-found') as HTMLElement | null;
-  if (el) {
-    const baseTop = window.innerHeight * 0.25;
-
-    function tick() {
-      const offset = window.scrollY * 0.15;
-      el!.style.top = `${Math.max(10, baseTop - offset)}px`;
-    }
-
-    window.addEventListener('scroll', tick, { passive: true });
-    tick();
-  }
-</script>

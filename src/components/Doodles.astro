@@ -1,0 +1,84 @@
+---
+// Decorative hand-drawn doodles that shift on scroll
+---
+
+<div class="doodles-panel" aria-hidden="true" id="doodles-panel">
+  <!-- Arrow doodle -->
+  <svg class="doodle doodle--arrow" viewBox="0 0 60 40" width="60" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 20 Q20 8 40 20 Q30 12 40 20 L34 14 M40 20 L34 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <!-- Star doodle -->
+  <svg class="doodle doodle--star" viewBox="0 0 40 40" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 4 L23 15 L34 15 L25 22 L28 33 L20 27 L12 33 L15 22 L6 15 L17 15 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+  </svg>
+
+  <!-- Squiggle doodle -->
+  <svg class="doodle doodle--squiggle" viewBox="0 0 80 30" width="80" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 15 Q14 4 24 15 Q34 26 44 15 Q54 4 64 15 Q74 26 80 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </svg>
+
+  <!-- Circle doodle -->
+  <svg class="doodle doodle--circle" viewBox="0 0 40 40" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 6 Q34 6 34 20 Q34 34 20 34 Q6 34 6 20 Q6 6 20 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+
+  <!-- Pencil/checkmark doodle -->
+  <svg class="doodle doodle--check" viewBox="0 0 40 30" width="40" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 16 L14 24 L36 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <!-- Dots row -->
+  <svg class="doodle doodle--dots" viewBox="0 0 60 12" width="60" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="6" cy="6" r="2.5" fill="currentColor"/>
+    <circle cx="18" cy="6" r="2.5" fill="currentColor"/>
+    <circle cx="30" cy="6" r="2.5" fill="currentColor"/>
+    <circle cx="42" cy="6" r="2.5" fill="currentColor"/>
+    <circle cx="54" cy="6" r="2.5" fill="currentColor"/>
+  </svg>
+</div>
+
+<style>
+  .doodles-panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: var(--color-pencil, #5C5248);
+    pointer-events: none;
+  }
+
+  .doodle {
+    position: absolute;
+    transition: margin-top 0.1s linear;
+    will-change: margin-top;
+  }
+
+  /* Position each doodle in the narrow left column */
+  .doodle--arrow    { top:  8%;  left: 50%; transform: translateX(-50%) rotate(-12deg); }
+  .doodle--star     { top: 22%;  left: 50%; transform: translateX(-50%) rotate(6deg); }
+  .doodle--squiggle { top: 38%;  left: 50%; transform: translateX(-50%) rotate(-4deg); }
+  .doodle--circle   { top: 55%;  left: 50%; transform: translateX(-50%) rotate(3deg); }
+  .doodle--check    { top: 70%;  left: 50%; transform: translateX(-50%) rotate(-8deg); }
+  .doodle--dots     { top: 84%;  left: 50%; transform: translateX(-50%); }
+</style>
+
+<script>
+  const panel = document.getElementById('doodles-panel');
+  if (panel) {
+    const doodles = panel.querySelectorAll<HTMLElement>('.doodle');
+    const speeds = [0.04, -0.06, 0.05, -0.03, 0.07, -0.05];
+
+    function updateDoodles() {
+      const scrollY = window.scrollY;
+      doodles.forEach((d, i) => {
+        const offset = scrollY * speeds[i];
+        // Apply a subtle vertical parallax shift on top of the initial transform
+        d.style.marginTop = `${offset}px`;
+      });
+    }
+
+    window.addEventListener('scroll', updateDoodles, { passive: true });
+    updateDoodles();
+  }
+</script>

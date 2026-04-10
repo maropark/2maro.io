@@ -1,12 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
 
-const musings = [
-  'thoughts on cryptocurrency as a form of investment and ownership as an undocumented immigrant',
-  'un.do',
-  'meclaw',
-];
+const allMusings = await getCollection('musings', ({ data }) => data.published);
+const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title="Musings" description="Thoughts for tomorrow — musings, not quite ideas, not quite plans.">
@@ -18,10 +16,10 @@ const musings = [
     </header>
 
     <ul class="musings-list notebook-lines">
-      {musings.map((musing) => (
+      {musings.map((entry) => (
         <li class="musing-item">
           <span class="musing-bullet handwritten">—</span>
-          <span>{musing}</span>
+          <span>{entry.data.title}</span>
         </li>
       ))}
     </ul>

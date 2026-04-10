@@ -10,6 +10,9 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
 
 const allProjects = await getCollection('projects');
 const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allMusings = await getCollection('musings', ({ data }) => data.published);
+const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title="Home">
@@ -134,18 +137,12 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <ul class="thoughts-list notebook-lines">
-      <li class="thought-item">
-        <span class="thought-bullet handwritten">—</span>
-        <span>thoughts on cryptocurrency as a form of investment and ownership as an undocumented immigrant</span>
-      </li>
-      <li class="thought-item">
-        <span class="thought-bullet handwritten">—</span>
-        <span>un.do</span>
-      </li>
-      <li class="thought-item">
-        <span class="thought-bullet handwritten">—</span>
-        <span>meclaw</span>
-      </li>
+      {musings.slice(0, 3).map((entry) => (
+        <li class="thought-item">
+          <span class="thought-bullet handwritten">—</span>
+          <span>{entry.data.title}</span>
+        </li>
+      ))}
     </ul>
 
     <div class="spread-more">
@@ -368,9 +365,10 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     transform: rotate(0deg) scale(1.06);
   }
 
-  .tape-link--teal   { background: var(--color-washi-teal, #4A9B8E);     color: white; }
-  .tape-link--yellow { background: var(--color-sticky-yellow, #F2C94C);  color: var(--color-ink, #2C2520); }
-  .tape-link--red    { background: var(--color-stamp-red, #C1440E);      color: white; }
+  .tape-link--teal   { background: var(--color-washi-teal, #4A9B8E);       color: white; }
+  .tape-link--yellow { background: var(--color-sticky-yellow, #F2C94C);   color: var(--color-ink, #2C2520); }
+  .tape-link--red    { background: var(--color-stamp-red, #C1440E);        color: white; }
+  .tape-link--blue   { background: var(--color-ballpoint-blue, #2D5FAA);  color: white; }
 
   /* GitHub washi tape — rectangular strip, blue, stuck to card */
   .github-tape {

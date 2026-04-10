@@ -241,9 +241,13 @@ let ticking = false;
 let lastProgress = -1;
 
 function applyNightfall() {
+  const lock = localStorage.getItem('theme-lock');
+
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const t = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+  const scrollT = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+
+  const t = lock === 'light' ? 0 : lock === 'dark' ? 1 : scrollT;
 
   if (Math.abs(t - lastProgress) < 0.002) {
     ticking = false;
@@ -318,6 +322,12 @@ function onScroll() {
 // Initialize
 applyNightfall();
 window.addEventListener('scroll', onScroll, { passive: true });
+
+// Re-run immediately when the lock state changes (toggle button fires this)
+window.addEventListener('theme-lock-change', () => {
+  lastProgress = -1;
+  applyNightfall();
+});
 
 // Re-initialize after Astro client-side navigation
 document.addEventListener('astro:page-load', () => {

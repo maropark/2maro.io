@@ -223,9 +223,10 @@ const links = [
   }
 
   /*
-   * Cat walks around the paper scene perimeter:
-   * Scene: 160×400. Paper: left=25, top=35, width=110, height~276 (bottom ~318px).
-   * Cat orbit is ~8px outside paper edges.
+   * Cat patrols the perimeter of the floating paper.
+   * Bounds are computed in JS from the paper's live dimensions and written
+   * as CSS custom properties on .paper-scene so they survive resize.
+   *
    * Segments:
    *   0–25%   bottom edge → walk right  (scaleX 1)
    *   25–50%  right edge  → slide up    (scaleX 1)
@@ -233,22 +234,15 @@ const links = [
    *   75–100% left edge   → slide down  (scaleX -1)
    */
   @keyframes cat-patrol {
-    /* Bottom-left, start walking right */
-    0%   { left: -8px;  top: 322px; transform: scaleX(1);  }
-    /* Bottom-right */
-    24%  { left: 126px; top: 322px; transform: scaleX(1);  }
-    25%  { left: 126px; top: 322px; transform: scaleX(1);  }
-    /* Slide up right side */
-    49%  { left: 126px; top: -8px;  transform: scaleX(1);  }
-    /* Top-right, flip to walk left */
-    50%  { left: 126px; top: -8px;  transform: scaleX(-1); }
-    /* Walk left along top */
-    74%  { left: -8px;  top: -8px;  transform: scaleX(-1); }
-    75%  { left: -8px;  top: -8px;  transform: scaleX(-1); }
-    /* Slide down left side */
-    99%  { left: -8px;  top: 322px; transform: scaleX(-1); }
-    /* Flip to face right for next loop */
-    100% { left: -8px;  top: 322px; transform: scaleX(1);  }
+    0%   { left: var(--cat-x-left);  top: var(--cat-y-bottom); transform: scaleX(1);  }
+    24%  { left: var(--cat-x-right); top: var(--cat-y-bottom); transform: scaleX(1);  }
+    25%  { left: var(--cat-x-right); top: var(--cat-y-bottom); transform: scaleX(1);  }
+    49%  { left: var(--cat-x-right); top: var(--cat-y-top);    transform: scaleX(1);  }
+    50%  { left: var(--cat-x-right); top: var(--cat-y-top);    transform: scaleX(-1); }
+    74%  { left: var(--cat-x-left);  top: var(--cat-y-top);    transform: scaleX(-1); }
+    75%  { left: var(--cat-x-left);  top: var(--cat-y-top);    transform: scaleX(-1); }
+    99%  { left: var(--cat-x-left);  top: var(--cat-y-bottom); transform: scaleX(-1); }
+    100% { left: var(--cat-x-left);  top: var(--cat-y-bottom); transform: scaleX(1);  }
   }
 
   /* Hide on viewports too narrow to show left margin */
@@ -258,3 +252,45 @@ const links = [
     }
   }
 </style>
+
+<script>
+  /**
+   * Compute cat patrol bounds from the paper's live dimensions and write them
+   * as CSS custom properties on the scene element. Re-runs on resize so the
+   * patrol stays tight if content (e.g. number of links) ever changes.
+   *
+   * Offsets derived from the original hand-crafted layout:
+   *   catXLeft  = paperLeft - 33        (cat mostly clears left edge)
+   *   catXRight = paperLeft + paperW - 9 (cat mostly clears right edge)
+   *   catYTop   = paperTop  - 43        (cat sits above paper)
+   *   catYBottom = paperTop + paperH + 11 (cat sits below paper)
+   */
+  function updateCatBounds() {
+    const scene = document.querySelector<HTMLElement>('#lost-and-found .paper-scene');
+    const paper = document.querySelector<HTMLElement>('#lost-and-found .floating-paper');
+    if (!scene || !paper) return;
+
+    const pLeft = paper.offsetLeft;
+    const pTop  = paper.offsetTop;
+    const pW    = paper.offsetWidth;
+    const pH    = paper.offsetHeight;
+
+    scene.style.setProperty('--cat-x-left',   `${pLeft - 33}px`);
+    scene.style.setProperty('--cat-x-right',  `${pLeft + pW - 9}px`);
+    scene.style.setProperty('--cat-y-top',    `${pTop - 43}px`);
+    scene.style.setProperty('--cat-y-bottom', `${pTop + pH + 11}px`);
+  }
+
+  function initCatBounds() {
+    updateCatBounds();
+
+    const paper = document.querySelector('#lost-and-found .floating-paper');
+    if (!paper) return;
+
+    const ro = new ResizeObserver(updateCatBounds);
+    ro.observe(paper);
+  }
+
+  initCatBounds();
+  document.addEventListener('astro:page-load', initCatBounds);
+</script>

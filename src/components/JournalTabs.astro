@@ -3,6 +3,7 @@ const tabs = [
   { label: "Author's Note", href: '/about', anchor: '#authors-note', color: 'yellow' },
   { label: 'Journal', href: '/blog', anchor: '#journal', color: 'red' },
   { label: 'Workshop', href: '/projects', anchor: '#workshop', color: 'teal' },
+  { label: 'Thoughts', href: '/#thoughts', anchor: '#thoughts', color: 'blue' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -105,6 +106,14 @@ const isHome = currentPath === '/';
     color: var(--color-sticky-yellow);
   }
 
+  .journal-tab--blue {
+    border-right: 3px solid var(--color-ballpoint-blue);
+  }
+
+  .journal-tab--blue .journal-tab-label {
+    color: var(--color-ballpoint-blue);
+  }
+
   /* Hover */
   .journal-tab:hover {
     width: 52px;
@@ -139,6 +148,10 @@ const isHome = currentPath === '/';
   }
 
   :global(.nightfall-night) .journal-tab--yellow.active .journal-tab-label {
+    text-shadow: 0 0 8px currentColor;
+  }
+
+  :global(.nightfall-night) .journal-tab--blue.active .journal-tab-label {
     text-shadow: 0 0 8px currentColor;
   }
 
@@ -187,6 +200,10 @@ const isHome = currentPath === '/';
       border-right: none;
     }
 
+    .journal-tab--blue {
+      border-right: none;
+    }
+
     .journal-tab.active {
       width: auto;
       box-shadow: none;
@@ -203,6 +220,10 @@ const isHome = currentPath === '/';
 
     .journal-tab--yellow.active {
       border-bottom-color: var(--color-sticky-yellow);
+    }
+
+    .journal-tab--blue.active {
+      border-bottom-color: var(--color-ballpoint-blue);
     }
 
     .journal-tab:hover {

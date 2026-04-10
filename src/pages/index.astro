@@ -70,7 +70,7 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <div class="spread-more">
-      <a href="/blog" class="more-link handwritten">all entries &rarr;</a>
+      <a href="/blog" class="tape-link tape-link--red">all entries →</a>
     </div>
   </section>
 
@@ -119,10 +119,39 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <div class="spread-more">
-      <a href="/projects" class="more-link handwritten">all projects &rarr;</a>
+      <a href="/projects" class="tape-link tape-link--teal">all projects →</a>
     </div>
   </section>
 
+
+  <TornEdge />
+
+  <!-- ═══════════ THOUGHTS FOR TOMORROW SPREAD ═══════════ -->
+  <section class="spread spread--thoughts" id="thoughts">
+    <div class="spread-header">
+      <h2 class="spread-title">Thoughts for Tomorrow</h2>
+      <p class="spread-subtitle handwritten">musings. not quite ideas. not quite plans.</p>
+    </div>
+
+    <ul class="thoughts-list notebook-lines">
+      <li class="thought-item">
+        <span class="thought-bullet handwritten">—</span>
+        <span>thoughts on cryptocurrency as a form of investment and ownership as an undocumented immigrant</span>
+      </li>
+      <li class="thought-item">
+        <span class="thought-bullet handwritten">—</span>
+        <span>un.do</span>
+      </li>
+      <li class="thought-item">
+        <span class="thought-bullet handwritten">—</span>
+        <span>meclaw</span>
+      </li>
+    </ul>
+
+    <div class="spread-more">
+      <a href="/musings" class="tape-link tape-link--blue">all musings →</a>
+    </div>
+  </section>
 
   <Footer slot="footer" />
 </BaseLayout>
@@ -195,6 +224,11 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     opacity: 0.55;
   }
 
+  .spread--thoughts .spread-title::before {
+    background: var(--color-ballpoint-blue);
+    opacity: 0.25;
+  }
+
   .spread-subtitle {
     font-size: 1.2rem;
     color: var(--color-pencil);
@@ -205,17 +239,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     padding-top: var(--space-md);
     border-top: 1px dashed var(--color-kraft);
     text-align: right;
-  }
-
-  .more-link {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-ballpoint-blue);
-    text-decoration: none;
-  }
-
-  .more-link:hover {
-    color: var(--color-stamp-red);
   }
 
   /* Entry blocks — paper card stack */
@@ -403,6 +426,32 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
   .about-text h3:first-child {
     margin-top: 0;
+  }
+
+  /* Thoughts for Tomorrow */
+  .thoughts-list {
+    list-style: none;
+    padding: var(--space-lg) var(--space-md);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .thought-item {
+    display: flex;
+    gap: var(--space-md);
+    align-items: baseline;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+  }
+
+  .thought-bullet {
+    font-size: 1.4rem;
+    color: var(--color-ballpoint-blue);
+    flex-shrink: 0;
+    opacity: 0.7;
   }
 
   @media (max-width: 640px) {

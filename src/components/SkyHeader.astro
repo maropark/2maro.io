@@ -79,7 +79,54 @@
     <span class="logo-text">2maro</span>
     <span class="logo-dot">.io</span>
   </a>
+
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme mode" title="Theme: auto (scroll-driven)">
+    <span class="theme-toggle-icon">⊙</span>
+  </button>
 </header>
+
+<script>
+  function initThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    const STATES: Array<{ lock: string | null; icon: string; label: string }> = [
+      { lock: null,    icon: '⊙', label: 'auto (scroll-driven)' },
+      { lock: 'light', icon: '☀', label: 'locked light'         },
+      { lock: 'dark',  icon: '☾', label: 'locked dark'          },
+    ];
+
+    function currentIndex(): number {
+      const lock = localStorage.getItem('theme-lock');
+      return STATES.findIndex(s => s.lock === lock) ?? 0;
+    }
+
+    function applyState(idx: number) {
+      const state = STATES[idx];
+      const icon = btn.querySelector('.theme-toggle-icon');
+      if (icon) icon.textContent = state.icon;
+      btn.title = `Theme: ${state.label}`;
+      if (state.lock) {
+        localStorage.setItem('theme-lock', state.lock);
+      } else {
+        localStorage.removeItem('theme-lock');
+      }
+      window.dispatchEvent(new Event('theme-lock-change'));
+    }
+
+    // Set initial icon from stored preference
+    applyState(currentIndex());
+
+    btn.addEventListener('click', () => {
+      const next = (currentIndex() + 1) % STATES.length;
+      applyState(next);
+    });
+  }
+
+  // Run on first load and after Astro navigations
+  initThemeToggle();
+  document.addEventListener('astro:page-load', initThemeToggle);
+</script>
 
 <style>
   .sky-header {
@@ -187,6 +234,41 @@
 
   .sky-logo:hover .logo-text {
     color: var(--color-stamp-red);
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    position: absolute;
+    right: var(--space-md, 16px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 4px 10px;
+    cursor: pointer;
+    line-height: 1;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.45);
+  }
+
+  .theme-toggle-icon {
+    font-size: 1rem;
+    display: block;
+  }
+
+  :global(.nightfall-night) .theme-toggle {
+    background: rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  :global(.nightfall-night) .theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.45);
   }
 
   /* Night mode adjustments */

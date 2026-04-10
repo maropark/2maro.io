@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+const musings = [
+  'thoughts on cryptocurrency as a form of investment and ownership as an undocumented immigrant',
+  'un.do',
+  'meclaw',
+];
+---
+
+<BaseLayout title="Musings" description="Thoughts for tomorrow — musings, not quite ideas, not quite plans.">
+
+  <section class="musings-page">
+    <header class="page-header">
+      <h1 class="page-title">Thoughts for Tomorrow</h1>
+      <p class="page-subtitle handwritten">musings. not quite ideas. not quite plans.</p>
+    </header>
+
+    <ul class="musings-list notebook-lines">
+      {musings.map((musing) => (
+        <li class="musing-item">
+          <span class="musing-bullet handwritten">—</span>
+          <span>{musing}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .musings-page {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-pencil);
+  }
+
+  .musings-list {
+    list-style: none;
+    padding: var(--space-lg) var(--space-md);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .musing-item {
+    display: flex;
+    gap: var(--space-md);
+    align-items: baseline;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+  }
+
+  .musing-bullet {
+    font-size: 1.4rem;
+    color: var(--color-ballpoint-blue);
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+</style>

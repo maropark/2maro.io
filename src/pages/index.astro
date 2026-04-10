@@ -70,7 +70,7 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <div class="spread-more">
-      <a href="/blog" class="more-link handwritten">all entries &rarr;</a>
+      <a href="/blog" class="tape-link tape-link--red">all entries →</a>
     </div>
   </section>
 
@@ -119,7 +119,7 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
 
     <div class="spread-more">
-      <a href="/projects" class="more-link handwritten">all projects &rarr;</a>
+      <a href="/projects" class="tape-link tape-link--teal">all projects →</a>
     </div>
   </section>
 
@@ -147,6 +147,10 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
         <span>meclaw</span>
       </li>
     </ul>
+
+    <div class="spread-more">
+      <a href="/musings" class="tape-link tape-link--blue">all musings →</a>
+    </div>
   </section>
 
   <Footer slot="footer" />
@@ -235,17 +239,6 @@ const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.
     padding-top: var(--space-md);
     border-top: 1px dashed var(--color-kraft);
     text-align: right;
-  }
-
-  .more-link {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-ballpoint-blue);
-    text-decoration: none;
-  }
-
-  .more-link:hover {
-    color: var(--color-stamp-red);
   }
 
   /* Entry blocks — paper card stack */

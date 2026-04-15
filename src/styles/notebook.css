@@ -103,6 +103,11 @@
   opacity: 0.35;
 }
 
+.washi-tape--obsidian {
+  background: #7C3AED;
+  opacity: 0.40;
+}
+
 /* Torn edge — bottom of cards */
 .torn-edge {
   position: relative;

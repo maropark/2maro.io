@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 80" width="40" height="50">
+  <defs>
+    <!-- Crayon wobble filter -->
+    <filter id="crayon" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="3" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#crayon)">
+    <!-- Shadow/depth base -->
+    <polygon points="32,72 4,52 8,22 32,8 56,22 60,52"
+      fill="#1E0A3C" opacity="0.18"/>
+
+    <!-- Main body — deep violet left face -->
+    <polygon points="32,70 6,50 10,22 32,10"
+      fill="#3B1F6B" stroke="#1E0A3C" stroke-width="2.2" stroke-linejoin="round"/>
+
+    <!-- Right face — medium purple -->
+    <polygon points="32,70 58,50 54,22 32,10"
+      fill="#7B4FBA" stroke="#1E0A3C" stroke-width="2.2" stroke-linejoin="round"/>
+
+    <!-- Top-left upper facet -->
+    <polygon points="10,22 32,10 24,30"
+      fill="#5C3295" stroke="#1E0A3C" stroke-width="1.8" stroke-linejoin="round"/>
+
+    <!-- Top-right upper facet — brightest -->
+    <polygon points="32,10 54,22 40,30"
+      fill="#A97DD8" stroke="#1E0A3C" stroke-width="1.8" stroke-linejoin="round"/>
+
+    <!-- Center ridge line -->
+    <line x1="32" y1="10" x2="32" y2="70"
+      stroke="#1E0A3C" stroke-width="1.6" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Waist crease lines -->
+    <line x1="10" y1="22" x2="32" y2="30"
+      stroke="#1E0A3C" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+    <line x1="54" y1="22" x2="32" y2="30"
+      stroke="#1E0A3C" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- Highlight glint -->
+    <ellipse cx="44" cy="20" rx="5" ry="3" fill="white" opacity="0.28" transform="rotate(-20 44 20)"/>
+  </g>
+</svg>

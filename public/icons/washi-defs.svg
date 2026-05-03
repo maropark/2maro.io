@@ -1,0 +1,274 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    
+    <filter id="wobble" x="-2%" y="-10%" width="104%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="n"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"></feDisplacementMap>
+    </filter>
+    <filter id="wobble-strong" x="-2%" y="-10%" width="104%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="11" result="n"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"></feDisplacementMap>
+    </filter>
+
+    
+    <filter id="deckle" x="-2%" y="-30%" width="104%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9 0.04" numOctaves="2" seed="5" result="n"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5"></feDisplacementMap>
+    </filter>
+
+    
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="2" numOctaves="2" seed="2"></feTurbulence>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.18 0"></feColorMatrix>
+      <feComposite in2="SourceGraphic" operator="in"></feComposite>
+      <feBlend in="SourceGraphic" mode="multiply"></feBlend>
+    </filter>
+
+    
+
+    
+    <pattern id="w-stripes" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="14" height="14" fill="#F2C94C"></rect>
+      <rect x="0" width="7" height="14" fill="#E8B528" opacity="0.55"></rect>
+    </pattern>
+
+    
+    <pattern id="w-dots" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="#4A9B8E"></rect>
+      <circle cx="3" cy="3" r="1.6" fill="#F5F0E8" opacity="0.85"></circle>
+      <circle cx="9" cy="9" r="1.6" fill="#F5F0E8" opacity="0.85"></circle>
+    </pattern>
+
+    
+    <pattern id="w-gingham" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#F5F0E8"></rect>
+      <rect width="5" height="10" fill="#E8A0A0" opacity="0.55"></rect>
+      <rect y="0" width="10" height="5" fill="#E8A0A0" opacity="0.55"></rect>
+      <rect width="5" height="5" fill="#C1440E" opacity="0.55"></rect>
+    </pattern>
+
+    
+    <pattern id="w-tartan" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#3A5F4A"></rect>
+      <rect width="20" height="3" y="6" fill="#1F3A2A" opacity="0.7"></rect>
+      <rect width="3" height="20" x="6" fill="#1F3A2A" opacity="0.7"></rect>
+      <rect width="20" height="1" y="12" fill="#F2C94C" opacity="0.7"></rect>
+      <rect width="1" height="20" x="14" fill="#F2C94C" opacity="0.7"></rect>
+      <rect width="20" height="1" y="16" fill="#E8A0A0" opacity="0.5"></rect>
+    </pattern>
+
+    
+    <pattern id="w-floral" width="22" height="22" patternUnits="userSpaceOnUse">
+      <rect width="22" height="22" fill="#F4D7E0"></rect>
+      <g transform="translate(6 6)">
+        <circle r="1.6" fill="#F2C94C"></circle>
+        <circle cy="-3.2" r="1.6" fill="#fff"></circle>
+        <circle cx="2.8" cy="-1.6" r="1.6" fill="#fff"></circle>
+        <circle cx="2.8" cy="1.6" r="1.6" fill="#fff"></circle>
+        <circle cy="3.2" r="1.6" fill="#fff"></circle>
+        <circle cx="-2.8" cy="1.6" r="1.6" fill="#fff"></circle>
+        <circle cx="-2.8" cy="-1.6" r="1.6" fill="#fff"></circle>
+      </g>
+      <g transform="translate(17 17)">
+        <circle r="1.4" fill="#C1440E"></circle>
+        <circle cy="-2.6" r="1.4" fill="#fff"></circle>
+        <circle cx="2.4" cy="-1.3" r="1.4" fill="#fff"></circle>
+        <circle cx="2.4" cy="1.3" r="1.4" fill="#fff"></circle>
+        <circle cy="2.6" r="1.4" fill="#fff"></circle>
+        <circle cx="-2.4" cy="1.3" r="1.4" fill="#fff"></circle>
+        <circle cx="-2.4" cy="-1.3" r="1.4" fill="#fff"></circle>
+      </g>
+    </pattern>
+
+    
+    <pattern id="w-stars" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#2D3A6B"></rect>
+      <path d="M5 5 l1 2 l2 .3 l-1.5 1.4 l.4 2.1 l-1.9 -1 l-1.9 1 l.4 -2.1 l-1.5 -1.4 l2 -.3 z" fill="#F2C94C" opacity="0.9"></path>
+      <path d="M15 14 l.7 1.4 l1.4 .2 l-1 1 l.3 1.4 l-1.4 -.7 l-1.4 .7 l.3 -1.4 l-1 -1 l1.4 -.2 z" fill="#fff" opacity="0.8"></path>
+      <circle cx="3" cy="15" r="0.6" fill="#fff" opacity="0.8"></circle>
+      <circle cx="17" cy="4" r="0.6" fill="#fff" opacity="0.8"></circle>
+    </pattern>
+
+    
+    <pattern id="w-hearts" width="18" height="18" patternUnits="userSpaceOnUse">
+      <rect width="18" height="18" fill="#E8A0A0"></rect>
+      <path d="M9 13 C 4 10 4 5 7 5 C 8.2 5 9 6 9 6 C 9 6 9.8 5 11 5 C 14 5 14 10 9 13 z" fill="#C1440E" opacity="0.7"></path>
+    </pattern>
+
+    
+    <pattern id="w-kraft" width="40" height="14" patternUnits="userSpaceOnUse">
+      <rect width="40" height="14" fill="#C9A876"></rect>
+      <path d="M0 4 q10 -2 20 0 t20 0" stroke="#A88556" stroke-width="0.6" fill="none" opacity="0.5"></path>
+      <path d="M0 9 q10 2 20 0 t20 0" stroke="#A88556" stroke-width="0.6" fill="none" opacity="0.5"></path>
+      <circle cx="6" cy="6" r="0.5" fill="#7d5a2e" opacity="0.5"></circle>
+      <circle cx="22" cy="9" r="0.4" fill="#7d5a2e" opacity="0.5"></circle>
+      <circle cx="34" cy="4" r="0.4" fill="#7d5a2e" opacity="0.5"></circle>
+    </pattern>
+
+    
+    <pattern id="w-botanical" width="34" height="20" patternUnits="userSpaceOnUse">
+      <rect width="34" height="20" fill="#D8E3CC"></rect>
+      <g stroke="#3A5F4A" stroke-width="0.7" fill="#7BA47C" opacity="0.85">
+        <path d="M4 10 q3 -5 8 -3 q-1 4 -8 3 z"></path>
+        <path d="M16 14 q4 -4 9 -1 q-2 4 -9 1 z" transform="rotate(15 20 13)"></path>
+        <path d="M27 6 q3 -4 6 -2 q-1 4 -6 2 z"></path>
+        <path d="M5 4 l5 4" stroke="#3A5F4A" fill="none"></path>
+      </g>
+    </pattern>
+
+    
+    <pattern id="w-confetti" width="30" height="20" patternUnits="userSpaceOnUse">
+      <rect width="30" height="20" fill="#F5F0E8"></rect>
+      <rect x="3" y="4" width="3" height="1" fill="#C1440E" transform="rotate(20 4 4)"></rect>
+      <rect x="12" y="14" width="3" height="1" fill="#4A9B8E" transform="rotate(-30 13 14)"></rect>
+      <rect x="22" y="6" width="3" height="1" fill="#2D5FAA" transform="rotate(45 23 6)"></rect>
+      <rect x="8" y="9" width="3" height="1" fill="#F2C94C" transform="rotate(-10 9 9)"></rect>
+      <rect x="26" y="15" width="3" height="1" fill="#E8A0A0" transform="rotate(60 27 15)"></rect>
+      <circle cx="17" cy="3" r="0.8" fill="#7C3AED"></circle>
+      <circle cx="6" cy="16" r="0.8" fill="#F2C94C"></circle>
+    </pattern>
+
+    
+    <pattern id="w-dotgrid" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#EDE8DD"></rect>
+      <circle cx="4" cy="4" r="0.7" fill="#6B6B6B" opacity="0.6"></circle>
+    </pattern>
+
+    
+    <pattern id="w-mountains" width="40" height="22" patternUnits="userSpaceOnUse">
+      <rect width="40" height="22" fill="#B8C7D6"></rect>
+      <path d="M0 22 L 6 10 L 12 16 L 18 6 L 26 18 L 32 10 L 40 22 z" fill="#5A7494" opacity="0.85"></path>
+      <path d="M0 22 L 4 16 L 10 19 L 16 14 L 22 20 L 30 13 L 40 22 z" fill="#3A5475" opacity="0.85"></path>
+    </pattern>
+
+    
+    <pattern id="w-waves" width="30" height="14" patternUnits="userSpaceOnUse">
+      <rect width="30" height="14" fill="#A8D8EA"></rect>
+      <path d="M0 7 q 7.5 -5 15 0 t 15 0" stroke="#2D5FAA" stroke-width="1.2" fill="none" opacity="0.7"></path>
+      <path d="M0 11 q 7.5 -3 15 0 t 15 0" stroke="#2D5FAA" stroke-width="0.8" fill="none" opacity="0.5"></path>
+    </pattern>
+
+    
+    <pattern id="w-polka-big" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#C1440E"></rect>
+      <circle cx="5" cy="5" r="3" fill="#F5F0E8"></circle>
+      <circle cx="15" cy="15" r="3" fill="#F5F0E8"></circle>
+    </pattern>
+
+    
+    <pattern id="w-triangles" width="16" height="14" patternUnits="userSpaceOnUse">
+      <rect width="16" height="14" fill="#F5F0E8"></rect>
+      <path d="M0 0 L 8 12 L 16 0 z" fill="#4A9B8E" opacity="0.8"></path>
+      <path d="M0 14 L 8 4 L 16 14 z" fill="#F2C94C" opacity="0.8"></path>
+    </pattern>
+
+    
+    <pattern id="w-coffee" width="34" height="20" patternUnits="userSpaceOnUse">
+      <rect width="34" height="20" fill="#E8D5B8"></rect>
+      <g fill="#5A3A1F">
+        <ellipse cx="6" cy="6" rx="3" ry="2" transform="rotate(-20 6 6)"></ellipse>
+        <path d="M3 6 q3 -1.5 6 0" stroke="#E8D5B8" stroke-width="0.8" fill="none" transform="rotate(-20 6 6)"></path>
+        <ellipse cx="20" cy="14" rx="3" ry="2" transform="rotate(30 20 14)"></ellipse>
+        <path d="M17 14 q3 -1.5 6 0" stroke="#E8D5B8" stroke-width="0.8" fill="none" transform="rotate(30 20 14)"></path>
+        <ellipse cx="29" cy="5" rx="2.5" ry="1.6" transform="rotate(-10 29 5)"></ellipse>
+        <path d="M26.5 5 q2.5 -1.2 5 0" stroke="#E8D5B8" stroke-width="0.8" fill="none" transform="rotate(-10 29 5)"></path>
+      </g>
+    </pattern>
+
+    
+    <pattern id="w-music" width="40" height="22" patternUnits="userSpaceOnUse">
+      <rect width="40" height="22" fill="#F5F0E8"></rect>
+      <g stroke="#2C2C2C" stroke-width="0.4" fill="none" opacity="0.7">
+        <line x1="0" y1="6" x2="40" y2="6"></line>
+        <line x1="0" y1="9" x2="40" y2="9"></line>
+        <line x1="0" y1="12" x2="40" y2="12"></line>
+        <line x1="0" y1="15" x2="40" y2="15"></line>
+        <line x1="0" y1="18" x2="40" y2="18"></line>
+      </g>
+      <g fill="#2C2C2C">
+        <ellipse cx="6" cy="15" rx="1.4" ry="1" transform="rotate(-20 6 15)"></ellipse>
+        <line x1="7" y1="15" x2="7" y2="6" stroke="#2C2C2C" stroke-width="0.6"></line>
+        <ellipse cx="22" cy="9" rx="1.4" ry="1" transform="rotate(-20 22 9)"></ellipse>
+        <line x1="23" y1="9" x2="23" y2="18" stroke="#2C2C2C" stroke-width="0.6"></line>
+        <ellipse cx="32" cy="12" rx="1.4" ry="1" transform="rotate(-20 32 12)"></ellipse>
+        <line x1="33" y1="12" x2="33" y2="3" stroke="#2C2C2C" stroke-width="0.6"></line>
+      </g>
+    </pattern>
+
+    
+    <pattern id="w-stamps" width="40" height="24" patternUnits="userSpaceOnUse">
+      <rect width="40" height="24" fill="#EDE8DD"></rect>
+      <g stroke="#C1440E" stroke-width="0.6" fill="#fff">
+        <rect x="4" y="4" width="14" height="16" stroke-dasharray="1.5 0.8"></rect>
+        <rect x="22" y="4" width="14" height="16" stroke-dasharray="1.5 0.8"></rect>
+      </g>
+      <text x="11" y="14" font-family="serif" font-size="6" fill="#C1440E" text-anchor="middle">2¢</text>
+      <text x="29" y="14" font-family="serif" font-size="6" fill="#C1440E" text-anchor="middle">★</text>
+    </pattern>
+
+    
+    <pattern id="w-solid-yellow" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#F2C94C"></rect>
+    </pattern>
+
+    
+    <pattern id="w-cassette" width="40" height="20" patternUnits="userSpaceOnUse">
+      <rect width="40" height="20" fill="#2C2C2C"></rect>
+      <rect x="2" y="4" width="36" height="12" fill="#F2C94C" opacity="0.8"></rect>
+      <circle cx="10" cy="10" r="3" fill="#2C2C2C"></circle>
+      <circle cx="10" cy="10" r="1" fill="#F2C94C"></circle>
+      <circle cx="30" cy="10" r="3" fill="#2C2C2C"></circle>
+      <circle cx="30" cy="10" r="1" fill="#F2C94C"></circle>
+      <line x1="14" y1="10" x2="26" y2="10" stroke="#2C2C2C" stroke-width="1"></line>
+    </pattern>
+
+    
+    <pattern id="w-newspaper" width="30" height="22" patternUnits="userSpaceOnUse">
+      <rect width="30" height="22" fill="#F0EBE0"></rect>
+      <g fill="#2C2C2C" font-family="Georgia, serif" font-size="3" opacity="0.85">
+        <text x="2" y="6">THE DAILY</text>
+        <text x="2" y="11" font-size="2.2" opacity="0.7">lorem ipsum dolor sit</text>
+        <text x="2" y="14.5" font-size="2.2" opacity="0.7">amet consectetur</text>
+        <text x="2" y="18" font-size="2.2" opacity="0.7">adipiscing elit sed do</text>
+      </g>
+    </pattern>
+
+    
+    <pattern id="w-barber" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(60)">
+      <rect width="10" height="10" fill="#F5F0E8"></rect>
+      <rect width="3" height="10" fill="#C1440E" opacity="0.85"></rect>
+      <rect x="6" width="0.8" height="10" fill="#2D5FAA" opacity="0.6"></rect>
+    </pattern>
+
+    
+    <pattern id="w-sakura" width="26" height="20" patternUnits="userSpaceOnUse">
+      <rect width="26" height="20" fill="#FBE4E8"></rect>
+      <g transform="translate(7 7)">
+        <g fill="#F4A8B8" stroke="#C46680" stroke-width="0.4">
+          <ellipse cy="-2.6" rx="1.4" ry="2"></ellipse>
+          <ellipse cx="2.5" cy="-0.8" rx="1.4" ry="2" transform="rotate(72 2.5 -0.8)"></ellipse>
+          <ellipse cx="1.5" cy="2.2" rx="1.4" ry="2" transform="rotate(144 1.5 2.2)"></ellipse>
+          <ellipse cx="-1.5" cy="2.2" rx="1.4" ry="2" transform="rotate(216 -1.5 2.2)"></ellipse>
+          <ellipse cx="-2.5" cy="-0.8" rx="1.4" ry="2" transform="rotate(288 -2.5 -0.8)"></ellipse>
+        </g>
+        <circle r="0.8" fill="#F2C94C"></circle>
+      </g>
+      <g transform="translate(20 14) scale(0.7)">
+        <g fill="#F4A8B8" stroke="#C46680" stroke-width="0.5">
+          <ellipse cy="-2.6" rx="1.4" ry="2"></ellipse>
+          <ellipse cx="2.5" cy="-0.8" rx="1.4" ry="2" transform="rotate(72 2.5 -0.8)"></ellipse>
+          <ellipse cx="1.5" cy="2.2" rx="1.4" ry="2" transform="rotate(144 1.5 2.2)"></ellipse>
+          <ellipse cx="-1.5" cy="2.2" rx="1.4" ry="2" transform="rotate(216 -1.5 2.2)"></ellipse>
+          <ellipse cx="-2.5" cy="-0.8" rx="1.4" ry="2" transform="rotate(288 -2.5 -0.8)"></ellipse>
+        </g>
+      </g>
+    </pattern>
+
+    
+    <pattern id="w-linen" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#E8D5B8"></rect>
+      <line x1="0" y1="3" x2="6" y2="3" stroke="#C9A876" stroke-width="0.4" opacity="0.6"></line>
+      <line x1="3" y1="0" x2="3" y2="6" stroke="#C9A876" stroke-width="0.4" opacity="0.4"></line>
+    </pattern>
+  </defs>
+</svg>

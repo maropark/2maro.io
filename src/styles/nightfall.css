@@ -24,7 +24,12 @@ body,
 .tech-sticker,
 .category-tab,
 .footer-torn-edge,
-.torn-edge::after {
+.torn-edge::after,
+.sticky-note,
+.index-tab,
+.tag,
+.ribbon,
+.clipped {
   transition:
     background-color 0.15s ease,
     color 0.15s ease,

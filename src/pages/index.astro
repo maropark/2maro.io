@@ -164,38 +164,43 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     </div>
 
     <div class="entry-stack">
-      {projects.map((project) => (
-        <div class="entry-block paper-card paper-stacked" style="position: relative;">
-          {project.data.icon && (
-            <div class="entry-icon-tape" aria-hidden="true">
-              <img src={project.data.icon} alt="" width="36" height="36" />
-            </div>
-          )}
-          <div class="entry-block-meta">
-            <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
-            {project.data.tech?.length > 0 && (
-              <div class="entry-block-tags">
-                {project.data.tech.slice(0, 4).map((t: string) => (
-                  <span class="entry-tag">{t}</span>
-                ))}
+      {projects.map((project, i) => {
+        const workshopPatterns = ['w-kraft', 'w-dotgrid', 'w-tartan', 'w-linen', 'w-stripes', 'w-barber'];
+        const wPattern = workshopPatterns[i % workshopPatterns.length];
+        return (
+          <div class="entry-block paper-card paper-stacked" style="position: relative;">
+            <span class:list={['washi-tape entry-tape', wPattern]} aria-hidden="true"></span>
+            {project.data.icon && (
+              <div class="entry-icon-tape" aria-hidden="true">
+                <img src={project.data.icon} alt="" width="36" height="36" />
               </div>
             )}
+            <div class="entry-block-meta">
+              <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
+              {project.data.tech?.length > 0 && (
+                <div class="entry-block-tags">
+                  {project.data.tech.slice(0, 4).map((t: string) => (
+                    <span class="entry-tag">{t}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <h3 class="entry-block-title">{project.data.title}</h3>
+            <p class="entry-block-excerpt">{project.data.description}</p>
+            <div class="entry-block-links">
+              {project.data.github && (
+                <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
+                  <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
+                  <span>GitHub</span>
+                </a>
+              )}
+              {project.data.url && (
+                <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--teal">Live</a>
+              )}
+            </div>
           </div>
-          <h3 class="entry-block-title">{project.data.title}</h3>
-          <p class="entry-block-excerpt">{project.data.description}</p>
-          <div class="entry-block-links">
-            {project.data.github && (
-              <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
-                <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
-                <span>GitHub</span>
-              </a>
-            )}
-            {project.data.url && (
-              <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--teal">Live</a>
-            )}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
 
     <div class="spread-more">
@@ -216,7 +221,9 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     <ul class="thoughts-list notebook-lines">
       {musings.slice(0, 3).map((entry) => (
         <li class="thought-item">
-          <span class="thought-bullet handwritten">—</span>
+          <svg class="bujo-bullet bujo-bullet--faded thought-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M7 16 L 25 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
           <span>{entry.data.title}</span>
         </li>
       ))}
@@ -513,17 +520,16 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
   .thought-item {
     display: flex;
     gap: var(--space-md);
-    align-items: baseline;
+    align-items: center;
     font-size: 1.05rem;
     line-height: 1.7;
     color: var(--color-ink);
   }
 
-  .thought-bullet {
-    font-size: 1.4rem;
-    color: var(--color-ballpoint-blue);
+  .thought-icon {
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
-    opacity: 0.7;
   }
 
   @media (max-width: 640px) {

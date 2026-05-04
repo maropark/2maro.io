@@ -11,6 +11,9 @@ interface Props {
 
 const { title, description, tech, status, github, url, icon } = Astro.props;
 
+const workshopPatterns = ['w-kraft', 'w-dotgrid', 'w-tartan', 'w-linen', 'w-stripes', 'w-barber'];
+const washiPattern = workshopPatterns[(title.charCodeAt(0) + title.length) % workshopPatterns.length];
+
 const statusColors: Record<string, string> = {
   active: 'var(--color-washi-teal)',
   shipped: 'var(--color-stamp-red)',
@@ -20,6 +23,7 @@ const statusColors: Record<string, string> = {
 ---
 
 <article class="project-card paper-card paper-stacked">
+  <span class:list={['washi-tape project-tape', washiPattern]} aria-hidden="true"></span>
   {icon && (
     <div class="project-icon-tape" aria-hidden="true">
       <img src={icon} alt="" width="40" height="40" />
@@ -60,6 +64,15 @@ const statusColors: Record<string, string> = {
     flex-direction: column;
     gap: var(--space-sm);
     position: relative;
+    overflow: visible;
+  }
+
+  .project-tape {
+    width: 80px;
+    height: 22px;
+    top: -10px;
+    left: 24px;
+    opacity: 0.6;
   }
 
   .project-icon-tape {

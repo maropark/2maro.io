@@ -18,7 +18,9 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     <ul class="musings-list notebook-lines">
       {musings.map((entry) => (
         <li class="musing-item">
-          <span class="musing-bullet handwritten">—</span>
+          <svg class="bujo-bullet bujo-bullet--faded musing-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M7 16 L 25 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
           <span>{entry.data.title}</span>
         </li>
       ))}
@@ -60,16 +62,15 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
   .musing-item {
     display: flex;
     gap: var(--space-md);
-    align-items: baseline;
+    align-items: center;
     font-size: 1.05rem;
     line-height: 1.7;
     color: var(--color-ink);
   }
 
-  .musing-bullet {
-    font-size: 1.4rem;
-    color: var(--color-ballpoint-blue);
+  .musing-icon {
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
-    opacity: 0.7;
   }
 </style>

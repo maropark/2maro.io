@@ -9,6 +9,7 @@ import SkyHeader from '../components/SkyHeader.astro';
 import JournalTabs from '../components/JournalTabs.astro';
 import LostAndFound from '../components/LostAndFound.astro';
 import Doodles from '../components/Doodles.astro';
+import Chatbot from '../components/Chatbot.astro';
 
 interface Props {
   title: string;
@@ -111,6 +112,7 @@ const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '';
     </div>
 
     <slot name="footer" />
+    <Chatbot />
     <script src="../scripts/nightfall.ts"></script>
   </body>
 </html>

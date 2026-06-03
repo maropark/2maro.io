@@ -14,9 +14,13 @@ interface Props {
 const { title, description, date, slug, tags = [], featured = false } = Astro.props;
 
 const variants: Array<'red' | 'teal' | 'yellow'> = ['red', 'teal', 'yellow'];
+
+const washiPatterns = ['w-stripes', 'w-floral', 'w-coffee', 'w-dots', 'w-sakura', 'w-linen'];
+const washiPattern = washiPatterns[(slug.charCodeAt(0) + slug.length) % washiPatterns.length];
 ---
 
 <article class:list={['post-card paper-card', { 'post-card--featured': featured }]}>
+  <span class:list={['washi-tape post-card-tape', washiPattern]} aria-hidden="true"></span>
   <a href={`/blog/${slug}`} class="post-card-link">
     <div class="post-card-meta">
       <DateStamp date={date} />
@@ -38,6 +42,15 @@ const variants: Array<'red' | 'teal' | 'yellow'> = ['red', 'teal', 'yellow'];
 <style>
   .post-card {
     border-radius: 2px;
+    overflow: visible;
+  }
+
+  .post-card-tape {
+    width: 90px;
+    height: 24px;
+    top: -10px;
+    left: 28px;
+    opacity: 0.65;
   }
 
   .post-card-link {

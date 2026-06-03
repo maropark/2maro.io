@@ -19,6 +19,10 @@
   --color-sticky-yellow: #F2C94C;
   --color-washi-teal: #4A9B8E;
   --color-ballpoint-blue: #2D5FAA;
+  --color-plum: #7C3AED;
+  --color-sage: #7BA47C;
+  --color-rose: #E8A0A0;
+  --color-kraft-dark: #A88556;
 
   /* Code */
   --color-typewriter: #3D3D3D;
@@ -91,6 +95,8 @@ body {
   font-family: 'Source Serif 4', 'Georgia', serif;
   color: var(--color-ink);
   background-color: var(--color-paper);
+  background-image: radial-gradient(circle at 1px 1px, rgba(107,107,107,.18) 1px, transparent 1.5px);
+  background-size: 22px 22px;
   line-height: 1.7;
   min-height: 100dvh;
 }

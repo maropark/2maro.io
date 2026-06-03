@@ -41,6 +41,78 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
         </p>
       </div>
     </div>
+
+    <div class="bujo-key">
+      <h4 class="handwritten bujo-key-title">the key</h4>
+      <div class="key-legend">
+        <div class="row">
+          <svg class="bujo-bullet" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="3.6" fill="none" stroke="currentColor" stroke-width="2.2"/>
+          </svg>
+          <span class="name">a task</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet bujo-bullet--done" viewBox="0 0 32 32" aria-hidden="true">
+            <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none">
+              <path d="M11 11 L 21.4 21.2"/><path d="M21.2 11.2 L 10.8 21.4"/>
+            </g>
+          </svg>
+          <span class="name">done</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet bujo-bullet--faded" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M10 9 L 21 16 L 9.5 23.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="name">migrated forward</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet bujo-bullet--faded" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M22 9 L 11 16 L 22.5 23.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="name">scheduled</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="2.2"/>
+          </svg>
+          <span class="name">an event</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M7 16 L 25 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
+          <span class="name">a note</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet bujo-bullet--priority" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16 4 l3.4 7.2 l7.6 1 l-5.6 5.4 l1.4 7.6 l-6.8 -3.8 l-6.8 3.8 l1.4 -7.6 l-5.6 -5.4 l7.6 -1 z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span class="name">priority</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet bujo-bullet--inspire" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16 5 v 14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="16" cy="24" r="1.6" fill="currentColor"/>
+          </svg>
+          <span class="name">inspiration</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet bujo-bullet--discover" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M4 16 q 12 -10 24 0 q -12 10 -24 0 z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="16" cy="16" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="16" cy="16" r="1.2" fill="currentColor"/>
+          </svg>
+          <span class="name">discovery</span>
+        </div>
+        <div class="row">
+          <svg class="bujo-bullet bujo-bullet--faded" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M10 12 q 0 -7 6.5 -7 q 6.5 0 6.5 6 q 0 4 -6 6 v 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="16.5" cy="25.4" r="1.6" fill="currentColor"/>
+          </svg>
+          <span class="name">an open question</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <TornEdge />
@@ -53,23 +125,28 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     </div>
 
     <div class="entry-stack">
-      {posts.map((post) => (
-        <a href={`/blog/${post.id}`} class="entry-block paper-card">
-          <div class="entry-block-meta">
-            <DateStamp date={post.data.date} />
-            {post.data.featured && <span class="entry-featured handwritten">featured</span>}
-          </div>
-          <h3 class="entry-block-title">{post.data.title}</h3>
-          <p class="entry-block-excerpt">{post.data.description}</p>
-          {post.data.tags?.length > 0 && (
-            <div class="entry-block-tags">
-              {post.data.tags.slice(0, 3).map((tag: string) => (
-                <span class="entry-tag">{tag}</span>
-              ))}
+      {posts.map((post, i) => {
+        const patterns = ['w-stripes', 'w-floral', 'w-coffee', 'w-dots', 'w-linen', 'w-sakura'];
+        const pattern = patterns[i % patterns.length];
+        return (
+          <a href={`/blog/${post.id}`} class="entry-block paper-card">
+            <span class:list={['washi-tape entry-tape', pattern]} aria-hidden="true"></span>
+            <div class="entry-block-meta">
+              <DateStamp date={post.data.date} />
+              {post.data.featured && <span class="entry-featured handwritten">featured</span>}
             </div>
-          )}
-        </a>
-      ))}
+            <h3 class="entry-block-title">{post.data.title}</h3>
+            <p class="entry-block-excerpt">{post.data.description}</p>
+            {post.data.tags?.length > 0 && (
+              <div class="entry-block-tags">
+                {post.data.tags.slice(0, 3).map((tag: string) => (
+                  <span class="entry-tag">{tag}</span>
+                ))}
+              </div>
+            )}
+          </a>
+        );
+      })}
     </div>
 
     <div class="spread-more">
@@ -87,38 +164,43 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     </div>
 
     <div class="entry-stack">
-      {projects.map((project) => (
-        <div class="entry-block paper-card paper-stacked" style="position: relative;">
-          {project.data.icon && (
-            <div class="entry-icon-tape" aria-hidden="true">
-              <img src={project.data.icon} alt="" width="36" height="36" />
-            </div>
-          )}
-          <div class="entry-block-meta">
-            <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
-            {project.data.tech?.length > 0 && (
-              <div class="entry-block-tags">
-                {project.data.tech.slice(0, 4).map((t: string) => (
-                  <span class="entry-tag">{t}</span>
-                ))}
+      {projects.map((project, i) => {
+        const workshopPatterns = ['w-kraft', 'w-dotgrid', 'w-tartan', 'w-linen', 'w-stripes', 'w-barber'];
+        const wPattern = workshopPatterns[i % workshopPatterns.length];
+        return (
+          <div class="entry-block paper-card paper-stacked" style="position: relative;">
+            <span class:list={['washi-tape entry-tape', wPattern]} aria-hidden="true"></span>
+            {project.data.icon && (
+              <div class="entry-icon-tape" aria-hidden="true">
+                <img src={project.data.icon} alt="" width="36" height="36" />
               </div>
             )}
+            <div class="entry-block-meta">
+              <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
+              {project.data.tech?.length > 0 && (
+                <div class="entry-block-tags">
+                  {project.data.tech.slice(0, 4).map((t: string) => (
+                    <span class="entry-tag">{t}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <h3 class="entry-block-title">{project.data.title}</h3>
+            <p class="entry-block-excerpt">{project.data.description}</p>
+            <div class="entry-block-links">
+              {project.data.github && (
+                <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
+                  <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
+                  <span>GitHub</span>
+                </a>
+              )}
+              {project.data.url && (
+                <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--teal">Live</a>
+              )}
+            </div>
           </div>
-          <h3 class="entry-block-title">{project.data.title}</h3>
-          <p class="entry-block-excerpt">{project.data.description}</p>
-          <div class="entry-block-links">
-            {project.data.github && (
-              <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
-                <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
-                <span>GitHub</span>
-              </a>
-            )}
-            {project.data.url && (
-              <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--teal">Live</a>
-            )}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
 
     <div class="spread-more">
@@ -139,7 +221,9 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     <ul class="thoughts-list notebook-lines">
       {musings.slice(0, 3).map((entry) => (
         <li class="thought-item">
-          <span class="thought-bullet handwritten">—</span>
+          <svg class="bujo-bullet bujo-bullet--faded thought-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M7 16 L 25 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
           <span>{entry.data.title}</span>
         </li>
       ))}
@@ -436,17 +520,16 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
   .thought-item {
     display: flex;
     gap: var(--space-md);
-    align-items: baseline;
+    align-items: center;
     font-size: 1.05rem;
     line-height: 1.7;
     color: var(--color-ink);
   }
 
-  .thought-bullet {
-    font-size: 1.4rem;
-    color: var(--color-ballpoint-blue);
+  .thought-icon {
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
-    opacity: 0.7;
   }
 
   @media (max-width: 640px) {
@@ -458,5 +541,27 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
       width: 150px;
       height: 150px;
     }
+  }
+
+  /* Washi tape on entry cards */
+  .entry-tape {
+    width: 90px;
+    height: 24px;
+    top: -10px;
+    left: 28px;
+    opacity: 0.65;
+  }
+
+  /* Bujo key legend */
+  .bujo-key {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px dashed var(--color-kraft);
+  }
+  .bujo-key-title {
+    font-size: 1.3rem;
+    color: var(--color-pencil);
+    margin-bottom: var(--space-md);
+    display: block;
   }
 </style>

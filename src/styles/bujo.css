@@ -1,0 +1,161 @@
+/* ============================================
+   Bullet Journal Core — key legend, trackers, tags
+   ============================================ */
+
+/* ---- Inline bujo bullet icon ---- */
+.bujo-bullet {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--color-ink);
+  flex: none;
+}
+.bujo-bullet--done     { color: var(--color-washi-teal); }
+.bujo-bullet--priority { color: var(--color-stamp-red); }
+.bujo-bullet--inspire  { color: var(--color-ballpoint-blue); }
+.bujo-bullet--discover { color: var(--color-plum, #7C3AED); }
+.bujo-bullet--faded    { color: var(--color-pencil); }
+
+/* ---- Key legend (bullets reference) ---- */
+.key-legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .6rem 2rem;
+  max-width: 520px;
+  margin-top: 1rem;
+}
+.key-legend .row {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .25rem 0;
+  border-bottom: 1px dashed var(--color-kraft);
+}
+.key-legend svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.key-legend .row .name {
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 640px) {
+  .key-legend {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Habit tracker grid ---- */
+.habit-tracker {
+  display: grid;
+  grid-template-columns: 110px repeat(14, 1fr);
+  gap: 2px;
+  font-family: 'Caveat', cursive;
+  font-size: .95rem;
+  color: var(--color-ink);
+  overflow-x: auto;
+}
+.habit-tracker .head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  color: var(--color-pencil);
+  text-align: center;
+  padding-bottom: 4px;
+}
+.habit-tracker .label {
+  padding-right: 8px;
+  align-self: center;
+  white-space: nowrap;
+}
+.habit-tracker .cell {
+  aspect-ratio: 1;
+  border: 1px solid var(--color-kraft);
+  background: var(--color-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.habit-tracker .cell.fill {
+  background: var(--color-washi-teal);
+  color: var(--color-paper);
+}
+.habit-tracker .cell.fill-red {
+  background: var(--color-stamp-red);
+  color: var(--color-paper);
+}
+.habit-tracker .cell.fill-yellow {
+  background: var(--color-sticky-yellow);
+  color: var(--color-ink);
+}
+.habit-tracker .cell.dot::after {
+  content: '·';
+  font-size: 1.4rem;
+  color: var(--color-pencil);
+  line-height: 0;
+}
+
+/* ---- Mood strip (31 days) ---- */
+.mood-strip {
+  display: grid;
+  grid-template-columns: repeat(31, 1fr);
+  gap: 2px;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+.mood-strip .day {
+  aspect-ratio: 1;
+  border: 1px solid var(--color-kraft-light);
+  background: var(--color-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .55rem;
+  color: var(--color-pencil);
+  min-width: 18px;
+}
+
+/* ---- Tag chips ---- */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: 1rem;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  padding: .12rem .7rem;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-paper);
+  transform: rotate(var(--r, 0deg));
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.tag svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.tag:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+.tag--red    { border-color: var(--color-stamp-red);    color: var(--color-stamp-red); }
+.tag--teal   { border-color: var(--color-washi-teal);   color: var(--color-washi-teal); }
+.tag--blue   { border-color: var(--color-ballpoint-blue); color: var(--color-ballpoint-blue); }
+.tag--plum   { border-color: var(--color-plum, #7C3AED); color: var(--color-plum, #7C3AED); }
+.tag--yellow { border-color: #B88D1A; color: #B88D1A; }
+
+/* ---- Night mode ---- */
+.nightfall-night .tag {
+  box-shadow: 0 0 6px currentColor;
+}
+.nightfall-night .habit-tracker .cell.fill {
+  box-shadow: 0 0 4px var(--color-washi-teal);
+}

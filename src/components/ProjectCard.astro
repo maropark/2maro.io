@@ -163,7 +163,7 @@ const statusColors: Record<string, string> = {
   .tape-link--yellow { background: var(--color-sticky-yellow, #F2C94C);  color: var(--color-ink, #2C2520); }
   .tape-link--red    { background: var(--color-stamp-red, #C1440E);      color: white; }
 
-  /* GitHub washi tape — rectangular strip, blue, stuck to card */
+  /* GitHub washi tape — black/white strip matching GitHub brand */
   .github-tape {
     display: inline-flex;
     align-items: center;
@@ -174,12 +174,17 @@ const statusColors: Record<string, string> = {
     text-decoration: none;
     color: white;
     padding: 3px 10px;
-    background: var(--color-ballpoint-blue, #2D5FAA);
-    opacity: 0.85;
+    background: #24292f;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px,
+      transparent 1px, transparent 8px
+    );
+    opacity: 0.88;
     transform: rotate(-2deg);
     transform-origin: left center;
     transition: opacity 0.15s, transform 0.15s;
-    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.18));
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.25));
     white-space: nowrap;
   }
 

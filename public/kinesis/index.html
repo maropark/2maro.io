@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KINESIS — A self-describing field guide to the scroll-narrative</title>
+  <meta name="description" content="KINESIS is a page that explains itself as you move. A field guide to scroll-narrative web design — the glide, the type, the reveal, the turn, the contrast, the depth — each technique demonstrated while it is named." />
+
+  <meta property="og:title" content="KINESIS — The grammar of scroll" />
+  <meta property="og:description" content="A page that explains itself as you scroll. Six techniques of narrative web motion, each demonstrated while it is named, then the thesis: the architecture is neutral — you compose its register." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fraunces (high-contrast display serif) · Inter (UI/body) · JetBrains Mono (telemetry/labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%237C5CFF'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ════ Atmosphere: aurora blooms + grain + pointer glow (all decorative) ════ -->
+  <div class="atmosphere" aria-hidden="true">
+    <div class="aurora aurora--1" data-aurora="1"></div>
+    <div class="aurora aurora--2" data-aurora="2"></div>
+    <div class="aurora aurora--3" data-aurora="3"></div>
+    <div class="pointer-glow" data-pointer-glow></div>
+    <div class="grain"></div>
+  </div>
+
+  <a class="skip-link" href="#guide">Skip to the guide</a>
+
+  <!-- ════ Header / chrome ════ -->
+  <header class="masthead" data-header>
+    <a class="brand" href="#cover" aria-label="KINESIS — top">
+      <span class="brand__mark" aria-hidden="true">◖</span>
+      <span class="brand__word">KINESIS</span>
+    </a>
+    <p class="masthead__tag" aria-hidden="true">field guide · scroll-narrative</p>
+    <nav class="masthead__nav" aria-label="Techniques">
+      <a href="#glide">01</a>
+      <a href="#type">02</a>
+      <a href="#reveal">03</a>
+      <a href="#turn">04</a>
+      <a href="#contrast">05</a>
+      <a href="#depth">06</a>
+      <a href="#register">07</a>
+    </nav>
+  </header>
+
+  <!-- ════ Self-describing HUD — the teaching layer. Names the active technique,
+        its mechanical spec, and live telemetry. Stays useful even without motion. ════ -->
+  <aside class="hud" data-hud aria-label="Scroll telemetry">
+    <div class="hud__line hud__line--title">
+      <span class="hud__bullet" aria-hidden="true">◖</span>
+      <span class="hud__num" data-hud-num>00</span>
+      <span class="hud__name" data-hud-name>The Invitation</span>
+    </div>
+    <p class="hud__spec" data-hud-spec>a page that explains itself as you move</p>
+    <div class="hud__readout" aria-hidden="true">
+      <span class="hud__metric">scroll <b data-hud-progress>0</b>%</span>
+      <span class="hud__metric">v <b data-hud-velocity>0.00</b></span>
+      <span class="hud__metric hud__metric--x" data-hud-x-wrap hidden>x <b data-hud-x>0</b>px</span>
+    </div>
+    <div class="hud__bar" aria-hidden="true"><span data-hud-bar></span></div>
+    <button class="hud__toggle" data-hud-toggle aria-pressed="false" aria-label="Hide telemetry">−</button>
+  </aside>
+
+  <!-- vertical chapter rail (right edge) -->
+  <nav class="rail" data-rail aria-label="Jump to technique">
+    <a class="rail__tick" href="#cover" data-rail-tick="cover"><span class="rail__dot"></span><span class="rail__label">00 · Invitation</span></a>
+    <a class="rail__tick" href="#glide" data-rail-tick="glide"><span class="rail__dot"></span><span class="rail__label">01 · The Glide</span></a>
+    <a class="rail__tick" href="#type" data-rail-tick="type"><span class="rail__dot"></span><span class="rail__label">02 · The Type</span></a>
+    <a class="rail__tick" href="#reveal" data-rail-tick="reveal"><span class="rail__dot"></span><span class="rail__label">03 · The Reveal</span></a>
+    <a class="rail__tick" href="#turn" data-rail-tick="turn"><span class="rail__dot"></span><span class="rail__label">04 · The Turn</span></a>
+    <a class="rail__tick" href="#contrast" data-rail-tick="contrast"><span class="rail__dot"></span><span class="rail__label">05 · The Contrast</span></a>
+    <a class="rail__tick" href="#depth" data-rail-tick="depth"><span class="rail__dot"></span><span class="rail__label">06 · The Depth</span></a>
+    <a class="rail__tick" href="#register" data-rail-tick="register"><span class="rail__dot"></span><span class="rail__label">07 · The Register</span></a>
+    <a class="rail__tick" href="#colophon" data-rail-tick="colophon"><span class="rail__dot"></span><span class="rail__label">Colophon</span></a>
+  </nav>
+
+  <main id="guide">
+
+    <!-- ════════════════ 00 · COVER ════════════════ -->
+    <section class="cover" id="cover" aria-label="Introduction"
+             data-chapter data-num="00" data-name="The Invitation"
+             data-spec="a page that explains itself as you move" data-glow="violet">
+      <p class="cover__eyebrow reveal" data-reveal>A field guide to the scroll-narrative</p>
+      <h1 class="cover__title">
+        <span class="cover__line reveal" data-reveal style="--d:1">Most pages are</span>
+        <span class="cover__line cover__line--strike reveal" data-reveal style="--d:2">read.</span>
+        <span class="cover__line cover__em reveal" data-reveal style="--d:4">This one is <em>travelled.</em></span>
+      </h1>
+      <p class="cover__lede reveal" data-reveal style="--d:6">
+        Scroll is the only verb every visitor already knows. Treated as a timeline
+        instead of a chore, it becomes narrative. <strong>KINESIS</strong> is a working
+        demonstration — every technique below is performed <em>while it is named.</em>
+      </p>
+      <div class="cover__meta reveal" data-reveal style="--d:7">
+        <span>06 techniques</span><span aria-hidden="true">/</span>
+        <span>1 thesis</span><span aria-hidden="true">/</span>
+        <span>0 frameworks</span>
+      </div>
+      <a class="scroll-cue" href="#glide" aria-label="Begin">
+        <span>begin</span>
+        <span class="scroll-cue__rail" aria-hidden="true"><i></i></span>
+      </a>
+    </section>
+
+    <!-- ════════════════ 01 · THE GLIDE ════════════════ -->
+    <section class="chapter glide" id="glide" aria-labelledby="glide-h"
+             data-chapter data-num="01" data-name="The Glide"
+             data-spec="lerp 0.08 · scroll smoothed into inertia" data-glow="indigo">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>01 — The Glide</p>
+        <h2 class="chapter__head" id="glide-h">
+          <span class="reveal" data-reveal>Give the scroll</span>
+          <span class="reveal em" data-reveal style="--d:1">weight.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal>
+          <p>Native scrolling is instantaneous — it snaps, pixel-for-pixel, to the wheel.
+          A smoothing layer (here, <a href="https://github.com/darkroomengineering/lenis" target="_blank" rel="noopener">Lenis</a>)
+          interpolates toward the target each frame, so the page carries <em>momentum.</em>
+          It now feels like a physical object you set in motion, not a list you nudge.</p>
+          <p class="muted">The marker below is driven straight from your scroll position;
+          the disc <em>eases</em> toward it. That gap — that lag — is the entire feeling.</p>
+        </div>
+
+        <!-- live demonstration: target (locked to scroll) vs follower (eased) -->
+        <figure class="demo glide-demo" data-glide aria-label="Demonstration: a follower easing toward a scroll-locked target">
+          <span class="glide-demo__track" aria-hidden="true"></span>
+          <span class="glide-demo__target" data-glide-target aria-hidden="true"></span>
+          <span class="glide-demo__follow" data-glide-follow aria-hidden="true"></span>
+          <figcaption class="demo__cap">
+            <span class="demo__dot demo__dot--target"></span> target = scroll
+            <span class="demo__dot demo__dot--follow"></span> follower = eased
+          </figcaption>
+        </figure>
+
+        <aside class="note reveal" data-reveal>
+          <p class="note__fig">fig. 01 · why it matters</p>
+          <p>Pace is the first thing a body feels. Slow the easing and the room exhales;
+          tighten it and the page gets urgent. You are tuning a mood before a single word is read.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ════════════════ 02 · THE TYPE ════════════════ -->
+    <section class="chapter type" id="type" aria-labelledby="type-h"
+             data-chapter data-num="02" data-name="The Type"
+             data-spec="clamp() display · scale as hierarchy" data-glow="teal">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>02 — The Type</p>
+        <h2 class="chapter__head" id="type-h">
+          <span class="reveal" data-reveal>Type at</span>
+          <span class="reveal em" data-reveal style="--d:1">architectural scale.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal>
+          <p>One word, sized in viewport units and let run past the edges, stops being
+          text and becomes <em>structure.</em> Scale is the loudest signal of hierarchy
+          we have — louder than colour, louder than weight. Spend it on one idea per view.</p>
+          <p class="muted"><code>font-size: clamp(3rem, 18vw, 22rem)</code> — fluid between a
+          floor and a ceiling, so it is enormous on a wall and still legible in a hand.</p>
+        </div>
+      </div>
+      <!-- the word itself is the demonstration: it grows and crops as you pass -->
+      <div class="type-stage" aria-hidden="true">
+        <span class="type-word" data-type-word>TRAVELLED</span>
+      </div>
+      <p class="type-foot reveal" data-reveal>Negative space is not empty — it is the silence that makes the note land.</p>
+    </section>
+
+    <!-- ════════════════ 03 · THE REVEAL ════════════════ -->
+    <section class="chapter reveal-ch" id="reveal" aria-labelledby="reveal-h"
+             data-chapter data-num="03" data-name="The Reveal"
+             data-spec="IntersectionObserver · 70ms stagger" data-glow="aqua">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>03 — The Reveal</p>
+        <h2 class="chapter__head reveal-ch__head" id="reveal-h" aria-label="Withhold, then grant.">
+          <span class="word reveal" data-reveal>Withhold,</span>
+          <span class="word reveal" data-reveal style="--d:1">then</span>
+          <span class="word reveal em" data-reveal style="--d:2">grant.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>Content that arrives all at once is a wall. Content that <em>assembles</em>
+          as it enters the frame has rhythm — the eye is led, line by line, at a tempo
+          you set. A staggered delay turns a paragraph into a sentence spoken aloud.</p>
+        </div>
+
+        <!-- demonstration: a stack of lines that arrive in sequence -->
+        <ol class="reveal-demo" aria-label="Lines arriving in sequence">
+          <li class="reveal-demo__row reveal" data-reveal><span class="reveal-demo__i">01</span> the eye enters the frame</li>
+          <li class="reveal-demo__row reveal" data-reveal style="--d:1"><span class="reveal-demo__i">02</span> a line resolves from below</li>
+          <li class="reveal-demo__row reveal" data-reveal style="--d:2"><span class="reveal-demo__i">03</span> a beat of stillness — 70ms</li>
+          <li class="reveal-demo__row reveal" data-reveal style="--d:3"><span class="reveal-demo__i">04</span> the next follows, and the next</li>
+          <li class="reveal-demo__row reveal" data-reveal style="--d:4"><span class="reveal-demo__i">05</span> attention becomes a tempo</li>
+        </ol>
+
+        <aside class="note reveal" data-reveal>
+          <p class="note__fig">fig. 03 · the restraint</p>
+          <p>Reveal once, then leave it. Re-animating on every pass turns delight into
+          a tic. The technique is a greeting, not a loop.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ════════════════ 04 · THE TURN (pinned horizontal) ════════════════ -->
+    <section class="chapter turn" id="turn" aria-labelledby="turn-h"
+             data-chapter data-num="04" data-name="The Turn"
+             data-spec="Δscroll.y → Δtrack.x · pinned stage" data-glow="amber">
+      <div class="turn__intro chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>04 — The Turn</p>
+        <h2 class="chapter__head" id="turn-h">
+          <span class="reveal" data-reveal>Turn the scroll</span>
+          <span class="reveal em" data-reveal style="--d:1">sideways.</span>
+        </h2>
+        <p class="chapter__body reveal" data-reveal style="--d:1">
+          Pin a tall section and map its vertical progress onto horizontal travel. The
+          reader keeps doing the one gesture they know, and the world moves in an axis
+          they didn't expect. It is the single most cinematic move in the kit — perfect
+          for sequences, timelines, and reveals that want a held breath.
+        </p>
+      </div>
+
+      <!-- pinned stage: vertical scroll drives the horizontal rail -->
+      <div class="turn__stage" data-turn-stage>
+        <div class="turn__viewport" data-turn-viewport>
+          <ol class="turn__rail" data-turn-rail>
+            <li class="frame" data-glow="amber"><span class="frame__no">01</span><h3 class="frame__t">The Glide</h3><p>momentum as mood</p></li>
+            <li class="frame" data-glow="teal"><span class="frame__no">02</span><h3 class="frame__t">The Type</h3><p>scale as hierarchy</p></li>
+            <li class="frame" data-glow="aqua"><span class="frame__no">03</span><h3 class="frame__t">The Reveal</h3><p>tempo as attention</p></li>
+            <li class="frame frame--now" data-glow="rose"><span class="frame__no">04</span><h3 class="frame__t">The Turn</h3><p>axis as surprise</p></li>
+            <li class="frame" data-glow="magenta"><span class="frame__no">05</span><h3 class="frame__t">The Contrast</h3><p>polarity as rhythm</p></li>
+            <li class="frame" data-glow="cyan"><span class="frame__no">06</span><h3 class="frame__t">The Depth</h3><p>parallax as space</p></li>
+          </ol>
+          <span class="turn__spot" data-turn-spot aria-hidden="true"></span>
+          <p class="turn__hint" aria-hidden="true">keep scrolling ↓ &nbsp;·&nbsp; the rail moves →</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 05 · THE CONTRAST (polarity invert) ════════════════ -->
+    <section class="chapter contrast" id="contrast" aria-labelledby="contrast-h"
+             data-chapter data-num="05" data-name="The Contrast"
+             data-spec="scroll-linked polarity · one accent held" data-glow="magenta"
+             data-contrast>
+      <div class="chapter__grid contrast__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>05 — The Contrast</p>
+        <h2 class="chapter__head contrast__head" id="contrast-h">
+          <span class="reveal" data-reveal>Invert to</span>
+          <span class="reveal em" data-reveal style="--d:1">punctuate.</span>
+        </h2>
+        <p class="chapter__body reveal" data-reveal style="--d:1">
+          A page in one register goes numb. Flip the polarity at a threshold — dark to
+          light, light to dark — and the change itself becomes a beat, a chapter break the
+          body feels. The discipline that makes it work: hold a <em>single</em> accent
+          across both states, so the colour reads as a voice, not a paint set.
+        </p>
+        <p class="contrast__accentline reveal" data-reveal style="--d:2">
+          <span class="contrast__swatch" aria-hidden="true"></span> one accent, both worlds
+        </p>
+      </div>
+    </section>
+
+    <!-- ════════════════ 06 · THE DEPTH (parallax) ════════════════ -->
+    <section class="chapter depth" id="depth" aria-labelledby="depth-h"
+             data-chapter data-num="06" data-name="The Depth"
+             data-spec="parallax · planes at differing rates" data-glow="cyan">
+      <div class="depth__scene" aria-hidden="true">
+        <span class="depth__layer depth__layer--back"  data-parallax="-0.10">z-back</span>
+        <span class="depth__layer depth__layer--mid"   data-parallax="0.06">z-mid</span>
+        <span class="depth__layer depth__layer--fore"  data-parallax="0.16">z-fore</span>
+      </div>
+      <div class="chapter__grid depth__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>06 — The Depth</p>
+        <h2 class="chapter__head" id="depth-h">
+          <span class="reveal" data-reveal>Move planes at</span>
+          <span class="reveal em" data-reveal style="--d:1">different speeds.</span>
+        </h2>
+        <p class="chapter__body reveal" data-reveal style="--d:1">
+          The brain reads anything that moves slower as <em>further away.</em> Offset a few
+          layers against the scroll and a flat page gains a third dimension — the aurora
+          drifts behind, a label floats in front. Depth is generous in small doses and
+          nauseating in large ones; the craft is knowing where to stop.
+        </p>
+        <aside class="note reveal" data-reveal>
+          <p class="note__fig">fig. 06 · the ceiling</p>
+          <p>Transform and opacity only — never properties that trigger layout. Motion that
+          reflows the page is the difference between silk and a stutter.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ════════════════ 07 · THE REGISTER (the thesis) ════════════════ -->
+    <section class="chapter register" id="register" aria-labelledby="register-h"
+             data-chapter data-num="07" data-name="The Register"
+             data-spec="same kit · opposite feeling" data-glow="violet">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>07 — The Register</p>
+        <h2 class="chapter__head" id="register-h">
+          <span class="reveal" data-reveal>The architecture is</span>
+          <span class="reveal" data-reveal style="--d:1">neutral.</span>
+          <span class="reveal em" data-reveal style="--d:2">You compose the feeling.</span>
+        </h2>
+        <p class="chapter__body reveal" data-reveal style="--d:1">
+          Every technique above is a dial, not a destination. The same six dials, turned
+          two ways, build two opposite emotions. Disorient on purpose and you get a
+          <em>maze</em> — a luxury dream that wants you a little lost. Slow everything and
+          open the space and you get a <em>breath</em> — a calm that wants you to stay.
+          Pick the feeling first; the values follow.
+        </p>
+
+        <!-- interactive: same parameters, two registers -->
+        <div class="register-machine reveal" data-reveal style="--d:1">
+          <div class="register-machine__switch" role="group" aria-label="Choose a register">
+            <button class="rswitch is-active" data-register="maze" aria-pressed="true">MAZE<span>disorient</span></button>
+            <button class="rswitch" data-register="breath" aria-pressed="false">BREATH<span>calm</span></button>
+          </div>
+          <dl class="register-machine__params" data-register-readout>
+            <div><dt>easing / lerp</dt><dd data-p="lerp">0.12 — quick, restless</dd></div>
+            <div><dt>reveal stagger</dt><dd data-p="stagger">30ms — things rush in</dd></div>
+            <div><dt>contrast</dt><dd data-p="contrast">hard — abrupt cuts</dd></div>
+            <div><dt>density</dt><dd data-p="density">crowded — edges cropped</dd></div>
+            <div><dt>palette</dt><dd data-p="palette">hot accent on black</dd></div>
+            <div><dt>feeling</dt><dd data-p="feeling">a luxury you get lost in</dd></div>
+          </dl>
+        </div>
+
+        <aside class="note note--wide reveal" data-reveal>
+          <p class="note__fig">fig. 07 · field notes</p>
+          <p>The maze register is drawn from a teardown of <strong>Somni</strong>, a
+          two-Michelin-star restaurant site that weaponises disorientation. The breath
+          register is a companion study — <strong>Megumi</strong>, a Japanese head-spa,
+          where the identical structural kit is retuned until it feels like exhaling.
+          One grammar; two sentences.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ════════════════ COLOPHON ════════════════ -->
+    <section class="colophon" id="colophon" aria-labelledby="colophon-h"
+             data-chapter data-num="08" data-name="Colophon" data-spec="now read any scroll as sheet music" data-glow="spectrum">
+      <h2 class="colophon__head" id="colophon-h">
+        <span class="reveal" data-reveal>You can now read a</span>
+        <span class="reveal em" data-reveal style="--d:1">scroll as sheet music.</span>
+      </h2>
+
+      <ol class="colophon__recap reveal" data-reveal>
+        <li><b>01 Glide</b> — momentum tunes mood before a word is read.</li>
+        <li><b>02 Type</b> — scale is the loudest hierarchy you can spend.</li>
+        <li><b>03 Reveal</b> — a stagger turns a paragraph into a tempo.</li>
+        <li><b>04 Turn</b> — vertical input, horizontal world: held breath.</li>
+        <li><b>05 Contrast</b> — flip polarity to punctuate; hold one accent.</li>
+        <li><b>06 Depth</b> — offset planes for space; stop before nausea.</li>
+        <li><b>07 Register</b> — the kit is neutral; you compose the feeling.</li>
+      </ol>
+
+      <div class="colophon__grid">
+        <div class="colophon__col">
+          <p class="colophon__k">Built with</p>
+          <p>Plain HTML, CSS &amp; JavaScript. One vendored dependency — Lenis, for the
+          glide. No framework, no build step. Every motion rides transform and opacity.</p>
+        </div>
+        <div class="colophon__col">
+          <p class="colophon__k">Made to read</p>
+          <p>Honours <code>prefers-reduced-motion</code>: the telemetry still names each
+          technique, but the page holds still and stays fully legible. Real landmarks,
+          focus rings, a skip link.</p>
+        </div>
+        <div class="colophon__col">
+          <p class="colophon__k">Field notes</p>
+          <p>Architecture after a teardown of <em>Somni</em>; register after a study of
+          <em>Megumi</em>. A guide to reading — and composing — the scroll.</p>
+        </div>
+      </div>
+
+      <p class="colophon__wordmark" data-parallax="0.06" aria-hidden="true">KINESIS</p>
+
+      <footer class="colophon__foot">
+        <p>KINESIS — the grammar of scroll</p>
+        <p>A design study for <a href="https://2maro.io" target="_blank" rel="noopener">2maro.io</a> · © <span data-year>2026</span></p>
+      </footer>
+    </section>
+
+  </main>
+
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

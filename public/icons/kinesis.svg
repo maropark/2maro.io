@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="aurora" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#7C5CFF"/>
+      <stop offset="50%" stop-color="#2BD7C4"/>
+      <stop offset="100%" stop-color="#FFB23E"/>
+    </linearGradient>
+    <radialGradient id="bloom" cx="38%" cy="34%" r="72%">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#2BD7C4" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#2BD7C4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="3" y="3" width="122" height="122" rx="28" fill="#0B0E17" stroke="#272a3d" stroke-width="3"/>
+  <circle cx="60" cy="58" r="52" fill="url(#bloom)"/>
+  <!-- ◖ the KINESIS mark: a ring with its left half filled by the aurora gradient -->
+  <path d="M64 28 A36 36 0 0 0 64 100 Z" fill="url(#aurora)"/>
+  <circle cx="64" cy="64" r="36" fill="none" stroke="#ECEDF4" stroke-width="4"/>
+</svg>

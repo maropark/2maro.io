@@ -9,13 +9,148 @@ const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const allProjects = await getCollection('projects');
-const projects = allProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const projects = allProjects.sort((a, b) => {
+  // Spotlit works first, then most recent.
+  if (a.data.highlight !== b.data.highlight) return a.data.highlight ? -1 : 1;
+  return b.data.date.valueOf() - a.data.date.valueOf();
+});
 
 const allMusings = await getCollection('musings', ({ data }) => data.published);
 const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title="Home">
+
+  <!-- ═══════════ WORKSHOP SPREAD ═══════════ -->
+  <section class="spread spread--workshop" id="workshop">
+    <div class="spread-header">
+      <h2 class="spread-title">Workshop</h2>
+      <p class="spread-subtitle handwritten">things I'll ship&hellip; 2maro</p>
+    </div>
+
+    <div class="entry-stack">
+      {projects.map((project, i) => {
+        const workshopPatterns = ['w-kraft', 'w-dotgrid', 'w-tartan', 'w-linen', 'w-stripes', 'w-barber'];
+        const wPattern = workshopPatterns[i % workshopPatterns.length];
+        return (
+          <div class:list={['entry-block paper-card paper-stacked', project.data.highlight && 'entry-block--highlight']} style="position: relative;">
+            {project.data.url && (
+              <a class="entry-block-stretch" href={project.data.url} target="_blank" rel="noopener noreferrer" aria-label={`${project.data.title} — open the live project`}></a>
+            )}
+            <span class:list={['washi-tape entry-tape', wPattern]} aria-hidden="true"></span>
+            {project.data.icon && (
+              <div class="entry-icon-tape" aria-hidden="true">
+                <img src={project.data.icon} alt="" width="36" height="36" />
+              </div>
+            )}
+            <div class="entry-block-meta">
+              {project.data.highlight && (
+                <span class="entry-spotlight handwritten" aria-label="Spotlight">
+                  <svg class="entry-spotlight-star" viewBox="0 0 32 32" aria-hidden="true">
+                    <path d="M16 4 l3.4 7.2 l7.6 1 l-5.6 5.4 l1.4 7.6 l-6.8 -3.8 l-6.8 3.8 l1.4 -7.6 l-5.6 -5.4 l7.6 -1 z" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                  </svg>
+                  spotlight
+                </span>
+              )}
+              <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
+              {project.data.tech?.length > 0 && (
+                <div class="entry-block-tags">
+                  {project.data.tech.slice(0, 4).map((t: string) => (
+                    <span class="entry-tag">{t}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <h3 class="entry-block-title">{project.data.title}</h3>
+            <p class="entry-block-excerpt">{project.data.description}</p>
+            <div class="entry-block-links">
+              {project.data.github && (
+                <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
+                  <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
+                  <span>GitHub</span>
+                </a>
+              )}
+              {project.data.url && (
+                <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--live">
+                  <span class="tape-link__label">Live</span>
+                </a>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div class="spread-more">
+      <a href="/projects" class="tape-link tape-link--teal">all projects →</a>
+    </div>
+  </section>
+
+  <TornEdge />
+
+  <!-- ═══════════ JOURNAL SPREAD ═══════════ -->
+  <section class="spread spread--journal spread--lined" id="journal">
+    <div class="spread-header">
+      <h2 class="spread-title">Journal</h2>
+      <p class="spread-subtitle handwritten">things I wrote down before I forget</p>
+    </div>
+
+    <div class="entry-stack">
+      {posts.map((post, i) => {
+        const patterns = ['w-stripes', 'w-floral', 'w-coffee', 'w-dots', 'w-linen', 'w-sakura'];
+        const pattern = patterns[i % patterns.length];
+        return (
+          <a href={`/blog/${post.id}`} class="entry-block paper-card">
+            <span class:list={['washi-tape entry-tape', pattern]} aria-hidden="true"></span>
+            <div class="entry-block-meta">
+              <DateStamp date={post.data.date} />
+              {post.data.featured && <span class="entry-featured handwritten">featured</span>}
+            </div>
+            <h3 class="entry-block-title">{post.data.title}</h3>
+            <p class="entry-block-excerpt">{post.data.description}</p>
+            {post.data.tags?.length > 0 && (
+              <div class="entry-block-tags">
+                {post.data.tags.slice(0, 3).map((tag: string) => (
+                  <span class="entry-tag">{tag}</span>
+                ))}
+              </div>
+            )}
+          </a>
+        );
+      })}
+    </div>
+
+    <div class="spread-more">
+      <a href="/blog" class="tape-link tape-link--red">all entries →</a>
+    </div>
+  </section>
+
+  <TornEdge />
+
+  <!-- ═══════════ THOUGHTS FOR TOMORROW SPREAD ═══════════ -->
+  <section class="spread spread--thoughts" id="thoughts">
+    <div class="spread-header">
+      <h2 class="spread-title">Thoughts for Tomorrow</h2>
+      <p class="spread-subtitle handwritten">musings. not quite ideas. not quite plans.</p>
+    </div>
+
+    <ul class="thoughts-list notebook-lines">
+      {musings.slice(0, 3).map((entry) => (
+        <li class="thought-item">
+          <svg class="bujo-bullet bujo-bullet--faded thought-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M7 16 L 25 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
+          <span>{entry.data.title}</span>
+        </li>
+      ))}
+    </ul>
+
+    <div class="spread-more">
+      <a href="/musings" class="tape-link tape-link--blue">all musings →</a>
+    </div>
+  </section>
+
+  <TornEdge />
 
   <!-- ═══════════ AUTHOR'S NOTE SPREAD ═══════════ -->
   <section class="spread spread--authors" id="authors-note">
@@ -112,125 +247,6 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
           <span class="name">an open question</span>
         </div>
       </div>
-    </div>
-  </section>
-
-  <TornEdge />
-
-  <!-- ═══════════ JOURNAL SPREAD ═══════════ -->
-  <section class="spread spread--journal spread--lined" id="journal">
-    <div class="spread-header">
-      <h2 class="spread-title">Journal</h2>
-      <p class="spread-subtitle handwritten">things I wrote down before I forget</p>
-    </div>
-
-    <div class="entry-stack">
-      {posts.map((post, i) => {
-        const patterns = ['w-stripes', 'w-floral', 'w-coffee', 'w-dots', 'w-linen', 'w-sakura'];
-        const pattern = patterns[i % patterns.length];
-        return (
-          <a href={`/blog/${post.id}`} class="entry-block paper-card">
-            <span class:list={['washi-tape entry-tape', pattern]} aria-hidden="true"></span>
-            <div class="entry-block-meta">
-              <DateStamp date={post.data.date} />
-              {post.data.featured && <span class="entry-featured handwritten">featured</span>}
-            </div>
-            <h3 class="entry-block-title">{post.data.title}</h3>
-            <p class="entry-block-excerpt">{post.data.description}</p>
-            {post.data.tags?.length > 0 && (
-              <div class="entry-block-tags">
-                {post.data.tags.slice(0, 3).map((tag: string) => (
-                  <span class="entry-tag">{tag}</span>
-                ))}
-              </div>
-            )}
-          </a>
-        );
-      })}
-    </div>
-
-    <div class="spread-more">
-      <a href="/blog" class="tape-link tape-link--red">all entries →</a>
-    </div>
-  </section>
-
-  <TornEdge />
-
-  <!-- ═══════════ WORKSHOP SPREAD ═══════════ -->
-  <section class="spread spread--workshop" id="workshop">
-    <div class="spread-header">
-      <h2 class="spread-title">Workshop</h2>
-      <p class="spread-subtitle handwritten">things I'll ship&hellip; 2maro</p>
-    </div>
-
-    <div class="entry-stack">
-      {projects.map((project, i) => {
-        const workshopPatterns = ['w-kraft', 'w-dotgrid', 'w-tartan', 'w-linen', 'w-stripes', 'w-barber'];
-        const wPattern = workshopPatterns[i % workshopPatterns.length];
-        return (
-          <div class="entry-block paper-card paper-stacked" style="position: relative;">
-            <span class:list={['washi-tape entry-tape', wPattern]} aria-hidden="true"></span>
-            {project.data.icon && (
-              <div class="entry-icon-tape" aria-hidden="true">
-                <img src={project.data.icon} alt="" width="36" height="36" />
-              </div>
-            )}
-            <div class="entry-block-meta">
-              <span class={`entry-status entry-status--${project.data.status} handwritten`}>{project.data.status}</span>
-              {project.data.tech?.length > 0 && (
-                <div class="entry-block-tags">
-                  {project.data.tech.slice(0, 4).map((t: string) => (
-                    <span class="entry-tag">{t}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-            <h3 class="entry-block-title">{project.data.title}</h3>
-            <p class="entry-block-excerpt">{project.data.description}</p>
-            <div class="entry-block-links">
-              {project.data.github && (
-                <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="github-tape" aria-label="GitHub">
-                  <img src="/icons/github.svg" alt="" width="16" height="16" class="github-tape-icon" />
-                  <span>GitHub</span>
-                </a>
-              )}
-              {project.data.url && (
-                <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="tape-link tape-link--teal">Live</a>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-
-    <div class="spread-more">
-      <a href="/projects" class="tape-link tape-link--teal">all projects →</a>
-    </div>
-  </section>
-
-
-  <TornEdge />
-
-  <!-- ═══════════ THOUGHTS FOR TOMORROW SPREAD ═══════════ -->
-  <section class="spread spread--thoughts" id="thoughts">
-    <div class="spread-header">
-      <h2 class="spread-title">Thoughts for Tomorrow</h2>
-      <p class="spread-subtitle handwritten">musings. not quite ideas. not quite plans.</p>
-    </div>
-
-    <ul class="thoughts-list notebook-lines">
-      {musings.slice(0, 3).map((entry) => (
-        <li class="thought-item">
-          <svg class="bujo-bullet bujo-bullet--faded thought-icon" viewBox="0 0 32 32" aria-hidden="true">
-            <path d="M7 16 L 25 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-          </svg>
-          <span>{entry.data.title}</span>
-        </li>
-      ))}
-    </ul>
-
-    <div class="spread-more">
-      <a href="/musings" class="tape-link tape-link--blue">all musings →</a>
     </div>
   </section>
 
@@ -399,6 +415,55 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
   .entry-status--idea     { color: var(--color-sticky-yellow); }
   .entry-status--archived { color: var(--color-pencil); }
 
+  /* Spotlit workshop projects — accented paper, raised off the stack */
+  .entry-block--highlight {
+    border-left: 3px solid var(--color-stamp-red);
+    background:
+      linear-gradient(180deg, rgba(242, 201, 76, 0.12), rgba(242, 201, 76, 0.04)),
+      var(--color-paper);
+    box-shadow:
+      -2px 0 14px rgba(193, 68, 14, 0.10),
+      var(--shadow-paper);
+  }
+
+  .entry-block--highlight:hover {
+    box-shadow:
+      -2px 0 18px rgba(193, 68, 14, 0.16),
+      var(--shadow-paper-hover);
+  }
+
+  .entry-block--highlight .entry-block-title {
+    color: var(--color-stamp-red);
+  }
+
+  /* "spotlight" marker in the meta row */
+  .entry-spotlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-stamp-red);
+    letter-spacing: 0.01em;
+  }
+
+  .entry-spotlight-star {
+    width: 16px;
+    height: 16px;
+    color: var(--color-sticky-yellow);
+    filter: drop-shadow(0 1px 0 rgba(193, 68, 14, 0.4));
+  }
+
+  /* Dark theme: swap the warm wash for the nightfall glow */
+  :global(.nightfall-night) .entry-block--highlight {
+    background:
+      linear-gradient(180deg, rgba(255, 68, 136, 0.07), rgba(255, 68, 136, 0.02)),
+      var(--color-paper);
+    box-shadow:
+      -2px 0 16px rgba(255, 68, 136, 0.14),
+      2px 3px 8px rgba(0, 0, 0, 0.3);
+  }
+
   .entry-block-links {
     display: flex;
     gap: var(--space-sm);
@@ -406,6 +471,17 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     padding-top: var(--space-sm);
     border-top: 1px dashed var(--color-kraft);
     flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Whole-card click target (projects with a live page). Sits under the
+     real links (z-index 2) so GitHub/Live stay independently clickable. */
+  .entry-block-stretch {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
   }
 
   .entry-icon-tape {
@@ -450,6 +526,95 @@ const musings = allMusings.sort((a, b) => b.data.date.valueOf() - a.data.date.va
   .tape-link--yellow { background: var(--color-sticky-yellow, #F2C94C);   color: var(--color-ink, #2C2520); }
   .tape-link--red    { background: var(--color-stamp-red, #C1440E);        color: white; }
   .tape-link--blue   { background: var(--color-ballpoint-blue, #2D5FAA);  color: white; }
+
+  /* ─── Holographic "Live" tape — rare-foil card energy ─── */
+  .tape-link--live {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    border-radius: 3px;
+    background: linear-gradient(
+      115deg,
+      #ff6ec4 0%, #7873f5 22%, #21d4fd 42%,
+      #42e695 62%, #f9d423 82%, #ff6ec4 100%
+    );
+    background-size: 300% 300%;
+    background-position: 0% 50%;
+    animation: holo-shift 7s ease-in-out infinite;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+      0 2px 10px rgba(124, 115, 245, 0.45),
+      0 1px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  /* foil sparkle grain */
+  .tape-link--live::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.9) 0.5px, transparent 0.7px);
+    background-size: 7px 7px;
+    mix-blend-mode: screen;
+    opacity: 0.4;
+    pointer-events: none;
+    animation: holo-grain 6s linear infinite;
+  }
+
+  /* moving glare sweep */
+  .tape-link--live::before {
+    content: '';
+    position: absolute;
+    inset: -60% -25%;
+    z-index: 1;
+    background: linear-gradient(
+      120deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.7) 50%,
+      transparent 65%
+    );
+    transform: translateX(-130%);
+    animation: holo-sheen 3.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .tape-link__label {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .tape-link--live:hover {
+    animation-duration: 2.6s;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+      0 4px 18px rgba(124, 115, 245, 0.6),
+      0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes holo-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes holo-sheen {
+    0%   { transform: translateX(-130%); }
+    55%  { transform: translateX(130%); }
+    100% { transform: translateX(130%); }
+  }
+
+  @keyframes holo-grain {
+    0%   { background-position: 0 0; }
+    100% { background-position: 14px 7px; }
+  }
+
+  /* Respect reduced motion — keep the foil, drop the movement */
+  @media (prefers-reduced-motion: reduce) {
+    .tape-link--live { animation: none; }
+    .tape-link--live::before { animation: none; transform: translateX(0); opacity: 0.25; }
+    .tape-link--live::after { animation: none; }
+  }
 
   /* GitHub washi tape — black/white strip matching GitHub brand */
   .github-tape {

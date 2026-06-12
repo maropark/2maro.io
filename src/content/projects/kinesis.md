@@ -6,6 +6,7 @@ tech: ["html", "css", "javascript", "lenis"]
 url: "/kinesis/"
 icon: "/icons/kinesis.svg"
 featured: true
+highlight: true
 date: 2026-06-09
 ---
 

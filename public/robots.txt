@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /megumi/
 
 Sitemap: https://2maro.io/sitemap-index.xml

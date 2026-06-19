@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="mbloom" cx="40%" cy="36%" r="72%">
+      <stop offset="0%" stop-color="#AEB98C" stop-opacity="0.85"/>
+      <stop offset="55%" stop-color="#7A8B5C" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#7A8B5C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- warm paper tile -->
+  <rect x="3" y="3" width="122" height="122" rx="28" fill="#F4F1E8" stroke="#E5DECC" stroke-width="3"/>
+  <!-- soft matcha breath behind the mark -->
+  <circle cx="58" cy="56" r="48" fill="url(#mbloom)"/>
+  <!-- ensō: the brand's zen circle, drawn as one brushed stroke with an open gap (renewal / wholeness) -->
+  <circle cx="64" cy="64" r="34" fill="none" stroke="#5A6940" stroke-width="7"
+          stroke-linecap="round" stroke-dasharray="180 40" transform="rotate(38 64 64)"/>
+  <!-- one clay accent, a drifting petal near the opening -->
+  <circle cx="93" cy="45" r="5.5" fill="#C2714F"/>
+</svg>

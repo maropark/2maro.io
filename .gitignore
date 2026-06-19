@@ -16,6 +16,8 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+# wrangler local secrets (e.g. MEGUMI_PASSWORD for `wrangler pages dev`)
+.dev.vars
 
 # macOS-specific files
 .DS_Store

@@ -129,7 +129,7 @@
 
   function renderAll(data) {
     const reviewed = getReviewed();
-    const wireCounts = document.querySelectorAll("[data-wire-count], [data-wire-count-2]");
+    const wireCounts = document.querySelectorAll("[data-wire-count], [data-wire-count-2], [data-wire-count-3]");
     wireCounts.forEach((el) => (el.textContent = String(data.dispatches.length)));
 
     renderWire(data);
@@ -466,7 +466,22 @@
     if (wireMQ.matches) startWireStep(); else stopWireStep();
   }
   wireMQ.addEventListener("change", applyWireMode);
-  const wireChromeEl = document.querySelector("[data-wire-chrome]");
+
+  /* ---- wire card: collapsible, same pattern as The Desk's toggle ---- */
+  const wireCardEl = document.querySelector("[data-wire-card]");
+  const wireToggle = document.querySelector("[data-wire-toggle]");
+  // below this width The Desk (bottom-left) and the wire card (bottom-right) can
+  // collide at full width, so the card defaults to its compact pill until opened
+  const wireCollideMQ = window.matchMedia("(max-width: 860px)");
+  function setWireMin(min) {
+    if (!wireCardEl || !wireToggle) return;
+    wireCardEl.classList.toggle("is-min", min);
+    wireToggle.setAttribute("aria-pressed", String(min));
+    wireToggle.textContent = min ? "+" : "−";
+    wireToggle.setAttribute("aria-label", min ? "Show the wire" : "Hide the wire");
+  }
+  setWireMin(wireCollideMQ.matches);
+  wireToggle?.addEventListener("click", () => setWireMin(!wireCardEl.classList.contains("is-min")));
 
   /* =====================================================================
      01 · Ink & Paper — palette + hue swatches (also feeds §10 The System)
@@ -566,28 +581,25 @@
   const deskBar = document.querySelector("[data-desk-bar]");
   const header = document.querySelector("[data-header]");
 
-  /* ---- persistent sticky chrome: measure real heights, no magic numbers ---- */
+  /* ---- sticky chrome: measure the real edbar height, no magic numbers ---- */
   function syncChromeHeights() {
     const edbarH = header ? header.offsetHeight : 0;
-    const wireH = wireChromeEl ? wireChromeEl.offsetHeight : 0;
     root.style.setProperty("--bs-edbar-h", `${edbarH}px`);
-    root.style.setProperty("--bs-chrome-h", `${edbarH + wireH}px`);
+    root.style.setProperty("--bs-chrome-h", `${edbarH}px`);
   }
   if ("ResizeObserver" in window) {
     const chromeRO = new ResizeObserver(syncChromeHeights);
     if (header) chromeRO.observe(header);
-    if (wireChromeEl) chromeRO.observe(wireChromeEl);
   } else {
     window.addEventListener("resize", syncChromeHeights, { passive: true });
   }
   syncChromeHeights();
 
   document.querySelector("[data-scroll-to-wire]")?.addEventListener("click", () => {
-    if (!wireChromeEl) return;
-    if (reduceActive() || !window.lenis) window.scrollTo({ top: 0, behavior: "auto" });
-    else window.lenis.scrollTo(0, { duration: 1.0 });
-    wireChromeEl.classList.add("is-flash");
-    setTimeout(() => wireChromeEl.classList.remove("is-flash"), 900);
+    if (!wireCardEl) return;
+    setWireMin(false); // it's fixed in the corner already — just make sure it's open
+    wireCardEl.classList.add("is-flash");
+    setTimeout(() => wireCardEl.classList.remove("is-flash"), 900);
   });
 
   const chapters = [...document.querySelectorAll("[data-chapter]")];

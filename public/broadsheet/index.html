@@ -51,17 +51,6 @@
     <div class="edbar__date" data-edbar-date aria-hidden="true">—</div>
   </header>
 
-  <!-- ════ The Wire — persistent chrome, sticky-stacked under the Edition Bar,
-        running the entire scroll (not just chapter 04's demo). ════ -->
-  <div class="wire-chrome" data-wire-chrome>
-    <div class="bs-wire" data-wire aria-label="Live wire ticker">
-      <div class="bs-wire__tab">THE WIRE</div>
-      <div class="bs-wire__viewport">
-        <div class="bs-wire__track" data-wire-track></div>
-      </div>
-    </div>
-  </div>
-
   <!-- ════ The Desk — the teaching layer. Names the active chapter, its mechanical
         spec, and live readouts. Stays useful even without motion. ════ -->
   <aside class="desk" data-desk aria-label="Chapter telemetry">
@@ -70,14 +59,38 @@
       <span class="desk__num" data-desk-num>00</span>
       <span class="desk__name" data-desk-name>The Masthead</span>
     </div>
-    <p class="desk__spec" data-desk-spec>a field guide to the live front page</p>
-    <div class="desk__readout" aria-hidden="true">
-      <span class="desk__metric">dispatches read <b data-desk-progress>1/12</b></span>
-      <span class="desk__metric">accent <b class="desk__swatch" data-desk-swatch></b><b data-desk-hex>#3a4ec9</b></span>
-      <span class="desk__metric">rm <b data-desk-rm>off</b></span>
+    <div class="desk__body">
+      <div class="desk__body-inner">
+        <p class="desk__spec" data-desk-spec>a field guide to the live front page</p>
+        <div class="desk__readout" aria-hidden="true">
+          <span class="desk__metric">dispatches read <b data-desk-progress>1/12</b></span>
+          <span class="desk__metric">accent <b class="desk__swatch" data-desk-swatch></b><b data-desk-hex>#3a4ec9</b></span>
+          <span class="desk__metric">rm <b data-desk-rm>off</b></span>
+        </div>
+        <div class="desk__bar" aria-hidden="true"><span data-desk-bar></span></div>
+      </div>
     </div>
-    <div class="desk__bar" aria-hidden="true"><span data-desk-bar></span></div>
     <button class="desk__toggle" data-desk-toggle aria-pressed="false" aria-label="Hide the desk">−</button>
+  </aside>
+
+  <!-- ════ The Wire — a floating card, same footprint as The Desk, running the
+        entire scroll (not just chapter 04's demo). Collapsible to a pill. ════ -->
+  <aside class="wirecard" data-wire-card aria-label="Live wire ticker">
+    <div class="wirecard__head">
+      <i class="wirecard__dot" aria-hidden="true"></i>
+      <span class="wirecard__label">The Wire</span>
+      <span class="wirecard__count"><span data-wire-count-3>—</span> live</span>
+    </div>
+    <div class="wirecard__body">
+      <div class="wirecard__body-inner">
+        <div class="bs-wire bs-wire--embedded" data-wire aria-label="Live wire ticker">
+          <div class="bs-wire__viewport">
+            <div class="bs-wire__track" data-wire-track></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="wirecard__toggle" data-wire-toggle aria-pressed="false" aria-label="Hide the wire">−</button>
   </aside>
 
   <main id="guide">
@@ -241,7 +254,7 @@
     <!-- ════════════════ 04 · THE WIRE (ticker) ════════════════ -->
     <section class="chapter" id="wire" aria-labelledby="wire-h"
              data-chapter data-num="04" data-name="The Wire"
-             data-spec="always-on chrome · pause on hover · flash-steps on mobile" data-domain="tech">
+             data-spec="floating card · collapsible · pause on hover · flash-steps on mobile" data-domain="tech">
       <div class="chapter__grid">
         <p class="tag reveal" data-reveal><span class="tag__rule"></span>04 — The Wire</p>
         <h2 class="chapter__head" id="wire-h">
@@ -249,19 +262,19 @@
           <span class="reveal em" data-reveal style="--d:1">never stops.</span>
         </h2>
         <div class="chapter__body reveal" data-reveal style="--d:1">
-          <p>You've been reading it since scroll zero — the Edition Bar's live-wire
-          status up top is real chrome, not a mockup, and it stays pinned there for
-          the whole page, not just this chapter. Domain dot, company, headline figure,
-          desk. <em>Pauses on hover</em> so you can actually read one — or below,
-          <em>steps</em> one at a time on a phone.</p>
+          <p>You've been reading it since scroll zero — the floating card down in the
+          corner is real chrome, not a mockup, styled the same as The Desk and just as
+          collapsible. Domain dot, company, headline figure, desk. <em>Pauses on
+          hover</em> so you can actually read one — or below, <em>steps</em> one at a
+          time on a phone.</p>
         </div>
       </div>
 
       <div class="wrap bs-wire-demo">
         <p class="chapter__body" style="max-width:56ch;font-size:15px;margin-bottom:16px;">
-          <strong>↑ That's it, running above</strong> — live since scroll zero, on every
-          chapter, not just this one. Here's one frame of it held still, so you can read
-          a single item closely:
+          <strong>↘ That's it, floating bottom-right</strong> — live since scroll zero,
+          on every chapter, not just this one. Here's one frame of it held still, so you
+          can read a single item closely:
         </p>
         <div class="bs-wire bs-wire--frozen" aria-label="A single frame of the live wire, held still for reading">
           <div class="bs-wire__tab">THE WIRE</div>
@@ -269,7 +282,7 @@
             <div class="bs-wire__track" data-wire-frozen-track></div>
           </div>
         </div>
-        <button class="bs-dossier__back" type="button" data-scroll-to-wire style="margin-top:14px;">Watch it live, up top ↑</button>
+        <button class="bs-dossier__back" type="button" data-scroll-to-wire style="margin-top:14px;">See it live, bottom-right ↘</button>
       </div>
     </section>
 

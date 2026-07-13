@@ -1,0 +1,201 @@
+{
+  "generated_at": "2026-07-09T09:30:00Z",
+  "aggregate_impact_usd": 31400000,
+  "dispatches": [
+    {
+      "id": "bs_f201",
+      "category": "function",
+      "domain": "finance",
+      "industry": "Financial Services",
+      "company": "Meridian Financial Group",
+      "headline": "Reconciliation desk moves to a standing agent review",
+      "dek": "A recurring ledger-matching function is reassigned to an always-on review agent; the desk shifts to exception handling only.",
+      "impact_type": "fte_redeploy",
+      "impact_value": 22,
+      "impact_savings_usd": 3600000,
+      "reviewed": true,
+      "sources": [
+        { "label": "Ops Committee minutes, Q2", "type": "internal" },
+        { "label": "Finance desk headcount ledger", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_r118",
+      "category": "role",
+      "domain": "consumer",
+      "industry": "Consumer Goods",
+      "company": "Basalt Consumer Goods",
+      "headline": "Category analyst role folded into a forecasting copilot",
+      "dek": "Weekly category reporting is generated automatically; the analyst role shifts toward exception review and vendor negotiation.",
+      "impact_type": "fte_redeploy",
+      "impact_value": 14,
+      "impact_savings_usd": null,
+      "reviewed": true,
+      "sources": [
+        { "label": "Category ops review, June", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_d334",
+      "category": "department",
+      "domain": "retail",
+      "industry": "Retail",
+      "company": "Anchorline Retail Co.",
+      "headline": "Store-ops scheduling department absorbs a demand-forecast agent",
+      "dek": "Shift scheduling and demand forecasting merge under one system; the department retains oversight and escalation.",
+      "impact_type": "capacity_reclaim",
+      "impact_value": 9,
+      "impact_savings_usd": 1200000,
+      "reviewed": false,
+      "sources": [
+        { "label": "Store-ops staffing model", "type": "internal" },
+        { "label": "Regional scheduling audit", "type": "external", "url": "#" }
+      ]
+    },
+    {
+      "id": "bs_f202",
+      "category": "function",
+      "domain": "tech",
+      "industry": "Technology",
+      "company": "Halcyon Technologies",
+      "headline": "Tier-1 support queue triaged entirely by agent before escalation",
+      "dek": "First-response triage and routing is fully automated; the human queue starts at tier-2.",
+      "impact_type": "productivity_gain",
+      "impact_value": 35,
+      "impact_savings_usd": 2100000,
+      "reviewed": true,
+      "sources": [
+        { "label": "Support ops dashboard, rolling 90d", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_r119",
+      "category": "role",
+      "domain": "pharma",
+      "industry": "Pharmaceuticals",
+      "company": "Palisade Pharmaceuticals",
+      "headline": "Adverse-event coding role augmented with a review agent",
+      "dek": "Coding throughput roughly doubles; a licensed reviewer remains the sign-off authority on every case.",
+      "impact_type": "capacity_reclaim",
+      "impact_value": 6,
+      "impact_savings_usd": null,
+      "reviewed": false,
+      "sources": [
+        { "label": "Pharmacovigilance ops note", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_m221",
+      "category": "function",
+      "domain": "media",
+      "industry": "Media & Entertainment",
+      "company": "Cordage Media Group",
+      "headline": "Metadata tagging function moves off a contractor pool",
+      "dek": "Catalog tagging for new releases is generated automatically and spot-checked by an in-house editor.",
+      "impact_type": "fte_redeploy",
+      "impact_value": 11,
+      "impact_savings_usd": 980000,
+      "reviewed": true,
+      "sources": [
+        { "label": "Catalog ops monthly", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_a115",
+      "category": "role",
+      "domain": "aero",
+      "industry": "Aerospace",
+      "company": "Kestrel Aerospace",
+      "headline": "Parts-compliance documentation role reclaims review capacity",
+      "dek": "Cross-referencing supplier certifications against spec is automated; the compliance role shifts to audits and exceptions.",
+      "impact_type": "capacity_reclaim",
+      "impact_value": 4,
+      "impact_savings_usd": null,
+      "reviewed": false,
+      "sources": [
+        { "label": "Supplier compliance log", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_a220",
+      "category": "role",
+      "domain": "auto",
+      "industry": "Automotive",
+      "company": "Northfield Motors",
+      "headline": "Warranty-claim intake role shifts to adjudication review",
+      "dek": "Claim intake and initial validation run automatically; the role retains the adjudication decision.",
+      "impact_type": "fte_redeploy",
+      "impact_value": 8,
+      "impact_savings_usd": 640000,
+      "reviewed": true,
+      "sources": [
+        { "label": "Warranty ops note, May", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_i330",
+      "category": "department",
+      "domain": "industrial",
+      "industry": "Industrial",
+      "company": "Solano Industrial",
+      "headline": "Maintenance-scheduling department pilots a predictive agent",
+      "dek": "Work-order prioritization is proposed by the agent and confirmed by the floor lead each shift.",
+      "impact_type": "governance_added",
+      "impact_value": 1,
+      "impact_savings_usd": null,
+      "reviewed": false,
+      "sources": [
+        { "label": "Plant maintenance pilot brief", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_b410",
+      "category": "board",
+      "domain": "finance",
+      "industry": "Financial Services",
+      "company": "Meridian Financial Group",
+      "headline": "Board adds a standing review committee for agent-assisted underwriting",
+      "dek": "A quarterly governance committee is formed to audit underwriting decisions made with agent assistance.",
+      "impact_type": "committee_added",
+      "impact_value": 1,
+      "impact_savings_usd": null,
+      "reviewed": true,
+      "sources": [
+        { "label": "Board resolution, Q2", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_e510",
+      "category": "enterprise",
+      "domain": "tech",
+      "industry": "Technology",
+      "company": "Halcyon Technologies",
+      "headline": "Enterprise-wide governance controls added ahead of a phased rollout",
+      "dek": "A cross-functional review gate is established before any new agent workflow ships to a live desk.",
+      "impact_type": "governance_added",
+      "impact_value": 3,
+      "impact_savings_usd": null,
+      "reviewed": true,
+      "sources": [
+        { "label": "Enterprise rollout charter", "type": "internal" },
+        { "label": "Governance framework, v2", "type": "internal" }
+      ]
+    },
+    {
+      "id": "bs_e511",
+      "category": "enterprise",
+      "domain": "consumer",
+      "industry": "Consumer Goods",
+      "company": "Basalt Consumer Goods",
+      "headline": "Enterprise forecasting rollout reclaims capacity across three regions",
+      "dek": "The regional pilot's forecasting copilot is extended company-wide; savings compound across desks.",
+      "impact_type": "fte_redeploy",
+      "impact_value": 42,
+      "impact_savings_usd": 9800000,
+      "reviewed": true,
+      "sources": [
+        { "label": "Enterprise finance review", "type": "internal" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="bsbloom" cx="62%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#3A4EC9" stop-opacity="0.28"/>
+      <stop offset="60%" stop-color="#3A4EC9" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#3A4EC9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- warm newsprint tile -->
+  <rect x="3" y="3" width="122" height="122" rx="28" fill="#F4F0E7" stroke="#DDD6C6" stroke-width="3"/>
+  <!-- soft accent bloom, top-right -->
+  <circle cx="86" cy="40" r="46" fill="url(#bsbloom)"/>
+  <!-- the masthead: a strong top rule and a hairline bottom rule bracketing the nameplate -->
+  <rect x="26" y="40" width="76" height="7" rx="1" fill="#1B1712"/>
+  <rect x="26" y="60" width="76" height="10" fill="none"/>
+  <rect x="26" y="82" width="76" height="3" rx="1" fill="#1B1712"/>
+  <!-- the traveling accent: one live dot on the wire -->
+  <circle cx="94" cy="61" r="6" fill="#3A4EC9"/>
+</svg>

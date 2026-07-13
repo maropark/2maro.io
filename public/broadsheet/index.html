@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BROADSHEET — a field guide to the live front page</title>
+  <meta name="description" content="BROADSHEET is a self-describing field guide to an editorial design system — a live front page for market data, styled like warm newsprint by day and a Bloomberg terminal after hours. Nine components, six named motions, one traveling accent." />
+
+  <meta property="og:title" content="BROADSHEET — the live front page" />
+  <meta property="og:description" content="A design-practice piece: warm-newsprint editorial restraint meets terminal-grade motion. One figure carries the weight; the accent travels with your attention." />
+  <meta property="og:type" content="website" />
+
+  <!-- Newsreader (editorial serif — heads, body, figures) · Archivo (chrome — kickers, labels, nav) · JetBrains Mono (telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='6' width='26' height='3' fill='%231b1712'/%3E%3Crect x='3' y='14' width='26' height='2' fill='%233a4ec9'/%3E%3Crect x='3' y='23' width='26' height='3' fill='%231b1712'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="atmosphere" aria-hidden="true">
+    <div class="pointer-glow" data-pointer-glow></div>
+  </div>
+
+  <a class="skip-link" href="#guide">Skip to the guide</a>
+
+  <!-- ════ Edition Bar — sticky chrome, demonstrating itself from scroll 0 ════ -->
+  <header class="edbar" data-header>
+    <a class="edbar__brand" href="#cover" aria-label="BROADSHEET — top">
+      <span class="edbar__mark" aria-hidden="true">▮▮</span>
+      <span class="edbar__word">BROADSHEET</span>
+    </a>
+    <div class="edbar__wire" aria-hidden="true">
+      <i class="edbar__dot" data-wire-dot></i> LIVE WIRE · <span data-wire-count>—</span> DISPATCHES
+    </div>
+    <nav class="edbar__nav" aria-label="Chapters">
+      <a href="#ink-paper" title="01 · Ink &amp; Paper">01</a>
+      <a href="#voices" title="02 · The Voices">02</a>
+      <a href="#grid" title="03 · The Grid">03</a>
+      <a href="#wire" title="04 · The Wire">04</a>
+      <a href="#dispatch" title="05 · The Dispatch">05</a>
+      <a href="#league" title="06 · The League Table">06</a>
+      <a href="#humanize" title="07 · Humanizing the Number">07</a>
+      <a href="#after-hours" title="08 · After Hours">08</a>
+      <a href="#dossier" title="09 · The Dossier">09</a>
+      <a href="#system" title="10 · The System">10</a>
+    </nav>
+    <div class="edbar__date" data-edbar-date aria-hidden="true">—</div>
+  </header>
+
+  <!-- ════ The Desk — the teaching layer. Names the active chapter, its mechanical
+        spec, and live readouts. Stays useful even without motion. ════ -->
+  <aside class="desk" data-desk aria-label="Chapter telemetry">
+    <div class="desk__line">
+      <span class="desk__bullet" aria-hidden="true">◖</span>
+      <span class="desk__num" data-desk-num>00</span>
+      <span class="desk__name" data-desk-name>The Masthead</span>
+    </div>
+    <p class="desk__spec" data-desk-spec>a field guide to the live front page</p>
+    <div class="desk__readout" aria-hidden="true">
+      <span class="desk__metric">dispatches read <b data-desk-progress>1/12</b></span>
+      <span class="desk__metric">accent <b class="desk__swatch" data-desk-swatch></b><b data-desk-hex>#3a4ec9</b></span>
+      <span class="desk__metric">rm <b data-desk-rm>off</b></span>
+    </div>
+    <div class="desk__bar" aria-hidden="true"><span data-desk-bar></span></div>
+    <button class="desk__toggle" data-desk-toggle aria-pressed="false" aria-label="Hide the desk">−</button>
+  </aside>
+
+  <main id="guide">
+
+    <!-- ════════════════ 00 · COVER / MASTHEAD ════════════════ -->
+    <section class="cover" id="cover" aria-label="Masthead"
+             data-chapter data-num="00" data-name="The Masthead"
+             data-spec="giant nameplate · folio rule · one figure carries the weight" data-domain="finance">
+      <div class="cover__kicker reveal" data-reveal>— Evidence, not advertisement —</div>
+      <h1 class="cover__nameplate reveal" data-reveal style="--d:1">BROADSHEET</h1>
+      <div class="cover__folio reveal" data-reveal style="--d:2">Vol. I · No. 01 — A Field Guide — Independently Composed</div>
+      <p class="cover__lede reveal" data-reveal style="--d:3">
+        A design-practice piece: the front page of a newspaper, rebuilt for a market
+        that never closes. Warm paper by day, a Bloomberg terminal after hours —
+        one live accent travels with your attention the whole way down. Every
+        component below is demonstrated <em>while it is named.</em>
+      </p>
+      <div class="cover__meta reveal" data-reveal style="--d:4">
+        <span>9 components</span><span aria-hidden="true">/</span>
+        <span>6 named motions</span><span aria-hidden="true">/</span>
+        <span>1 traveling accent</span>
+      </div>
+      <a class="scroll-cue" href="#ink-paper" aria-label="Begin reading">
+        <span>read on</span>
+        <span class="scroll-cue__rail" aria-hidden="true"><i></i></span>
+      </a>
+    </section>
+
+    <!-- ════════════════ 01 · INK & PAPER ════════════════ -->
+    <section class="chapter" id="ink-paper" aria-labelledby="ink-paper-h"
+             data-chapter data-num="01" data-name="Ink &amp; Paper"
+             data-spec="2 surfaces · 3 inks · 1 traveling accent" data-domain="finance">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>01 — Ink &amp; Paper</p>
+        <h2 class="chapter__head" id="ink-paper-h">
+          <span class="reveal" data-reveal>Two surfaces, three inks —</span>
+          <span class="reveal em" data-reveal style="--d:1">everything else is one accent.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>Warm newsprint paper, warm ink, hairline rules. That's the entire neutral
+          palette. Colour is spent exactly once — on the figure and its kicker, where
+          it counts. There are no boxes with shadows competing for attention.</p>
+          <p class="muted">The page never <em>cuts</em> to dark. It blooms between paper
+          and a night canvas — that's the After Hours pole, chapter 08.</p>
+        </div>
+      </div>
+
+      <div class="wrap swatchwrap">
+        <div class="mono label-row">The neutral palette</div>
+        <div class="grid palette-grid" id="palette"></div>
+      </div>
+
+      <div class="wrap swatchwrap">
+        <div class="mono label-row">The traveling accent — hover a desk to retune the page</div>
+        <p class="chapter__body" style="max-width:62ch;font-size:16px;">
+          There is exactly <strong>one</strong> live accent at any instant, held in two
+          tokens — <code>--bs-glow</code> reads on paper, <code>--bs-glow-soft</code>
+          blooms on night. It retunes <em>instantly</em>, no tween: the change is the
+          event, not a lag behind your cursor.
+        </p>
+        <div class="grid hue-grid" id="hues"></div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 02 · THE VOICES ════════════════ -->
+    <section class="chapter" id="voices" aria-labelledby="voices-h"
+             data-chapter data-num="02" data-name="The Voices"
+             data-spec="3 families · 1 job each · tabular figures" data-domain="consumer">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>02 — The Voices</p>
+        <h2 class="chapter__head" id="voices-h">
+          <span class="reveal" data-reveal>Three typefaces,</span>
+          <span class="reveal em" data-reveal style="--d:1">never blurred.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>Newsreader carries the editorial voice — headlines, body, <em>and figures.</em>
+          A number is set in the same serif as the sentence around it: the figure is
+          editorial, not a UI stat. Archivo is the chrome — kickers, labels, nav,
+          buttons. JetBrains Mono is telemetry only: the ticker, IDs, timestamps.</p>
+        </div>
+      </div>
+
+      <div class="wrap voice-specimens">
+        <div class="voice-row">
+          <div class="voice-row__label">
+            <div class="voice-row__name" style="font-family:var(--bs-font-editorial);font-weight:500;font-size:34px;">Newsreader</div>
+            <div class="mono voice-row__spec">Editorial · serif<br>heads · body · figures</div>
+          </div>
+          <div class="voice-row__demo">
+            <div class="voice-row__headline">The grammar of the wire</div>
+            <p class="voice-row__body">Body copy is set for length and calm — an analyst's reading, not a
+            pitch. Italics carry the <em>aside</em>.</p>
+            <div class="voice-row__figure">$9.8M · 42 FTE · +35%</div>
+          </div>
+        </div>
+        <div class="voice-row">
+          <div class="voice-row__label">
+            <div class="voice-row__name" style="font-family:var(--bs-font-chrome);font-weight:700;font-size:32px;">Archivo</div>
+            <div class="mono voice-row__spec">Chrome · grotesque<br>kickers · labels · nav</div>
+          </div>
+          <div class="voice-row__demo" style="align-self:center;">
+            <div class="kick" style="color:var(--bs-glow);">Function · Lead · Reviewed</div>
+            <div class="voice-row__chrome">Sort · Desks · The Boardroom · Enterprise</div>
+          </div>
+        </div>
+        <div class="voice-row voice-row--last">
+          <div class="voice-row__label">
+            <div class="voice-row__name" style="font-family:var(--bs-font-mono);font-weight:500;font-size:26px;">JetBrains Mono</div>
+            <div class="mono voice-row__spec">Telemetry · mono<br>ticker · IDs · specs</div>
+          </div>
+          <div class="voice-row__demo mono" style="align-self:center;font-size:13px;line-height:1.9;color:var(--bs-ink-2);text-transform:none;">
+            <div>bs_f201 · GENERATED JUL 09, 2026 · 09:30</div>
+            <div>◖ THE WIRE · <span data-wire-count-2>—</span> DISPATCHES · $31.4M/YR AGGREGATE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 03 · THE GRID ════════════════ -->
+    <section class="chapter" id="grid" aria-labelledby="grid-h"
+             data-chapter data-num="03" data-name="The Grid"
+             data-spec="1320 · 1080 · 780 — three fixed measures" data-domain="retail">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>03 — The Grid</p>
+        <h2 class="chapter__head" id="grid-h">
+          <span class="reveal" data-reveal>Rules over boxes,</span>
+          <span class="reveal em" data-reveal style="--d:1">hairlines over shadows.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>Newsprint geometry: clear measures, hairline dividers, generous gutters,
+          corners barely rounded. Drop-shadowed cards are the SaaS trope this system
+          rejects — a <code>1px</code> hairline or a <code>2px</code> strong rule does
+          the same job of separation, honestly.</p>
+          <p class="muted">Each card carries its desk's hue as a stripe — a <code>2px</code>
+          top border on the front page, a <code>3px</code> left border on the league
+          table. That stripe is the only chrome a card gets.</p>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="measure-diagram">
+          <div class="measure-row">
+            <div class="measure-bar" style="width:100%;">
+              <span class="measure-label">Broadsheet front — 1320px</span>
+            </div>
+          </div>
+          <div class="measure-row">
+            <div class="measure-bar" style="width:82%;">
+              <span class="measure-label">Dispatch index — 1080px</span>
+            </div>
+          </div>
+          <div class="measure-row">
+            <div class="measure-bar" style="width:59%;">
+              <span class="measure-label">Dossier / reading — 780px</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 04 · THE WIRE (ticker) ════════════════ -->
+    <section class="chapter" id="wire" aria-labelledby="wire-h"
+             data-chapter data-num="04" data-name="The Wire"
+             data-spec="marquee 64s linear · pause on hover" data-domain="tech">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>04 — The Wire</p>
+        <h2 class="chapter__head" id="wire-h">
+          <span class="reveal" data-reveal>The ticker</span>
+          <span class="reveal em" data-reveal style="--d:1">never stops.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>You've been reading it since scroll zero — the Edition Bar's live-wire
+          status up top is real chrome, not a mockup. Below, the full Bloomberg-style
+          telemetry marquee: domain dot, company, headline figure, desk. <em>Pauses on
+          hover</em> so you can actually read one.</p>
+        </div>
+      </div>
+
+      <div class="wrap bs-wire" data-wire aria-label="Live wire ticker">
+        <div class="bs-wire__tab">THE WIRE</div>
+        <div class="bs-wire__viewport">
+          <div class="bs-wire__track" data-wire-track></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 05 · THE DISPATCH ════════════════ -->
+    <section class="chapter" id="dispatch" aria-labelledby="dispatch-h"
+             data-chapter data-num="05" data-name="The Dispatch"
+             data-spec="assemble · 550ms · stagger 50ms · backwards fill" data-domain="pharma">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>05 — The Dispatch</p>
+        <h2 class="chapter__head" id="dispatch-h">
+          <span class="reveal" data-reveal>The page</span>
+          <span class="reveal em" data-reveal style="--d:1">assembles itself.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>On load and on filter change, the front page composes top-to-bottom — each
+          card rises on a staggered delay so it "prints." Hover a card and the
+          <em>page</em> retunes to its desk, not the card itself — no transform, no
+          tilt, just the accent following your attention.</p>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="bs-lead" data-lead></div>
+        <div class="bs-grid" data-dispatch-grid></div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 06 · THE LEAGUE TABLE ════════════════ -->
+    <section class="chapter" id="league" aria-labelledby="league-h"
+             data-chapter data-num="06" data-name="The League Table"
+             data-spec="ranked index · hue-spined · flush-right figures" data-domain="media">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>06 — The League Table</p>
+        <h2 class="chapter__head" id="league-h">
+          <span class="reveal" data-reveal>Same kit,</span>
+          <span class="reveal em" data-reveal style="--d:1">airier composition.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>The Dispatch edition — the airy alternative to the packed front page. A
+          wire-service header carries the aggregate impact; below it, a ranked index
+          sorted by projected impact, hue-spined on the left, figures flush right.
+          Bloomberg terminal, calmed down.</p>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="bs-league-head" data-league-head></div>
+        <div class="bs-league" data-league></div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 07 · HUMANIZING THE NUMBER ════════════════ -->
+    <section class="chapter" id="humanize" aria-labelledby="humanize-h"
+             data-chapter data-num="07" data-name="Humanizing the Number"
+             data-spec="enum → analyst prose · honest null-degrade" data-domain="aero">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>07 — Humanizing the Number</p>
+        <h2 class="chapter__head" id="humanize-h">
+          <span class="reveal" data-reveal>The system never</span>
+          <span class="reveal em" data-reveal style="--d:1">prints the enum.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>A raw record arrives as structured data — an <code>impact_type</code>, maybe
+          a value, maybe a dollar figure. The resolver below turns that into one of
+          three display kinds, phrased the way an analyst would actually write it. Cycle
+          the states — notice the last one never fakes a number.</p>
+        </div>
+      </div>
+
+      <div class="wrap humanizer">
+        <div class="humanizer__stage" data-humanizer-stage></div>
+        <div class="humanizer__controls" role="group" aria-label="Cycle the resolved kind">
+          <button class="humanizer__btn is-active" data-humanize="money">MONEY<span>dollars are the hero</span></button>
+          <button class="humanizer__btn" data-humanize="count">COUNT<span>workforce is the hero</span></button>
+          <button class="humanizer__btn" data-humanize="soft">SOFT<span>not yet quantified</span></button>
+          <button class="humanizer__btn" data-humanize="none">NONE<span>nothing to show</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 08 · AFTER HOURS ════════════════ -->
+    <section class="chapter after-hours-ch" id="after-hours" aria-labelledby="after-hours-h"
+             data-chapter data-num="08" data-name="After Hours"
+             data-spec="scroll-linked polarity · color-mix() · one accent, both worlds" data-domain="auto">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>08 — After Hours</p>
+        <h2 class="chapter__head" id="after-hours-h">
+          <span class="reveal" data-reveal>The band blooms to night</span>
+          <span class="reveal em" data-reveal style="--d:1">as it crosses center.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>One value — <code>--c</code>, 0 to 1 — mixes paper→night and ink→bone as
+          this band scrolls through the middle of your viewport. Two soft hue blobs
+          drift behind it in <code>screen</code> blend for aurora. This is where the
+          governance story lives: board and enterprise dispatches, in the domain's
+          <em>glow</em> tone instead of ink.</p>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="bs-evening" data-evening>
+          <div class="bs-evening__blob bs-evening__blob--1"></div>
+          <div class="bs-evening__blob bs-evening__blob--2"></div>
+          <div class="bs-evening__inner">
+            <div class="bs-evening__head">
+              <span class="kick" style="opacity:.7">After Hours</span>
+              <span class="bs-evening__rule" aria-hidden="true"></span>
+              <span class="mono" style="opacity:.55">§08 · the boardroom · the enterprise</span>
+            </div>
+            <div class="bs-evening__items" data-evening-items></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 09 · THE DOSSIER ════════════════ -->
+    <section class="chapter" id="dossier" aria-labelledby="dossier-h"
+             data-chapter data-num="09" data-name="The Dossier"
+             data-spec="view-transition · reading column 780px · honesty over polish" data-domain="industrial">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>09 — The Dossier</p>
+        <h2 class="chapter__head" id="dossier-h">
+          <span class="reveal" data-reveal>The full article,</span>
+          <span class="reveal em" data-reveal style="--d:1">honestly sourced.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>Open any card above, or the one below, and it turns to its dossier — a
+          single reading column, the hero figure bracketed by rules, sources listed
+          as first-class furniture. External sources get a link and an arrow;
+          internal ones are labeled, never disguised. No sources cited means exactly
+          that — the system doesn't fake proof.</p>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="bs-dossier-demo" data-dossier-demo></div>
+      </div>
+    </section>
+
+    <!-- ════════════════ 10 · THE SYSTEM ════════════════ -->
+    <section class="chapter system-ch" id="system" aria-labelledby="system-h"
+             data-chapter data-num="10" data-name="The System"
+             data-spec="condensed reference · live reduced-motion toggle" data-domain="finance">
+      <div class="chapter__grid">
+        <p class="tag reveal" data-reveal><span class="tag__rule"></span>10 — The System</p>
+        <h2 class="chapter__head" id="system-h">
+          <span class="reveal" data-reveal>The whole paper,</span>
+          <span class="reveal em" data-reveal style="--d:1">one page.</span>
+        </h2>
+        <div class="chapter__body reveal" data-reveal style="--d:1">
+          <p>A condensed reference — palette, desks, type, the six motions, four voice
+          principles. Flip the switch below to preview the page with motion off: the
+          Desk keeps naming every chapter, the wire goes static, everything else stays
+          exactly as legible.</p>
+        </div>
+        <div class="system-rm reveal" data-reveal style="--d:2">
+          <button class="system-rm__btn" data-rm-toggle aria-pressed="false">
+            <span data-rm-label>Reduced motion: OFF</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="wrap system-ref">
+        <div class="sec-h"><span class="mono">§1</span><h3>Palette</h3><span class="mono sec-h__aux">Warm newsprint · warm ink</span></div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(146px,1fr));" id="sys-palette"></div>
+
+        <div class="sec-h"><span class="mono">§2</span><h3>Desks</h3><span class="mono sec-h__aux">9 domains · hover to retune</span></div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(168px,1fr));" id="sys-hues"></div>
+
+        <div class="sec-h"><span class="mono">§3</span><h3>Motion</h3><span class="mono sec-h__aux">Energy by restraint</span></div>
+        <div class="grid motion-recap" id="sys-motion"></div>
+
+        <div class="sec-h"><span class="mono">§4</span><h3>Voice</h3><span class="mono sec-h__aux">Four rules</span></div>
+        <div class="grid voice-recap" id="sys-voice"></div>
+      </div>
+    </section>
+
+    <!-- ════════════════ COLOPHON ════════════════ -->
+    <section class="colophon" id="colophon" aria-labelledby="colophon-h"
+             data-chapter data-num="11" data-name="Colophon" data-spec="now read any front page as a system" data-domain="finance">
+      <h2 class="colophon__head" id="colophon-h">
+        <span class="reveal" data-reveal>Now read any front page</span>
+        <span class="reveal em" data-reveal style="--d:1">as a system, not a mood.</span>
+      </h2>
+
+      <ol class="colophon__recap reveal" data-reveal>
+        <li><b>01 Ink &amp; Paper</b> — two surfaces, three inks, one accent that travels.</li>
+        <li><b>02 Voices</b> — three families, never blurred; figures are editorial.</li>
+        <li><b>03 Grid</b> — three fixed measures; rules over boxes.</li>
+        <li><b>04 Wire</b> — the ticker never stops; it pauses only for you.</li>
+        <li><b>05 Dispatch</b> — the page assembles; the accent follows your attention.</li>
+        <li><b>06 League Table</b> — the airy edition, hue-spined and flush right.</li>
+        <li><b>07 Humanize</b> — never print the enum; never fake a number.</li>
+        <li><b>08 After Hours</b> — one value blooms the whole band to night.</li>
+        <li><b>09 Dossier</b> — sources are furniture, not a footnote.</li>
+        <li><b>10 System</b> — complete with motion on, and complete with it off.</li>
+      </ol>
+
+      <div class="colophon__grid">
+        <div class="colophon__col">
+          <p class="colophon__k">What this is</p>
+          <p>A personal design-practice piece — an editorial system built and shown as
+          a portable kit, not tied to any one product. Plain HTML, CSS &amp;
+          JavaScript. One vendored dependency, Lenis, for the glide. No framework, no
+          build step.</p>
+        </div>
+        <div class="colophon__col">
+          <p class="colophon__k">Set in</p>
+          <p style="font-family:var(--bs-font-editorial);font-size:17px;">Newsreader</p>
+          <p style="font-family:var(--bs-font-chrome);font-weight:600;font-size:15px;">Archivo</p>
+          <p style="font-family:var(--bs-font-mono);font-size:14px;">JetBrains Mono</p>
+        </div>
+        <div class="colophon__col">
+          <p class="colophon__k">Motion, one sentence</p>
+          <p>Every motion earns its place as attention, arrival, or atmosphere — one
+          easing, honoured <code>prefers-reduced-motion</code> in the same commit as
+          the motion itself.</p>
+        </div>
+      </div>
+
+      <p class="colophon__wordmark" aria-hidden="true">BROADSHEET</p>
+
+      <footer class="colophon__foot">
+        <p>BROADSHEET — the live front page</p>
+        <p>A design study for <a href="https://2maro.io" target="_blank" rel="noopener">2maro.io</a> · © <span data-year>2026</span></p>
+      </footer>
+    </section>
+
+  </main>
+
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

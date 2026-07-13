@@ -51,6 +51,17 @@
     <div class="edbar__date" data-edbar-date aria-hidden="true">—</div>
   </header>
 
+  <!-- ════ The Wire — persistent chrome, sticky-stacked under the Edition Bar,
+        running the entire scroll (not just chapter 04's demo). ════ -->
+  <div class="wire-chrome" data-wire-chrome>
+    <div class="bs-wire" data-wire aria-label="Live wire ticker">
+      <div class="bs-wire__tab">THE WIRE</div>
+      <div class="bs-wire__viewport">
+        <div class="bs-wire__track" data-wire-track></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ════ The Desk — the teaching layer. Names the active chapter, its mechanical
         spec, and live readouts. Stays useful even without motion. ════ -->
   <aside class="desk" data-desk aria-label="Chapter telemetry">
@@ -230,7 +241,7 @@
     <!-- ════════════════ 04 · THE WIRE (ticker) ════════════════ -->
     <section class="chapter" id="wire" aria-labelledby="wire-h"
              data-chapter data-num="04" data-name="The Wire"
-             data-spec="marquee 64s linear · pause on hover" data-domain="tech">
+             data-spec="always-on chrome · pause on hover · flash-steps on mobile" data-domain="tech">
       <div class="chapter__grid">
         <p class="tag reveal" data-reveal><span class="tag__rule"></span>04 — The Wire</p>
         <h2 class="chapter__head" id="wire-h">
@@ -239,17 +250,26 @@
         </h2>
         <div class="chapter__body reveal" data-reveal style="--d:1">
           <p>You've been reading it since scroll zero — the Edition Bar's live-wire
-          status up top is real chrome, not a mockup. Below, the full Bloomberg-style
-          telemetry marquee: domain dot, company, headline figure, desk. <em>Pauses on
-          hover</em> so you can actually read one.</p>
+          status up top is real chrome, not a mockup, and it stays pinned there for
+          the whole page, not just this chapter. Domain dot, company, headline figure,
+          desk. <em>Pauses on hover</em> so you can actually read one — or below,
+          <em>steps</em> one at a time on a phone.</p>
         </div>
       </div>
 
-      <div class="wrap bs-wire" data-wire aria-label="Live wire ticker">
-        <div class="bs-wire__tab">THE WIRE</div>
-        <div class="bs-wire__viewport">
-          <div class="bs-wire__track" data-wire-track></div>
+      <div class="wrap bs-wire-demo">
+        <p class="chapter__body" style="max-width:56ch;font-size:15px;margin-bottom:16px;">
+          <strong>↑ That's it, running above</strong> — live since scroll zero, on every
+          chapter, not just this one. Here's one frame of it held still, so you can read
+          a single item closely:
+        </p>
+        <div class="bs-wire bs-wire--frozen" aria-label="A single frame of the live wire, held still for reading">
+          <div class="bs-wire__tab">THE WIRE</div>
+          <div class="bs-wire__viewport">
+            <div class="bs-wire__track" data-wire-frozen-track></div>
+          </div>
         </div>
+        <button class="bs-dossier__back" type="button" data-scroll-to-wire style="margin-top:14px;">Watch it live, up top ↑</button>
       </div>
     </section>
 
@@ -297,6 +317,7 @@
 
       <div class="wrap">
         <div class="bs-league-head" data-league-head></div>
+        <div class="bs-league-filter" data-league-filter role="group" aria-label="Filter the league table by desk"></div>
         <div class="bs-league" data-league></div>
       </div>
     </section>

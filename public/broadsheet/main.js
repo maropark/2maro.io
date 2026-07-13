@@ -14,6 +14,11 @@
   const hasLenis = typeof window.Lenis === "function";
   const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
 
+  /* shared scroll-into-view observer for [data-reveal] and [data-rise]; stays null
+     under osReduce/no-Lenis, where the CSS that would use it never applies anyway */
+  let riseObserver = null;
+  function observeIn(el) { if (el && riseObserver) riseObserver.observe(el); }
+
   /* =====================================================================
      THE IMPACT HUMANIZER — ported verbatim from the design-system spec.
      A raw record is never printed as its enum; it resolves to one of
@@ -129,7 +134,7 @@
 
     renderWire(data);
     renderDispatchGrid(data, reviewed);
-    renderLeague(data, reviewed);
+    renderLeague(data);
     renderAfterHours(data);
     renderDossierDemo(data);
     bindCardClicks(data, reviewed);
@@ -139,17 +144,19 @@
     return (u.impact_savings_usd || 0) * 1 + (u.impact_savings_usd ? 0 : (u.impact_value || 0) * 10000);
   }
 
-  /* ---- 04 · The Wire ---- */
+  /* ---- 04 · The Wire — persistent chrome track + a frozen in-chapter close-up ---- */
+  function wireItemHTML(u) {
+    const hue = domainHue(u.domain);
+    const m = metric(u);
+    const figText = m.kind === "money" ? `${m.big} ${m.suffix}` : m.kind === "count" ? `${m.big} ${m.suffix}` : "TBD";
+    return `<span class="bs-wire__item" style="--hue:${hue.ink}"><span class="bs-wire__dot"></span><span class="bs-wire__company">${u.company}</span><span class="bs-wire__figure">${figText}</span><span class="bs-wire__desk">${u.category}</span></span>`;
+  }
   function renderWire(data) {
+    const items = data.dispatches.map(wireItemHTML).join("");
     const track = document.querySelector("[data-wire-track]");
-    if (!track) return;
-    const items = data.dispatches.map((u) => {
-      const hue = domainHue(u.domain);
-      const m = metric(u);
-      const figText = m.kind === "money" ? `${m.big} ${m.suffix}` : m.kind === "count" ? `${m.big} ${m.suffix}` : "TBD";
-      return `<span class="bs-wire__item" style="--hue:${hue.ink}"><span class="bs-wire__dot"></span><span class="bs-wire__company">${u.company}</span><span class="bs-wire__figure">${figText}</span><span class="bs-wire__desk">${u.category}</span></span>`;
-    }).join("");
-    track.innerHTML = items + items; // duplicate for seamless -50% loop
+    if (track) { track.innerHTML = items + items; applyWireMode(); } // duplicate for seamless -50% loop
+    const frozenTrack = document.querySelector("[data-wire-frozen-track]");
+    if (frozenTrack) frozenTrack.innerHTML = data.dispatches.slice(0, 4).map(wireItemHTML).join("");
   }
 
   /* ---- 05 · The Dispatch (lead + grid) ---- */
@@ -163,13 +170,13 @@
       const pct = clamp((lead.impact_savings_usd || 0) / (sorted[0].impact_savings_usd || 1), 0.08, 1);
       leadEl.style.setProperty("--hue", hue.ink);
       leadEl.innerHTML = `
-        <div class="bs-lead__story">
+        <div class="bs-lead__story" data-rise style="--i:0">
           <div class="kick bs-lead__kicker">Lead · ${lead.category}</div>
           <h3 class="bs-lead__headline">${lead.headline}</h3>
           <p class="bs-lead__dek">${lead.dek}</p>
           <div class="bs-lead__byline">${lead.company} · ${lead.industry}</div>
         </div>
-        <div class="bs-lead__rail">
+        <div class="bs-lead__rail" data-rise style="--i:1">
           <div class="bs-lead__rail-label">Projected impact</div>
           <div class="bs-lead__figure">${m.kind === "money" ? m.big : m.kind === "count" ? m.big + (m.suffix ? " " + m.suffix : "") : "—"}</div>
           <div class="bs-lead__figure-sub">${m.sub || m.label || "not yet quantified"}</div>
@@ -177,6 +184,8 @@
           <div class="bs-lead__open" data-open-dossier="${lead.id}">Open dossier →</div>
         </div>`;
       bindHoverRetune(leadEl, lead.domain);
+      observeIn(leadEl.querySelector(".bs-lead__story"));
+      observeIn(leadEl.querySelector(".bs-lead__rail"));
     }
 
     const gridEl = document.querySelector("[data-dispatch-grid]");
@@ -184,7 +193,7 @@
       gridEl.innerHTML = rest.slice(0, 6).map((u, i) => {
         const hue = domainHue(u.domain);
         const m = metric(u);
-        return `<article class="bs-card" style="--hue:${hue.ink};--i:${i}" data-open-dossier="${u.id}">
+        return `<article class="bs-card" data-rise style="--hue:${hue.ink};--i:${i}" data-open-dossier="${u.id}">
           <div class="bs-card__head">
             <span class="kick bs-card__kicker">${u.category}</span>
             ${reviewed.has(u.id) ? '<span class="bs-card__reviewed">✓ Reviewed</span>' : ""}
@@ -199,12 +208,103 @@
       [...gridEl.children].forEach((card, i) => {
         const u = rest[i];
         if (u) bindHoverRetune(card, u.domain);
+        observeIn(card);
       });
     }
   }
 
-  /* ---- 06 · The League Table ---- */
-  function renderLeague(data, reviewed) {
+  /* ---- 06 · The League Table — filterable by desk, FLIP-animated reflow ---- */
+  function rowHTML(u, rank, withRise, i) {
+    const hue = domainHue(u.domain);
+    const m = metric(u);
+    return `<div class="bs-row ${rank === "01" ? "bs-row--01" : ""}" ${withRise ? `data-rise style="--hue:${hue.ink};--i:${i}"` : `style="--hue:${hue.ink}"`}
+      data-id="${u.id}" data-open-dossier="${u.id}">
+      <div class="bs-row__rank">${rank}</div>
+      <div class="bs-row__mid">
+        <div class="bs-row__kicker"><span class="kick" style="color:var(--hue)">${u.category}</span>${getReviewed().has(u.id) ? '<span class="bs-card__reviewed">✓ Reviewed</span>' : ""}</div>
+        <div class="bs-row__headline">${u.headline}</div>
+        <div class="bs-row__company">${u.company} · ${u.industry}</div>
+      </div>
+      <div class="bs-row__figure">${m.kind === "money" ? `<div class="bs-row__figure-big">${m.big}</div><div class="bs-row__figure-sub">${m.suffix}</div>` : m.kind === "count" ? `<div class="bs-row__figure-big">${m.big}${m.suffix ? " " + m.suffix : ""}</div><div class="bs-row__figure-sub">${m.sub}</div>` : `<div class="bs-row__figure-sub">not yet quantified</div>`}</div>
+    </div>`;
+  }
+
+  function renderLeagueRows(el, sorted, visible, withRise) {
+    el.innerHTML = visible.map((u, i) => rowHTML(u, String(sorted.indexOf(u) + 1).padStart(2, "0"), withRise, i)).join("");
+    [...el.children].forEach((row, i) => {
+      const u = visible[i];
+      if (u) bindHoverRetune(row, u.domain);
+      if (withRise) observeIn(row);
+    });
+  }
+
+  function renderLeagueFilter(data) {
+    const el = document.querySelector("[data-league-filter]");
+    if (!el) return;
+    const present = new Set(data.dispatches.map((u) => u.domain));
+    const chips = ["all", ...DOMAINS.filter((d) => present.has(d))];
+    el.innerHTML = chips.map((d) => {
+      const label = d === "all" ? "All desks" : DOMAIN_LABEL[d];
+      const hue = d === "all" ? null : domainHue(d).ink;
+      return `<button class="bs-chip ${d === "all" ? "is-active" : ""}" type="button" data-filter="${d}" ${hue ? `style="--hue:${hue}"` : ""}>${hue ? '<span class="bs-chip__dot"></span>' : ""}${label}</button>`;
+    }).join("");
+  }
+
+  function flipLeague(el, sorted, filter) {
+    const visible = filter === "all" ? sorted : sorted.filter((u) => u.domain === filter);
+    if (reduceActive()) { renderLeagueRows(el, sorted, visible, false); return; }
+
+    const visibleIds = new Set(visible.map((u) => u.id));
+    const first = new Map();
+    const leaving = [];
+    [...el.children].forEach((row) => {
+      first.set(row.dataset.id, row.getBoundingClientRect());
+      if (!visibleIds.has(row.dataset.id)) leaving.push(row);
+    });
+
+    const proceed = () => {
+      renderLeagueRows(el, sorted, visible, false); // FLIP path: motion is choreographed inline below, not via IO
+      [...el.children].forEach((row) => {
+        const firstRect = first.get(row.dataset.id);
+        const lastRect = row.getBoundingClientRect();
+        row.style.transition = "none";
+        if (firstRect) {
+          const dx = firstRect.left - lastRect.left, dy = firstRect.top - lastRect.top;
+          row.style.transform = (dx || dy) ? `translate(${dx}px,${dy}px)` : "";
+        } else {
+          row.style.opacity = "0"; row.style.transform = "translateY(14px)";
+        }
+      });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        [...el.children].forEach((row) => {
+          row.style.transition = `transform var(--bs-rise) var(--bs-ease-spring), opacity 0.35s var(--bs-ease)`;
+          row.style.transform = ""; row.style.opacity = "";
+        });
+      }));
+    };
+
+    if (leaving.length) {
+      leaving.forEach((row) => { row.style.transition = "opacity 0.18s var(--bs-ease)"; row.style.opacity = "0"; });
+      setTimeout(proceed, 180);
+    } else proceed();
+  }
+
+  function bindLeagueFilter(sorted) {
+    const filterEl = document.querySelector("[data-league-filter]");
+    const el = document.querySelector("[data-league]");
+    if (!filterEl || !el) return;
+    let active = "all";
+    filterEl.addEventListener("click", (e) => {
+      const chip = e.target.closest("[data-filter]");
+      if (!chip || chip.dataset.filter === active) return;
+      active = chip.dataset.filter;
+      [...filterEl.children].forEach((c) => c.classList.toggle("is-active", c === chip));
+      if (active !== "all") { const hue = domainHue(active); retune(hue.ink, hue.glow); }
+      flipLeague(el, sorted, active);
+    });
+  }
+
+  function renderLeague(data) {
     const headEl = document.querySelector("[data-league-head]");
     if (headEl) {
       const agg = usd(data.aggregate_impact_usd);
@@ -216,21 +316,9 @@
     const el = document.querySelector("[data-league]");
     if (!el) return;
     const sorted = [...data.dispatches].sort((a, b) => rankValue(b) - rankValue(a));
-    el.innerHTML = sorted.map((u, i) => {
-      const hue = domainHue(u.domain);
-      const m = metric(u);
-      const rank = String(i + 1).padStart(2, "0");
-      return `<div class="bs-row ${i === 0 ? "bs-row--01" : ""}" style="--hue:${hue.ink};--i:${i}" data-open-dossier="${u.id}">
-        <div class="bs-row__rank">${rank}</div>
-        <div class="bs-row__mid">
-          <div class="bs-row__kicker"><span class="kick" style="color:var(--hue)">${u.category}</span>${reviewed.has(u.id) ? '<span class="bs-card__reviewed">✓ Reviewed</span>' : ""}</div>
-          <div class="bs-row__headline">${u.headline}</div>
-          <div class="bs-row__company">${u.company} · ${u.industry}</div>
-        </div>
-        <div class="bs-row__figure">${m.kind === "money" ? `<div class="bs-row__figure-big">${m.big}</div><div class="bs-row__figure-sub">${m.suffix}</div>` : m.kind === "count" ? `<div class="bs-row__figure-big">${m.big}${m.suffix ? " " + m.suffix : ""}</div><div class="bs-row__figure-sub">${m.sub}</div>` : `<div class="bs-row__figure-sub">not yet quantified</div>`}</div>
-      </div>`;
-    }).join("");
-    [...el.children].forEach((row, i) => bindHoverRetune(row, sorted[i].domain));
+    renderLeagueRows(el, sorted, sorted, true); // initial page-load render — the only one observed for scroll-in
+    renderLeagueFilter(data);
+    bindLeagueFilter(sorted);
   }
 
   /* ---- 08 · After Hours (board + enterprise) ---- */
@@ -238,10 +326,10 @@
     const el = document.querySelector("[data-evening-items]");
     if (!el) return;
     const items = data.dispatches.filter((u) => u.category === "board" || u.category === "enterprise");
-    el.innerHTML = items.map((u) => {
+    el.innerHTML = items.map((u, i) => {
       const hue = domainHue(u.domain);
       const m = metric(u);
-      return `<div class="bs-evening__item" style="--hue:${hue.glow}" data-open-dossier="${u.id}">
+      return `<div class="bs-evening__item" data-rise style="--hue:${hue.glow};--i:${i}" data-open-dossier="${u.id}">
         <div>
           <div class="bs-evening__item-meta">${u.category} · ${u.company}</div>
           <div class="bs-evening__item-head">${u.headline}</div>
@@ -249,6 +337,7 @@
         <div class="bs-evening__item-figure">${m.kind === "count" ? `${m.big}${m.suffix ? " " + m.suffix : ""}` : m.kind === "money" ? m.big : "—"}</div>
       </div>`;
     }).join("");
+    [...el.children].forEach(observeIn);
   }
 
   /* ---- 09 · The Dossier (inline demo) ---- */
@@ -345,6 +434,39 @@
     });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeOverlay(); });
   }
+
+  /* =====================================================================
+     04 · The Wire, mobile — reuse the same track DOM; below 640px, pause the
+     CSS marquee and step it between items with a JS transform instead of a
+     fast horizontal blur that's hard to read on a narrow screen.
+     ===================================================================== */
+  const wireMQ = window.matchMedia("(max-width: 640px)");
+  let wireStepTimer = null, wireStepIndex = 0;
+
+  function startWireStep() {
+    stopWireStep();
+    const track = document.querySelector("[data-wire-track]");
+    if (!track || reduceActive()) return;
+    const items = [...track.children].slice(0, track.children.length / 2); // ignore the duplicated half
+    if (!items.length) return;
+    track.classList.add("is-stepping");
+    const step = () => {
+      wireStepIndex = (wireStepIndex + 1) % items.length;
+      track.style.transform = `translateX(-${items[wireStepIndex].offsetLeft}px)`;
+    };
+    track.style.transform = `translateX(-${items[0].offsetLeft}px)`;
+    wireStepTimer = setInterval(step, 3200);
+  }
+  function stopWireStep() {
+    clearInterval(wireStepTimer); wireStepTimer = null;
+    const track = document.querySelector("[data-wire-track]");
+    if (track) { track.classList.remove("is-stepping"); track.style.transform = ""; }
+  }
+  function applyWireMode() {
+    if (wireMQ.matches) startWireStep(); else stopWireStep();
+  }
+  wireMQ.addEventListener("change", applyWireMode);
+  const wireChromeEl = document.querySelector("[data-wire-chrome]");
 
   /* =====================================================================
      01 · Ink & Paper — palette + hue swatches (also feeds §10 The System)
@@ -444,6 +566,30 @@
   const deskBar = document.querySelector("[data-desk-bar]");
   const header = document.querySelector("[data-header]");
 
+  /* ---- persistent sticky chrome: measure real heights, no magic numbers ---- */
+  function syncChromeHeights() {
+    const edbarH = header ? header.offsetHeight : 0;
+    const wireH = wireChromeEl ? wireChromeEl.offsetHeight : 0;
+    root.style.setProperty("--bs-edbar-h", `${edbarH}px`);
+    root.style.setProperty("--bs-chrome-h", `${edbarH + wireH}px`);
+  }
+  if ("ResizeObserver" in window) {
+    const chromeRO = new ResizeObserver(syncChromeHeights);
+    if (header) chromeRO.observe(header);
+    if (wireChromeEl) chromeRO.observe(wireChromeEl);
+  } else {
+    window.addEventListener("resize", syncChromeHeights, { passive: true });
+  }
+  syncChromeHeights();
+
+  document.querySelector("[data-scroll-to-wire]")?.addEventListener("click", () => {
+    if (!wireChromeEl) return;
+    if (reduceActive() || !window.lenis) window.scrollTo({ top: 0, behavior: "auto" });
+    else window.lenis.scrollTo(0, { duration: 1.0 });
+    wireChromeEl.classList.add("is-flash");
+    setTimeout(() => wireChromeEl.classList.remove("is-flash"), 900);
+  });
+
   const chapters = [...document.querySelectorAll("[data-chapter]")];
   let activeId = "";
   function setActiveChapter(el) {
@@ -518,6 +664,7 @@
     if (rmToggle) rmToggle.setAttribute("aria-pressed", String(on));
     if (rmLabel) rmLabel.textContent = `Reduced motion: ${on ? "ON" : "OFF"}`;
     if (deskRm) deskRm.textContent = reduceActive() ? "on" : "off";
+    applyWireMode();
   }
   if (rmToggle) rmToggle.addEventListener("click", () => applyForcedReduce(!forcedReduce));
   if (deskRm) deskRm.textContent = reduceActive() ? "on" : "off";
@@ -542,18 +689,19 @@
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+      const chromeH = parseFloat(getComputedStyle(root).getPropertyValue("--bs-chrome-h")) || 90;
+      lenis.scrollTo(target, { offset: -chromeH, duration: 1.2 });
     });
   });
 
-  /* ---------- in-view reveals (greet once) ---------- */
-  const revealIO = new IntersectionObserver(
+  /* ---------- in-view reveals + rises (greet once) ---------- */
+  riseObserver = new IntersectionObserver(
     (entries) => entries.forEach((en) => {
-      if (en.isIntersecting) { en.target.classList.add("is-in"); revealIO.unobserve(en.target); }
+      if (en.isIntersecting) { en.target.classList.add("is-in"); riseObserver.unobserve(en.target); }
     }),
     { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
   );
-  document.querySelectorAll("[data-reveal]").forEach((el) => revealIO.observe(el));
+  document.querySelectorAll("[data-reveal]").forEach(observeIn);
 
   /* ---------- pointer glow (motion #5) ---------- */
   const pointerGlow = document.querySelector("[data-pointer-glow]");

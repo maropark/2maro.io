@@ -41,7 +41,7 @@
   --bs-font-mono:      "JetBrains Mono", "SF Mono", ui-monospace, monospace; /* telemetry, IDs, timestamps */
 
   /* ---- Type scale (fluid; clamp(min, vw, max)) ---- */
-  --bs-t-masthead: clamp(56px, 10vw,  132px);  /* nameplate            */
+  --bs-t-masthead: clamp(32px, 11vw,  132px);  /* nameplate            */
   --bs-t-lead:     clamp(32px, 4.3vw,  58px);  /* lead headline        */
   --bs-t-figure-l: clamp(48px, 6.4vw,  82px);  /* lead hero metric     */
   --bs-t-h1:       clamp(30px, 4.6vw,  52px);  /* dossier headline     */
@@ -79,6 +79,7 @@
 
   /* ---- Motion grammar ---- */
   --bs-ease:        cubic-bezier(.2, .7, .2, 1); /* the house easing      */
+  --bs-ease-spring: cubic-bezier(.34, 1.56, .64, 1); /* the arrival spring — one job: things landing */
   --bs-rise:        .55s;   /* card / row entrance                        */
   --bs-rise-in:     .5s;    /* dossier entrance                           */
   --bs-fade:        .7s;    /* masthead / view fade                       */

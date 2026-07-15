@@ -160,23 +160,26 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   align-items: center;
   padding-inline: clamp(18px, 4vw, 56px);
   color: var(--ink);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--paper) 85%, transparent), 0 1px 4px rgba(38, 36, 30, 0.4);
   transition: background 0.5s var(--ease), color 0.5s var(--ease),
-              box-shadow 0.5s var(--ease), backdrop-filter 0.5s var(--ease);
+              box-shadow 0.5s var(--ease), backdrop-filter 0.5s var(--ease),
+              text-shadow 0.5s var(--ease);
 }
 .site-header.is-scrolled {
-  background: color-mix(in srgb, var(--paper) 80%, transparent);
+  background: color-mix(in srgb, var(--paper) 75%, transparent);
   backdrop-filter: blur(14px) saturate(1.1);
   box-shadow: 0 1px 0 var(--line-soft);
+  text-shadow: none;
 }
 .site-header.on-dark { color: var(--on-dark); }
 .site-header.on-dark.is-scrolled {
-  background: color-mix(in srgb, var(--moss) 76%, transparent);
+  background: color-mix(in srgb, var(--moss) 70%, transparent);
   box-shadow: 0 1px 0 var(--line-dark);
 }
 
-.brand { display: inline-flex; align-items: baseline; gap: 0.55em; justify-self: start; }
-.brand__mark { font-family: var(--serif); font-size: 1.5em; line-height: 1; color: var(--matcha); transition: color 0.5s var(--ease); }
-.on-dark .brand__mark { color: var(--matcha-lt); }
+.brand { display: inline-flex; align-items: center; gap: 0.55em; justify-self: start; }
+.brand__mark { height: 2rem; width: auto; display: block; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--paper) 85%, transparent)) drop-shadow(0 1px 3px rgba(38, 36, 30, 0.4)); transition: filter 0.5s var(--ease); }
+.site-header.is-scrolled .brand__mark { filter: none; }
 .brand__word { font-family: var(--mono); font-weight: 500; letter-spacing: 0.42em; font-size: 0.82rem; padding-left: 0.1em; }
 
 .chapter-indicator {
@@ -275,41 +278,45 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .hero__eyebrow {
   font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--ink-3); margin-bottom: clamp(1rem, 3vh, 2.2rem);
+  text-transform: uppercase; color: var(--paper); margin-bottom: clamp(1rem, 3vh, 2.2rem);
+  text-shadow: 0 2px 16px rgba(38, 36, 30, 0.4);
 }
-.hero__eyebrow span { color: var(--matcha); font-family: var(--serif); font-size: 1.3em; vertical-align: -0.08em; margin-right: 0.2em; }
+.hero__eyebrow span { color: var(--matcha-lt); font-family: var(--serif); font-size: 1.3em; vertical-align: -0.08em; margin-right: 0.2em; }
 
 .hero__word {
-  font-family: var(--serif); font-weight: 300; color: var(--ink);
+  font-family: var(--serif); font-weight: 300; color: var(--paper);
   font-size: var(--fs-hero); line-height: 0.9; letter-spacing: 0.06em;
   margin-left: 0.06em; /* optical balance vs tracking */
   white-space: nowrap;
+  text-shadow: 0 3px 28px rgba(38, 36, 30, 0.45);
 }
 .hero__word span { display: inline-block; }
 @media (max-width: 600px) { .hero__word { letter-spacing: 0.02em; } }
 
-.hero__tagline {
-  font-family: var(--serif); font-style: italic; font-weight: 400;
-  font-size: clamp(1.3rem, 3.2vw, 2.4rem); color: var(--matcha-deep);
-  margin-top: clamp(0.8rem, 2vh, 1.6rem); letter-spacing: 0.01em;
-}
-.hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: clamp(1.6rem, 4vh, 2.8rem); }
-
-/* botanical photo, soft organic vertical strip on the right */
+/* full-bleed sky photo */
 .hero__leaf {
-  position: absolute; z-index: 2; top: 0; right: 0; height: 100%;
-  width: clamp(180px, 30vw, 460px);
-  clip-path: polygon(28% 0, 100% 0, 100% 100%, 8% 100%);
-  opacity: 0.92; will-change: transform;
+  position: absolute; z-index: 2; inset: 0;
+  opacity: 1; will-change: transform;
 }
-.hero__leaf img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.82) contrast(0.98) brightness(1.02); }
-.hero__leaf-edge {
-  position: absolute; inset: 0;
-  background: linear-gradient(100deg, var(--paper) 4%, transparent 46%);
+.hero__leaf img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 30%; filter: saturate(0.82) contrast(0.98) brightness(1.02); }
+
+/* tagline, broken apart and scattered across the photo — echoes megumi.care's own hero */
+.hero__scatter-group { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.hero__scatter {
+  position: absolute; display: block; margin: 0; max-width: 40%;
+  font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--paper);
+  font-size: clamp(1rem, 2.1vw, 1.7rem); line-height: 1.15; letter-spacing: 0.01em;
+  text-shadow: 0 2px 20px rgba(38, 36, 30, 0.35);
 }
+.hero__scatter--a { top: 10%; left: 6%; }
+.hero__scatter--b { top: 12%; right: 6%; text-align: right; }
+.hero__scatter--c { bottom: 14%; right: 6%; text-align: right; }
+
 @media (max-width: 720px) {
-  .hero__leaf { width: 56vw; opacity: 0.5; clip-path: polygon(36% 0, 100% 0, 100% 100%, 0 100%); }
-  .hero__leaf-edge { background: linear-gradient(110deg, var(--paper) 12%, color-mix(in srgb, var(--paper) 30%, transparent) 70%); }
+  .hero__scatter { font-size: clamp(0.82rem, 3vw, 1.1rem); max-width: 62%; }
+  .hero__scatter--a { top: 8%; left: 6%; }
+  .hero__scatter--b { top: 10%; right: 6%; }
+  .hero__scatter--c { bottom: 10%; right: 6%; }
 }
 
 .scroll-cue {

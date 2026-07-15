@@ -6,9 +6,6 @@
   <title>MEGUMI — Design Hair with Care</title>
   <meta name="description" content="MEGUMI is more than a salon. A Virgil Village sanctuary where ancient wisdom meets modern science — head spa, hair, and a ritual of renewal." />
 
-  <!-- Private design study — kept out of search indexes (the /megumi/ route is also password-gated server-side). -->
-  <meta name="robots" content="noindex, nofollow" />
-
   <!-- Social -->
   <meta property="og:title" content="MEGUMI — Design Hair with Care" />
   <meta property="og:description" content="A sanctuary where ancient wisdom meets modern science. Head spa & hair care in Virgil Village, Los Angeles." />
@@ -36,7 +33,7 @@
   <!-- ───────────────────────── Header / chrome ───────────────────────── -->
   <header class="site-header" data-header>
     <a class="brand" href="#hero" aria-label="MEGUMI — home">
-      <span class="brand__mark" aria-hidden="true">恵</span>
+      <img class="brand__mark" src="assets/img/megumi-icon.webp" alt="" aria-hidden="true" />
       <span class="brand__word">MEGUMI</span>
     </a>
 
@@ -84,10 +81,15 @@
     <!-- ───────────────────────── Hero ───────────────────────── -->
     <section class="hero" id="hero" aria-label="Introduction">
       <figure class="hero__leaf" data-parallax="0.18">
-        <img src="assets/img/hero-botanical.webp"
-             alt="Sunlit botanical leaves, soft and out of focus — the living material at the heart of Megumi's care."
+        <img src="assets/img/hero-sky.webp"
+             alt="Looking up through sunlit birch branches to open blue sky — the calm above Megumi's care."
              loading="eager" decoding="async" />
-        <span class="hero__leaf-edge" aria-hidden="true"></span>
+
+        <p class="hero__scatter-group" aria-label="Design Hair with Care">
+          <span class="hero__scatter hero__scatter--a reveal" data-reveal style="--d:2" aria-hidden="true">Design</span>
+          <span class="hero__scatter hero__scatter--b reveal" data-reveal style="--d:4" aria-hidden="true">Hair</span>
+          <span class="hero__scatter hero__scatter--c reveal" data-reveal style="--d:6" aria-hidden="true">with Care</span>
+        </p>
       </figure>
 
       <div class="hero__inner">
@@ -97,12 +99,6 @@
         <h1 class="hero__word" data-hero-word>
           <span class="reveal" data-reveal style="--d:1">M</span><span class="reveal" data-reveal style="--d:2">E</span><span class="reveal" data-reveal style="--d:3">G</span><span class="reveal" data-reveal style="--d:4">U</span><span class="reveal" data-reveal style="--d:5">M</span><span class="reveal" data-reveal style="--d:6">I</span>
         </h1>
-        <p class="hero__tagline reveal" data-reveal style="--d:7">Design Hair with Care</p>
-
-        <div class="hero__cta reveal" data-reveal style="--d:8">
-          <a class="pill pill--clay" href="tel:+12136565488">Book a ritual</a>
-          <a class="pill pill--ghost" href="#philosophy">Our story</a>
-        </div>
       </div>
 
       <a class="scroll-cue" href="#philosophy" aria-label="Scroll to begin">

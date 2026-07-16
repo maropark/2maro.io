@@ -276,22 +276,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .hero__inner { position: relative; z-index: 3; display: grid; justify-items: center; }
 
-.hero__eyebrow {
-  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--paper); margin-bottom: clamp(1rem, 3vh, 2.2rem);
-  text-shadow: 0 2px 16px rgba(38, 36, 30, 0.4);
-}
-.hero__eyebrow span { color: var(--matcha-lt); font-family: var(--serif); font-size: 1.3em; vertical-align: -0.08em; margin-right: 0.2em; }
-
-.hero__word {
-  font-family: var(--serif); font-weight: 300; color: var(--paper);
-  font-size: var(--fs-hero); line-height: 0.9; letter-spacing: 0.06em;
-  margin-left: 0.06em; /* optical balance vs tracking */
-  white-space: nowrap;
+/* centered tagline, large — echoes megumi.care's own hero */
+.hero__tagline {
+  display: grid; justify-items: center; gap: 0.05em;
+  font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--paper);
+  font-size: clamp(2.6rem, 7.5vw, 6.5rem); line-height: 1.05; letter-spacing: 0.01em;
   text-shadow: 0 3px 28px rgba(38, 36, 30, 0.45);
 }
-.hero__word span { display: inline-block; }
-@media (max-width: 600px) { .hero__word { letter-spacing: 0.02em; } }
+.hero__tagline span { display: block; }
 
 /* full-bleed sky photo */
 .hero__leaf {
@@ -299,25 +291,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   opacity: 1; will-change: transform;
 }
 .hero__leaf img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 30%; filter: saturate(0.82) contrast(0.98) brightness(1.02); }
-
-/* tagline, broken apart and scattered across the photo — echoes megumi.care's own hero */
-.hero__scatter-group { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
-.hero__scatter {
-  position: absolute; display: block; margin: 0; max-width: 40%;
-  font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--paper);
-  font-size: clamp(1rem, 2.1vw, 1.7rem); line-height: 1.15; letter-spacing: 0.01em;
-  text-shadow: 0 2px 20px rgba(38, 36, 30, 0.35);
-}
-.hero__scatter--a { top: 10%; left: 6%; }
-.hero__scatter--b { top: 12%; right: 6%; text-align: right; }
-.hero__scatter--c { bottom: 14%; right: 6%; text-align: right; }
-
-@media (max-width: 720px) {
-  .hero__scatter { font-size: clamp(0.82rem, 3vw, 1.1rem); max-width: 62%; }
-  .hero__scatter--a { top: 8%; left: 6%; }
-  .hero__scatter--b { top: 10%; right: 6%; }
-  .hero__scatter--c { bottom: 10%; right: 6%; }
-}
 
 .scroll-cue {
   position: absolute; bottom: clamp(18px, 4vh, 40px); left: 50%; transform: translateX(-50%);

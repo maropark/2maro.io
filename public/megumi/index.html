@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Hanken+Grotesk:wght@300;400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=20260716" />
+  <link rel="stylesheet" href="styles.css?v=20260716b" />
 </head>
 <body data-scroll-root>
 
@@ -84,16 +84,14 @@
         <img src="assets/img/hero-sky.webp"
              alt="Looking up through sunlit birch branches to open blue sky — the calm above Megumi's care."
              loading="eager" decoding="async" />
-      </figure>
 
-      <div class="hero__inner">
-        <h1 class="hero__tagline" data-hero-word>
-          <span class="reveal" data-reveal style="--d:1">Design</span>
-          <span class="reveal" data-reveal style="--d:2">Hair</span>
-          <span class="reveal" data-reveal style="--d:3">with</span>
-          <span class="reveal" data-reveal style="--d:4">Care</span>
+        <h1 class="hero__scatter-group" data-hero-word aria-label="Design Hair with Care">
+          <span class="hero__scatter hero__scatter--a reveal" data-reveal style="--d:1" aria-hidden="true">Design</span>
+          <span class="hero__scatter hero__scatter--b reveal" data-reveal style="--d:2" aria-hidden="true">Hair</span>
+          <span class="hero__scatter hero__scatter--c reveal" data-reveal style="--d:3" aria-hidden="true">with</span>
+          <span class="hero__scatter hero__scatter--d reveal" data-reveal style="--d:4" aria-hidden="true">Care</span>
         </h1>
-      </div>
+      </figure>
 
       <a class="scroll-cue" href="#philosophy" aria-label="Scroll to begin">
         <span class="scroll-cue__text">scroll to begin</span>
@@ -455,6 +453,6 @@
   </footer>
 
   <script src="assets/vendor/lenis.min.js"></script>
-  <script src="main.js?v=20260716"></script>
+  <script src="main.js?v=20260716b"></script>
 </body>
 </html>

@@ -178,7 +178,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 .brand { display: inline-flex; align-items: center; gap: 0.55em; justify-self: start; }
-.brand__mark { height: 2rem; width: auto; display: block; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--paper) 85%, transparent)) drop-shadow(0 1px 3px rgba(38, 36, 30, 0.4)); transition: filter 0.5s var(--ease); }
+.brand__mark { height: 3rem; width: auto; display: block; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--paper) 85%, transparent)) drop-shadow(0 1px 3px rgba(38, 36, 30, 0.4)); transition: filter 0.5s var(--ease); }
 .site-header.is-scrolled .brand__mark { filter: none; }
 .brand__word { font-family: var(--mono); font-weight: 500; letter-spacing: 0.42em; font-size: 0.82rem; padding-left: 0.1em; }
 
@@ -274,23 +274,27 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   padding: var(--header-h) clamp(20px,5vw,96px) 0;
   overflow: hidden;
 }
-.hero__inner { position: relative; z-index: 3; display: grid; justify-items: center; }
-
-/* centered tagline, large — echoes megumi.care's own hero */
-.hero__tagline {
-  display: grid; justify-items: center; gap: 0.05em;
-  font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--paper);
-  font-size: clamp(2.6rem, 7.5vw, 6.5rem); line-height: 1.05; letter-spacing: 0.01em;
-  text-shadow: 0 3px 28px rgba(38, 36, 30, 0.45);
-}
-.hero__tagline span { display: block; }
-
 /* full-bleed sky photo */
 .hero__leaf {
   position: absolute; z-index: 2; inset: 0;
   opacity: 1; will-change: transform;
 }
 .hero__leaf img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 30%; filter: saturate(0.82) contrast(0.98) brightness(1.02); }
+
+/* tagline, small and spread naturally across the cloud — matches megumi.care's own
+   hero layout 1:1 (position/size ratios pulled from their live DOM), just kept in a
+   contrast-safe light color + shadow since our crop of the same photo differs from theirs */
+.hero__scatter-group { position: absolute; inset: 0; z-index: 3; pointer-events: none; margin: 0; }
+.hero__scatter {
+  position: absolute; display: block; margin: 0;
+  font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--paper);
+  line-height: 1.1; letter-spacing: 0.01em;
+  text-shadow: 0 2px 16px rgba(38, 36, 30, 0.4);
+}
+.hero__scatter--a { top: 52%; left: 31%; font-size: clamp(0.85rem, 2.7vw, 1.55rem); }
+.hero__scatter--b { top: 58%; left: 36%; font-size: clamp(1.7rem, 5.8vw, 3.3rem); }
+.hero__scatter--c { top: 69%; left: 47.5%; font-size: clamp(0.85rem, 2.7vw, 1.55rem); }
+.hero__scatter--d { top: 75%; left: 31%; font-size: clamp(1.4rem, 4.6vw, 2.6rem); }
 
 .scroll-cue {
   position: absolute; bottom: clamp(18px, 4vh, 40px); left: 50%; transform: translateX(-50%);
